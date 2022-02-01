@@ -1,16 +1,15 @@
 import logo from './logo.png';
 import './App.css';
-import GoogleLogin from './GoogleLogin';
-import Router from 'react-router';
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <GoogleLogin/>
-      </header>
-    </div>
+    <Routes>
+      <Route path ="" element={<Home/>}/>
+      <Route path ="/about" element={<About/>}/>
+    </Routes>
   );
 }
 
