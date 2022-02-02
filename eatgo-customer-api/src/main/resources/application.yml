@@ -23,3 +23,5 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_DATABASE}
     username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}
+    hikari:
+      max-lifetime: 30000
