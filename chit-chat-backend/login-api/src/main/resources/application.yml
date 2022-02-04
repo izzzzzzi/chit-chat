@@ -59,7 +59,7 @@ spring:
             - profile_image
           clientName: Naver
         kakao:
-          clientId: 'http://localhost:8080/login/ouath2/code/naver'
+          clientId: 'c9d902d339c3885cf9cf0e29df941dec'
           clientSecret: 'EK9tBpwzMg3TEE2YzucuW9vALSKyCc4n'
           clientAuthenticationMethod: post
           authorizationGrantType: authorization_code
