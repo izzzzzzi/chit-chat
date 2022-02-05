@@ -1,4 +1,4 @@
-until java -jar -Dspring.profiles.active=mysql libs/*.jar
+until java -jar libs/*.jar
 do
   printf "***"
   sleep 5
