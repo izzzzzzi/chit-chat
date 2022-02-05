@@ -1,6 +1,5 @@
 import React from 'react';
 import GoogleLogin from 'react-google-login';
-import axios from 'axios';
 
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID
 
@@ -27,11 +26,11 @@ export default function GoogleButton({ onGoogleLogin }){
             expires_in
         }
         console.log(data)
-        axios.post('/login', data)
-        .then(console.log("success"))
-        .catch(error => {
-            console.log(error)
-        });
+        // axios.post('/login', data)
+        // .then(console.log("success"))
+        // .catch(error => {
+        //     console.log(error)
+        // });
     }
 
     const onFailure = (error) => {
