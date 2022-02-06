@@ -16,8 +16,8 @@ export default function LoginBtn() {
         <>
         <Button onClick={toggleModal}>Login</Button>
         <Modal isOpen={isModalOpen}>
-           <button onClick={toggleModal}>Close modal</button>
-           <Login/>
+            <button onClick={toggleModal}>Close modal</button>
+            <Login/>
         </Modal>
         </>
     );
