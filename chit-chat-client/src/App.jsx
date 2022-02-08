@@ -6,8 +6,8 @@ import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 import "./App.css"
 
 const App = () => {
-  // const user = true;
-  const user = false;
+  const user = true;
+  // const user = false;
   return (
     <BrowserRouter>
    <div>

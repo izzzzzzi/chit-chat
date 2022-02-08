@@ -1,17 +1,20 @@
+import { useLocation } from 'react-router-dom'
 import { posts } from '../data'
 const Post = () => {
+  const location = useLocation()
+  const path = location.pathname.split("/")[2]
 
-    const post = posts[2]
+  // const post = posts[2]
+  const post = posts.find(p => p.id.toString() === path)
+
+  // {pathname: '/post/1', hash: '', state: null}
+  // console.log(location)
   return (
     <div className="post">
       <img src={post.img} alt="" className="postImg" />
       <h1 className="postTitle">{post.title}</h1>
       <p className="postDesc">{post.desc}</p>
       <p className="postLongDesc">{post.longDesc}</p>
-      {/* <span className="title">{post.title}</span>
-      <img src={post.img} alt="" className="img" />
-      <p className="desc">{post.desc}</p>
-      <button className="cardButton">Read More</button> */}
     </div>
   )
 }
