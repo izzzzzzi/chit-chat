@@ -1,4 +1,4 @@
-import index from './index'
+import req from './req-wrapper'
 
 const ACCOUNT_URI = {
   LOGIN: '/auth/login',
@@ -7,9 +7,9 @@ const ACCOUNT_URI = {
 
 export default {
   login (body, success, fail) {
-    index.post(ACCOUNT_URI.LOGIN, body, success, fail)
+    req.post(ACCOUNT_URI.LOGIN, body, success, fail)
   },
   getUser (success) {
-    index.get(ACCOUNT_URI.USER, success)
+    req.get(ACCOUNT_URI.USER, success)
   }
 }

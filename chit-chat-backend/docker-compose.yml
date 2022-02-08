@@ -1,27 +1,16 @@
 version: '3'
 services:
-#  nginx:
-#    container_name: myweb-proxy
-#    image: nginx:1.21.5-alpine
-#    ports:
-#      - 80:80
-#    volumes:
-#      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
-#    depends_on:
-#      - login-api
-#      - admin-api
-#      - customer-api
-#      - restaurant-api
-#      - admin-web
-#      - customer-web
-#      - restaurant-web
   mysql:
     image: mariadb:10.4.7
-    env_file: .env
     volumes:
       - ./data/mariadb:/var/lib/mysql
     ports:
       - 13306:3306
+    expose:
+      - 3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=oauth_login_tutorial
     command: |
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_unicode_ci
@@ -34,91 +23,26 @@ services:
     image: openjdk:8
     env_file: .env
     volumes:
-      - ./run.sh:/home/eatgo/run.sh
-      - ./eatgo-login-api/build/libs:/home/eatgo/libs
+      - ./run.sh:/home/chit-chat/run.sh
+      - ./login-api/build/libs:/home/chit-chat/libs
     ports:
-      - 8001:8080
+      - 8080:8080
+    expose:
+      - 8080
     depends_on:
       - mysql
-    command: bash -c "cd /home/eatgo && sh run.sh"
-  admin-api:
-    container_name: admin-api
-    image: openjdk:8
-    env_file: .env
+    command: bash -c "cd /home/chit-chat && sh run.sh"
+  login-web:
+    container_name: login-web
+    image: node:16.13.2
     volumes:
-      - ./run.sh:/home/eatgo/run.sh
-      - ./eatgo-admin-api/build/libs:/home/eatgo/libs
+      - ./login-web:/home/chit-chat
     ports:
-      - 8002:8080
-    depends_on:
-      - mysql
-    command: bash -c "cd /home/eatgo && sh run.sh"
-  customer-api:
-    container_name: customer-api
-    image: openjdk:8
-    env_file: .env
-    volumes:
-      - ./run.sh:/home/eatgo/run.sh
-      - ./eatgo-customer-api/build/libs:/home/eatgo/libs
-    ports:
-      - 8003:8080
-    depends_on:
-      - mysql
-    command: bash -c "cd /home/eatgo && sh run.sh"
-  restaurant-api:
-    container_name: restaurant-api
-    image: openjdk:8
-    env_file: .env
-    volumes:
-      - ./run.sh:/home/eatgo/run.sh
-      - ./eatgo-restaurant-api/build/libs:/home/eatgo/libs
-    ports:
-      - 8004:8080
-    depends_on:
-      - mysql
-    command: bash -c "cd /home/eatgo && sh run.sh"
-  admin-web:
-    container_name: admin-web
-    image: node:10.16.3
-    volumes:
-      - ./eatgo-admin-web:/home/eatgo
-    ports:
-      - 8082:3000
-    environment:
-      - VUE_APP_API_BASE_URL=http://host.docker.internal:8002
-      - VUE_APP_LOGIN_API_BASE_URL=http://host.docker.internal:8001
-    command: bash -c "cd /home/eatgo && npm run serve"
+      - 3000:3000
+    expose:
+      - 3000
+    command: bash -c "cd /home/chit-chat && npm run dev"
     healthcheck:
-      test: curl -sS http://localhost:8080 || exit 1
-      timeout: 10s
-      retries: 10
-  customer-web:
-    container_name: customer-web
-    image: node:10.16.3
-    volumes:
-      - ./eatgo-customer-web:/home/eatgo
-    ports:
-      - 8083:3000
-    environment:
-      - VUE_APP_API_BASE_URL=http://host.docker.internal:8003
-      - VUE_APP_LOGIN_API_BASE_URL=http://host.docker.internal:8001
-    command: bash -c "cd /home/eatgo && npm run serve"
-    healthcheck:
-      test: curl -sS http://localhost:8080 || exit 1
-      timeout: 10s
-      retries: 10
-  restaurant-web:
-    container_name: restaurant-web
-    image: node:10.16.3
-    volumes:
-      - ./eatgo-restaurant-web:/home/eatgo
-    ports:
-      - 8084:3000
-    environment:
-      - VUE_APP_API_BASE_URL=http://host.docker.internal:8004
-      - VUE_APP_LOGIN_API_BASE_URL=http://host.docker.internal:8001
-    command: bash -c "cd /home/eatgo && npm run serve"
-    healthcheck:
-      test: curl -sS http://localhost:8080 || exit 1
+      test: curl -sS http://localhost:3000 || exit 1
       timeout: 10s
       retries: 10

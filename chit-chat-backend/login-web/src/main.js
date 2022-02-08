@@ -9,8 +9,8 @@ import store from './store'
 Vue.config.productionTip = false
 
 const BACKEND_PORT = process.env.BACKEND_PORT === null ? '' : `:${process.env.BACKEND_PORT}`
-const BACKEND_DOMAIN = process.env.BACKEND_DOMAIN === null ? `${location.protocol}//${location.hostname}` : process.env.BACKEND_DOMAIN
-axios.defaults.baseURL = `${BACKEND_DOMAIN}${BACKEND_PORT}`
+const BACKEND_DOMAIN = window.location.hostname
+axios.defaults.baseURL = `http://${BACKEND_DOMAIN}${BACKEND_PORT}`
 
 /* eslint-disable no-new */
 new Vue({
