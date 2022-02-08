@@ -4,11 +4,11 @@ const Post = () => {
   const location = useLocation()
   const path = location.pathname.split("/")[2]
 
-  // const post = posts[2]
-  const post = posts.find(p => p.id.toString() === path)
-
+  const post = posts[2]
+  // const postTest = posts.find(p => p.id.toString() === path)
+  // const postTest = posts.find(p => p)
   // {pathname: '/post/1', hash: '', state: null}
-  // console.log(location)
+  console.log(location)
   return (
     <div className="post">
       <img src={post.img} alt="" className="postImg" />

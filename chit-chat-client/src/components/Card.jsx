@@ -5,7 +5,7 @@ const Card = ({post}) => {
   return(
     <div className="card">
       <Link className="link" to={`/post/${post.id}`}>
-        <Post/>
+        {post.title}
       </Link>
     </div>
   )
