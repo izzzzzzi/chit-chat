@@ -1,26 +1,25 @@
 import axios from 'axios'
-// import store from '../store/index'
-import handler from './handler'
+import store from '../store/index'
+import handler from './res-handler'
 
 const URI_PREPENDER = '/api/v1'
 const wrap = (url) => `${URI_PREPENDER}${url}`
 const appendAuth = (config) => {
-//   const token = store.getters.token
-    const token = "token"
+  const token = store.getters.token
   if (token) {
     if (!config) config = { headers: {} }
     if (!config.headers) config.headers = {}
-    config.headers.Authorization = `Bearer ${token}`
+    config.headers.Authorization = `Bearer ${store.getters.token}`
   }
   return config
 }
 
 export default {
-    get (url, success, fail = err => err.response.data.message, config) {
-        axios.get(wrap(url), appendAuth(config))
-        .then(handler.handle(success))
-        .catch(fail)
-    },
+  get (url, success, fail = err => err.response.data.message, config) {
+    axios.get(wrap(url), appendAuth(config))
+      .then(handler.handle(success))
+      .catch(fail)
+  },
   post (url, body, success, fail = err => err.response.data.message, config) {
     axios.post(wrap(url), body, appendAuth(config))
       .then(handler.handle(success))
