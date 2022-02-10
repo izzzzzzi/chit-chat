@@ -32,17 +32,17 @@ services:
     depends_on:
       - mysql
     command: bash -c "cd /home/chit-chat && sh run.sh"
-  login-web:
-    container_name: login-web
-    image: node:16.13.2
-    volumes:
-      - ./login-web:/home/chit-chat
-    ports:
-      - 3000:3000
-    expose:
-      - 3000
-    command: bash -c "cd /home/chit-chat && npm run dev"
-    healthcheck:
-      test: curl -sS http://localhost:3000 || exit 1
-      timeout: 10s
-      retries: 10
+  # login-web:
+  #   container_name: login-web
+  #   image: node:16.13.2
+  #   volumes:
+  #     - ./login-web:/home/chit-chat
+  #   ports:
+  #     - 3000:3000
+  #   expose:
+  #     - 3000
+  #   command: bash -c "cd /home/chit-chat && npm run dev"
+  #   healthcheck:
+  #     test: curl -sS http://localhost:3000 || exit 1
+  #     timeout: 10s
+  #     retries: 10
