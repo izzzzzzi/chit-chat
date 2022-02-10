@@ -9,6 +9,7 @@
     "express": "^4.17.2",
     "nodemon": "^2.0.15",
     "passport": "^0.5.2",
+    "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0"
   },
   "scripts": {

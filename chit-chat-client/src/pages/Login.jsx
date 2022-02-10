@@ -7,6 +7,10 @@ const Login = () => {
     window.open("http://localhost:8000/auth/google", "_self")
   }
 
+  const facebook = () => {
+    
+  }
+
   return(
     <div className="login">
       <h1 className="loginTitle">Choose a Login</h1>
@@ -16,7 +20,7 @@ const Login = () => {
             <img src={Facebook} alt="" className="icon" />
             Googole
           </div>
-          <div className="loginButton facebook">
+          <div className="loginButton facebook" onClick={facebook}>
             <img src={Facebook} alt="" className="icon" />
             Facebook
           </div>
