@@ -80,7 +80,7 @@ class App extends Component {
             <Route path="/signup"
               render={(props) => <Signup authenticated={this.state.authenticated} {...props} />}></Route>
             <Route path="/oauth/redirect"
-              render={(props) => <OAuth2RedirectHandler loadCurrentlyLoggedInUser={this.loadCurrentlyLoggedInUser} />}></Route>  
+              render={(props) => <OAuth2RedirectHandler loadCurrentlyLoggedInUser={this.loadCurrentlyLoggedInUser} {...props} />}></Route>  
             <Route component={NotFound}></Route>
           </Switch>
         </div>
