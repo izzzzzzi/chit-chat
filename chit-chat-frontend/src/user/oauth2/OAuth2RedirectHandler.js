@@ -7,19 +7,23 @@ class OAuth2RedirectHandler extends Component {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
         var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
 
-        var results = regex.exec(this.props.location.search);
+        var results = regex.exec(window.location.search);
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
 
-    render() {        
+    render() {
         const token = this.getUrlParameter('token');
         const error = this.getUrlParameter('error');
+        const {loadCurrentlyLoggedInUser} = this.props;
 
-        if(token) {
+        if (token) {
             localStorage.setItem(ACCESS_TOKEN, token);
+            loadCurrentlyLoggedInUser();
             return <Redirect to={{
                 pathname: "/profile",
-                state: { from: this.props.location }
+                state: {
+                    from: this.props.location
+                }
             }}/>; 
         } else {
             return <Redirect to={{
