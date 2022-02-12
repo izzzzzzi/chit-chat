@@ -29,7 +29,7 @@ class Login extends Component {
         if(this.props.authenticated) {
             return <Redirect
                 to={{
-                pathname: "/",
+                pathname: "/profile",
                 state: { from: this.props.location }
             }}/>;            
         }
@@ -88,10 +88,8 @@ class LoginForm extends Component {
     }
 
     handleSubmit(event) {
-        event.preventDefault();   
-
+        event.preventDefault();
         const loginRequest = Object.assign({}, this.state);
-
         login(loginRequest)
         .then(response => {
             localStorage.setItem(ACCESS_TOKEN, response.accessToken);
