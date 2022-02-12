@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Login.css';
 import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL, ACCESS_TOKEN } from '../../constants';
-import { login } from '../../util/APIUtils';
+import { login } from '../../api/account';
 import { Link, Redirect } from 'react-router-dom'
 import fbLogo from '../../img/fb-logo.png';
 import googleLogo from '../../img/google-logo.png';
@@ -12,6 +12,7 @@ class Login extends Component {
     componentDidMount() {
         // If the OAuth2 login encounters an error, the user is redirected to the /login page with an error.
         // Here we display the error and then remove the error query parameter from the location.
+        // 로그인한 사용자가 로그인 페이지로 왔을 때 pathname: "/oauth/redirect"
         if(this.props.location.state && this.props.location.state.error) {
             setTimeout(() => {
                 Alert.error(this.props.location.state.error, {
@@ -39,11 +40,6 @@ class Login extends Component {
                 <div className="login-content">
                     <h1 className="login-title">Login to SpringSocial</h1>
                     <SocialLogin />
-                    {/*<div className="or-separator">*/}
-                    {/*    <span className="or-text">OR</span>*/}
-                    {/*</div>*/}
-                    {/*<LoginForm {...this.props} />*/}
-                    {/*<span className="signup-link">New user? <Link to="/signup">Sign up!</Link></span>*/}
                 </div>
             </div>
         );
