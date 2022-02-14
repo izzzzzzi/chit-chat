@@ -1,19 +1,19 @@
 import React, { Component } from "react";
-import "./ChattingRandom.css";
+// import './ChattingRandom.css';
 import * as $ from 'jquery';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stomp-websocket';
+import Handlebars from 'handlebars'
 
 class ChattingRandom extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      currentUser: props.currentUser.body.user,
+      currentUser: props.currentUser.user,
       btnJoinText: "",
       chatContent: "",
       chatMessageInput: "",
-      chatStatus: "",
+      chatStatus: "wait",
       socket: null,
       stompClient: null,
       sessionId: null,
@@ -218,7 +218,7 @@ class ChattingRandom extends Component {
 
   render() {
     return (
-      <body>
+        <div>
         <div className="chatting-main-content">
         <div class="row">
           <textarea value={this.state.chatContent} readonly>
@@ -227,25 +227,20 @@ class ChattingRandom extends Component {
         </div>
         <div class="row" id="chat-action-div"></div>
         </div>
-        {
-          this.state.chatStatus === "wait"
-            ?
-              (
-                <div>
+        { this.state.chatStatus === "wait" ?
+            (<div>
                   <button onClick={this.handleBtnJoin}>
                     {this.state.btnJoinText}
                   </button>
-                </div>
-              )
+            </div>)
             :
-              (
-                <div>
-                  <textarea value={this.state.chatMessageInput} onChnage={handleChatMessageInput} />
+              (<div>
+                  <textarea value={this.state.chatMessageInput} onChnage={this.handleChatMessageInput} />
                   <span>Send</span>
                 </div>
               )
         }
-      </body>
+        </div>
     );
   }
 }

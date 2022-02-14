@@ -12,7 +12,7 @@ class AppHeader extends Component {
                     </div>
                     <div className="app-options">
                         <nav className="app-nav">
-                            <Link to="/chatting-random">Chatting</Link>
+                            <Link to="/chat">Chatting</Link>
                                 { this.props.authenticated ? (
                                     <ul>
                                         <li>
