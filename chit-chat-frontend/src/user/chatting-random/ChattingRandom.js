@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import "./ChattingRoom.css";
+import "./ChattingRandom.css";
+import * as $ from 'jquery';
 import * as SockJS from 'sockjs-client';
+import * as Stomp from 'stomp-websocket';
 
 class ChattingRandom extends Component {
   constructor(props) {
