@@ -5,6 +5,12 @@ import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stomp-websocket';
 import Handlebars from 'handlebars'
 
+import req from './req-wrapper'
+
+const CHAT_URI = {
+    JOIN: '/join',
+}
+
 class ChattingRandom extends Component {
   constructor(props) {
     super(props);
@@ -54,22 +60,6 @@ class ChattingRandom extends Component {
     }
   }
 
-  updateTemplate(type) {
-    var source;
-    if (type == "wait") {
-      source = $("#wait-chat-template").html();
-    } else if (type == "chat") {
-      source = $("#send-chat-template").html();
-    } else {
-      console.log("invalid type : " + type);
-      return;
-    }
-    var template = Handlebars.compile(source);
-    var $target = $("#chat-action-div");
-    $target.empty();
-    $target.append(template({}));
-  }
-
   subscribeMessage() {
     this.state.stompClient.subscribe(
       "/topic/chat/" + this.state.chatRoomId,
@@ -115,24 +105,22 @@ class ChattingRandom extends Component {
   }
 
   join() {
-    $.ajax({
-      url: "join",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      beforeSend: function() {
-        this.setState({btnJoinText: "Cancel"});
-        this.updateText("waiting anonymous user", false);
-        this.setState({joinInterval: setInterval(() => {
-          this.updateText(".", true);
-        }, 1000)});
-      },
-      success: function (chatResponse) {
+    this.setState({btnJoinText: "Cancel"});
+    this.updateText("waiting anonymous user", false);
+    this.setState({joinInterval: setInterval(() => {
+      this.updateText(".", true);
+    }, 1000)});
+
+
+    req.get({
+      url: CHAT_URI.JOIN,
+
+      success: (chatResponse) => {
         console.log("Success to receive join result. \n", chatResponse);
         if (!chatResponse) {
           return;
         }
-
+  
         clearInterval(this.state.joinInterval);
         if (chatResponse.responseResult == "SUCCESS") {
           this.setState({
@@ -150,22 +138,24 @@ class ChattingRandom extends Component {
           this.setState({btnJoinText: "Join"});
         }
       },
-      error: function (jqxhr) {
+
+      fail: (jqxhr) => {
         clearInterval(this.state.joinInterval);
-        if (jqxhr.status == 503) {
-          this.updateText(
-            "\n>>> Failed to connect some user :(\nPlz try again",
-            true
-          );
-        } else {
-          this.updateText(jqxhr, true);
-        }
-        console.log(jqxhr);
+          if (jqxhr.status == 503) {
+            this.updateText(
+              "\n>>> Failed to connect some user :(\nPlz try again",
+              true
+            );
+          } else {
+            this.updateText(jqxhr, true);
+          }
+          console.log(jqxhr);
       },
-      complete: function() {
-        clearInterval(this.joinInterval);
-      },
-    });
+      
+      complete: () => {
+        this.clearInterval(this.state.joinInterval);
+      }
+    })
   }
 
   cancel() {
