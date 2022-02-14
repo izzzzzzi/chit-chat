@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import AppHeader from '../common/AppHeader';
 import Home from '../home/Home';
+import Chat from '../user/chatting-random/ChattingRandom';
 import Login from '../user/login/Login';
 import Signup from '../user/signup/Signup';
 import Profile from '../user/profile/Profile';
@@ -84,7 +85,7 @@ class App extends Component {
               render={(props) => <OAuth2RedirectHandler loadCurrentlyLoggedInUser={this.loadCurrentlyLoggedInUser} {...props} />}/>
             <Route component={NotFound}/>
             <Route path="/chatting-random"
-              render={(props) => <Signup authenticated={authenticated} {...props} />}/>
+              render={(props) => <Chat authenticated={authenticated} {...props} />}/>
           </Switch>
         </div>
         <Alert stack={{limit: 3}} 
