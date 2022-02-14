@@ -86,6 +86,8 @@ class App extends Component {
             <Route path="/oauth/redirect"
               render={(props) => <OAuth2RedirectHandler loadCurrentlyLoggedInUser={this.loadCurrentlyLoggedInUser} {...props} />}/>
             <Route component={NotFound}/>
+            <Route path="/chatting-random"
+              render={(props) => <Signup authenticated={authenticated} {...props} />}/>
           </Switch>
         </div>
         <Alert stack={{limit: 3}} 
