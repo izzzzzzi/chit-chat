@@ -1,16 +1,22 @@
 import axios from 'axios'
 import handler from './res-handler'
+import {API_BASE_URL} from '../constants/index'
 
 const URI_PREPENDER = '/api/v1'
-const wrap = (url) => `${URI_PREPENDER}${url}`
+const wrap = (url) => `${API_BASE_URL}${URI_PREPENDER}${url}`
 const appendAuth = (config) => {
-  const token = localStorage.getItem("accessToken")
-  if (token) {
-    if (!config) config = { headers: {} }
-    if (!config.headers) config.headers = {}
-    config.headers.Authorization = `Bearer ${localStorage.getItem("accessToken")}`
+
+  const token = localStorage.getItem("accessToken");
+  if (!token) {
+    return Promise.reject("No access token set.");
   }
-  return config
+    config = {
+      headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+      }
+    }
+    return config
 }
 
 export default {
@@ -43,6 +49,7 @@ export default {
     axios.post(wrap(url), formData, {
       headers: {
         'Content-Type': 'application/json',
+        // 'Accept': '*/*'
       },
       onUploadProgress: e => { progress(e.loaded) }
     })

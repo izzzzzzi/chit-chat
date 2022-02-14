@@ -11,7 +11,8 @@ import Profile from '../user/profile/Profile';
 import OAuth2RedirectHandler from '../user/oauth2/OAuth2RedirectHandler';
 import NotFound from '../common/NotFound';
 import LoadingIndicator from '../common/LoadingIndicator';
-import { getCurrentUser } from '../api/account';
+import account  from '../api/account';
+import {getCurrentUser} from "../api/account";
 import { ACCESS_TOKEN } from '../constants';
 import PrivateRoute from '../common/PrivateRoute';
 import Alert from 'react-s-alert';
@@ -27,24 +28,20 @@ class App extends Component {
       currentUser: null,
       loading: true
     }
-
     this.loadCurrentlyLoggedInUser = this.loadCurrentlyLoggedInUser.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
 
   loadCurrentlyLoggedInUser() {
-    getCurrentUser()
-    .then(response => {
+
+    account.getCurrentUser(response => {
       this.setState({
         currentUser: response,
         authenticated: true,
         loading: false
-      });
-    }).catch(error => {
-      this.setState({
-        loading: false
-      });  
-    });    
+      }
+      )
+    });
   }
 
   handleLogout() {
