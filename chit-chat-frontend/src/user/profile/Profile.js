@@ -4,8 +4,9 @@ import './Profile.css';
 class Profile extends Component {
     constructor(props) {
         super(props);
+        console.log(props)
         this.state = {
-            currentUser: props.currentUser.body.user
+            currentUser: props.currentUser.user
         }
     }
     render() {
