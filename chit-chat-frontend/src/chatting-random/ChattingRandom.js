@@ -5,8 +5,6 @@
 // import * as Stomp from 'stomp-websocket';
 // import Handlebars from 'handlebars'
 
-// import req from './req-wrapper'
-
 // const CHAT_URI = {
 //     JOIN: '/join',
 // }
