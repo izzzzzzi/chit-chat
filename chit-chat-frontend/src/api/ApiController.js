@@ -13,7 +13,19 @@ instance.interceptors.request.use(
     config.headers["Content-Type"] = "application/json; charset=utf-8";
     config.headers["Authorization"] = `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`;
     return config;
+  },
+  function (error) {
+    return error.data.header.message;
   }
 );
+
+instance.interceptors.response.use(
+  function (response) {
+    return response.data.body;
+  },
+  function (error) {
+    return error.data.header.message
+  }
+)
 
 export default instance;
