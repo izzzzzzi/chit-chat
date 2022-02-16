@@ -12,8 +12,8 @@ import Profile from '../user/profile/Profile';
 import OAuth2RedirectHandler from '../user/oauth2/OAuth2RedirectHandler';
 import NotFound from '../common/NotFound';
 import LoadingIndicator from '../common/LoadingIndicator';
-import account  from '../api/account';
-import {getCurrentUser} from "../api/account";
+import ApiList  from '../api/ApiList';
+import {getCurrentUser} from "../api/ApiList";
 import { ACCESS_TOKEN } from '../constants';
 import PrivateRoute from '../common/PrivateRoute';
 import Alert from 'react-s-alert';
@@ -37,7 +37,7 @@ class App extends Component {
 
   loadCurrentlyLoggedInUser() {
 
-    account.getCurrentUser(response => {
+    ApiList.getCurrentUser(response => {
       this.setState({
         currentUser: response.user,
         authenticated: true,
@@ -82,7 +82,8 @@ class App extends Component {
             <PrivateRoute path="/profile"
                           authenticated={authenticated}
                           currentUser={this.state.currentUser}
-                          component={Profile}/>
+                          component={Profile}
+            />
             <Route path="/login"
               render={(props) => <Login authenticated={authenticated} {...props} />}/>
             <Route path="/signup"
