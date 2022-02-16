@@ -13,7 +13,6 @@ import OAuth2RedirectHandler from '../user/oauth2/OAuth2RedirectHandler';
 import NotFound from '../common/NotFound';
 import LoadingIndicator from '../common/LoadingIndicator';
 import ApiList  from '../api/ApiList';
-import {getCurrentUser} from "../api/ApiList";
 import { ACCESS_TOKEN } from '../constants';
 import PrivateRoute from '../common/PrivateRoute';
 import Alert from 'react-s-alert';
@@ -21,6 +20,7 @@ import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import ChatRandom from "../user/chatting-random/ChatRandom";
 
 class App extends Component {
   constructor(props) {
@@ -84,16 +84,14 @@ class App extends Component {
                           currentUser={this.state.currentUser}
                           component={Profile}
             />
+            <Route path="/chat"
+                   render={(props) => <ChatRandom ccurrentUser={this.state.currentUser}/>}/>
             <Route path="/login"
               render={(props) => <Login authenticated={authenticated} {...props} />}/>
             <Route path="/signup"
               render={(props) => <Signup authenticated={authenticated} {...props} />}/>
             <Route path="/oauth/redirect"
               render={(props) => <OAuth2RedirectHandler loadCurrentlyLoggedInUser={this.loadCurrentlyLoggedInUser} {...props} />}/>
-            <Route path="/chat"
-                   render={(props) => <ChattingRandom
-                       {...props}
-                       currentUser={this.state.currentUser}/>}/>
             <Route component={NotFound}/>
           </Switch>
         </div>

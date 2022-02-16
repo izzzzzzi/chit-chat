@@ -23,12 +23,3 @@ export default {
         .then(response);
     },
 }
-
-// export function login(loginRequest) {
-//     return request({
-//         url: API_BASE_URL + "/login",
-//         method: 'POST',
-//         body: JSON.stringify(loginRequest)
-//     });
-// }
-

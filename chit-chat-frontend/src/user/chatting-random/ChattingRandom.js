@@ -229,7 +229,7 @@ class ChattingRandom extends Component {
             :
               (
                 <div>
-                  <textarea value={this.state.chatMessageInput} onChnage={handleChatMessageInput} />
+                  <textarea value={this.state.chatMessageInput} onChange={handleChatMessageInput} />
                   <span>Send</span>
                 </div>
               )
