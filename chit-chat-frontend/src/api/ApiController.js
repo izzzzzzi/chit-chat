@@ -15,11 +15,7 @@ instance.interceptors.request.use(
     return config;
   },
   function (error) {
-<<<<<<< HEAD
-    return error;
-=======
     return Promise.reject(error);
->>>>>>> ed37104276e7cdd6e688f1a1bd897ef7509599c6
   }
 );
 
@@ -28,11 +24,7 @@ instance.interceptors.response.use(
     return response.data.body;
   },
   function (error) {
-<<<<<<< HEAD
-    return error;
-=======
     return Promise.reject(error);
->>>>>>> ed37104276e7cdd6e688f1a1bd897ef7509599c6
   }
 )
 
