@@ -207,7 +207,7 @@ class ChattingRandom extends Component {
 
   render() {
     return (
-      <body>
+        <div>
         <div className="chatting-main-content">
         <div class="row">
           <textarea value={this.state.chatContent} readonly>
@@ -234,7 +234,7 @@ class ChattingRandom extends Component {
                 </div>
               )
         }
-      </body>
+        </div>
     );
   }
 }
