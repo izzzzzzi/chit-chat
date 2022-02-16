@@ -2,19 +2,30 @@ import React, { Component } from "react";
 // import * as $ from 'jquery';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stomp-websocket';
-import ApiController from '../api/ApiController';
+import './ChattingRandom.css';
+import { API_BASE_URL } from "../constants";
+import axios from 'axios'
 // import Handlebars from 'handlebars'
 
+const chatApiController = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: 10000
+});
+
+
+const JOIN = "Join";
+const CANCEL = "Cancel";
+const WAIT = "wait";
 
 class ChattingRandom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: props.currentUser.user,
-      btnJoinText: "",
+      currentUser: props.currentUser,
+      btnJoinText: JOIN,
       chatContent: "",
       chatMessageInput: "",
-      chatStatus: "wait",
+      chatStatus: WAIT,
       socket: null,
       stompClient: null,
       sessionId: null,
@@ -31,7 +42,6 @@ class ChattingRandom extends Component {
     this.cancel = this.cancel.bind(this);
     this.disconnect = this.disconnect.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
-    this.updateTemplate = this.updateTemplate.bind(this);
   }
 
   handleChatMessageInput(event) {
@@ -40,9 +50,9 @@ class ChattingRandom extends Component {
 
   handleBtnJoin(event) {
     var type = this.state.btnJoinText;
-    if (type == "Join") {
+    if (type == JOIN) {
       this.join();
-    } else if (type == "Cancel") {
+    } else if (type == CANCEL) {
       this.cancel();
     }
   }
@@ -117,10 +127,10 @@ class ChattingRandom extends Component {
           this.connectAndSubscribe();
         } else if (chatResponse.responseResult == "CANCEL") {
           this.updateText(">> Success to cancel", false);
-          this.setState({btnJoinText: "Join"});
+          this.setState({btnJoinText: JOIN});
         } else if (chatResponse.responseResult == "TIMEOUT") {
           this.updateText(">> Can`t find user :(", false);
-          this.setState({btnJoinText: "Join"});
+          this.setState({btnJoinText: JOIN});
         }
     };
 
@@ -138,17 +148,17 @@ class ChattingRandom extends Component {
     }
 
     const complete = () => {
-      this.clearInterval(this.state.joinInterval);
+      clearInterval(this.state.joinInterval);
     };
 
     // before using axios
-    this.setState({btnJoinText: "Cancel"});
+    this.setState({btnJoinText: CANCEL});
     this.updateText("waiting anonymous user", false);
     this.setState({joinInterval: setInterval(() => {
       this.updateText(".", true);
     }, 1000)});
 
-    ApiController({
+    chatApiController({
       url: '/join', // TODO: have to check this url later
       method: 'get',
       headers: {
@@ -161,7 +171,7 @@ class ChattingRandom extends Component {
   }
 
   cancel() {
-    ApiController({
+    chatApiController({
       url: '/cancel', // TODO: have to check this url later
       method: 'get',
       headers: {
@@ -185,7 +195,7 @@ class ChattingRandom extends Component {
       this.state.stompClient.disconnect();
       this.setState({
         stompClient: null,
-        chatStatus: "wait"
+        chatStatus: WAIT
       });
     }
   }
@@ -222,7 +232,7 @@ class ChattingRandom extends Component {
           </div>
         </div>
         {
-          this.state.chatStatus === "wait" ?
+          this.state.chatStatus === WAIT ?
               (
                 <div>
                   <button onClick={this.handleBtnJoin}>
