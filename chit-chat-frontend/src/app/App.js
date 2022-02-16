@@ -5,13 +5,12 @@ import {
 } from 'react-router-dom';
 import AppHeader from '../common/AppHeader';
 import Home from '../home/Home';
-// import ChattingRandom from '../chatting-random/ChattingRandom';
+import ChattingRandom from '../chatting-random/ChattingRandom';
 import Login from '../user/login/Login';
 import Signup from '../user/signup/Signup';
 import Profile from '../user/profile/Profile';
 import OAuth2RedirectHandler from '../user/oauth2/OAuth2RedirectHandler';
 import NotFound from '../common/NotFound';
-import ChatRandom from "../user/chatting-random/ChatRandom";
 import LoadingIndicator from '../common/LoadingIndicator';
 import ApiList  from '../api/ApiList';
 import { ACCESS_TOKEN } from '../constants';
@@ -20,8 +19,8 @@ import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import './App.css';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -84,8 +83,6 @@ class App extends Component {
                           authenticated={authenticated}
                           currentUser={currentUser}
                           component={Profile}/>
-              <Route path="/chat"
-              render={(props) => <ChatRandom currentUser={currentUser}/>}/>
             <Route path="/login"
               render={(props) => <Login authenticated={authenticated} {...props} />}/>
             <Route path="/signup"
