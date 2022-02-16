@@ -67,6 +67,7 @@ class App extends Component {
   render() {
     const loading = this.state.loading;
     const authenticated = this.state.authenticated;
+    const currentUser = this.state.currentUser;
 
     if(loading) {
       return <LoadingIndicator />
@@ -81,9 +82,8 @@ class App extends Component {
             <Route exact path="/" component={Home}/>
             <PrivateRoute path="/profile"
                           authenticated={authenticated}
-                          currentUser={this.state.currentUser}
-                          component={Profile}
-            />
+                          currentUser={currentUser}
+                          component={Profile}/>
             <Route path="/login"
               render={(props) => <Login authenticated={authenticated} {...props} />}/>
             <Route path="/signup"
