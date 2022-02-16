@@ -15,7 +15,7 @@ instance.interceptors.request.use(
     return config;
   },
   function (error) {
-    return error.data.header.message;
+    return error;
   }
 );
 
@@ -24,7 +24,7 @@ instance.interceptors.response.use(
     return response.data.body;
   },
   function (error) {
-    return error.data.header.message
+    return error;
   }
 )
 
