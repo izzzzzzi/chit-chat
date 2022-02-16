@@ -1,17 +1,26 @@
-import { API_BASE_URL, ACCESS_TOKEN } from '../constants';
-import req from './req-wrapper'
+import ApiController from './ApiController';
 
-const ACCOUNT_URI = {
-    LOGIN: '/auth/login',
-    USER: '/users'
-}
 
+// ajax : axios (callback function matching)
+// success : response
+// fail : error
+// complete : complete
 export default {
-    login (body, success, fail) {
-        req.post(ACCOUNT_URI.LOGIN, body, success, fail)
+    login(data, response, error) {
+        ApiController({
+            url: '/api/v1/auth/login',
+            method: 'post',
+            data: data,
+        })
+        .then(response)
+        .catch(error);
     },
-    getCurrentUser (success) {
-        req.get(ACCOUNT_URI.USER, success)
+    getCurrentUser(response) {
+        ApiController({
+            url:'/api/v1/users',
+            method: 'get'
+        })
+        .then(response);
     },
 }
 

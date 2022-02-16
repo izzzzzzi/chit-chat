@@ -20,25 +20,22 @@ const appendAuth = (config) => {
 }
 
 export default {
-  get (url, success, fail = err => err.response.data.message, complete, config) {
+  get (url, success, fail = err => err.response.data.message, config) {
     axios.get(wrap(url), appendAuth(config))
       .then(handler.handle(success))
       .catch(fail)
-      .then(complete());
   },
-  post (url, body, success, fail = err => err.response.data.message, complete, config) {
+  post (url, body, success, fail = err => err.response.data.message, config) {
     axios.post(wrap(url), body, appendAuth(config))
       .then(handler.handle(success))
       .catch(fail)
-      .then(complete());
   },
-  put (url, body, success, fail = err => err.response.data.message, complete, config) {
+  put (url, body, success, fail = err => err.response.data.message, config) {
     axios.put(wrap(url), body, appendAuth(config))
       .then(handler.handle(success))
       .catch(fail)
-      .then(complete());
   },
-  upload (url, body, progress, success, fail, complete, config) {
+  upload (url, body, progress, success, fail, config) {
     var formData = new FormData()
     if (body.constructor === Object) {
       for (let key in body) {
@@ -58,12 +55,10 @@ export default {
     })
       .then(handler.handle(success))
       .catch(fail)
-      .then(complete());
   },
-  delete (url, success, fail = err => err.response.data.message, complete, config) {
+  delete (url, success, fail = err => err.response.data.message, config) {
     axios.delete(wrap(url), appendAuth(config))
       .then(handler.handle(success))
       .catch(fail)
-      .then(complete());
   }
 }

@@ -39,7 +39,7 @@ class App extends Component {
 
     account.getCurrentUser(response => {
       this.setState({
-        currentUser: response,
+        currentUser: response.data.body.user,
         authenticated: true,
         loading: false
       })
