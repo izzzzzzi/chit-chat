@@ -9,8 +9,13 @@ import axios from 'axios'
 
 const chatApiController = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 10000
 });
+
+chatApiController.interceptors.response.use(
+  function (response) {
+    return response.data;
+  }
+);
 
 
 const JOIN = "Join";
@@ -45,14 +50,17 @@ class ChattingRandom extends Component {
   }
 
   handleChatMessageInput(event) {
+    // console.log("chat message input event: ", event);
     this.setState({chatMessageInput: event.target.value});
   }
 
-  handleBtnJoin(event) {
+  handleBtnJoin() {
     var type = this.state.btnJoinText;
-    if (type == JOIN) {
+    if (type === JOIN) {
+      this.setState({btnJoinText: CANCEL});
       this.join();
-    } else if (type == CANCEL) {
+    } else if (type === CANCEL) {
+      this.setState({btnJoinText: JOIN});
       this.cancel();
     }
   }
@@ -68,12 +76,12 @@ class ChattingRandom extends Component {
   subscribeMessage() {
     this.state.stompClient.subscribe(
       "/topic/chat/" + this.state.chatRoomId,
-      function (resultObj) {
+      (resultObj) => {
         console.log(">> success to receive message\n", resultObj.body);
         var result = JSON.parse(resultObj.body);
         var message = "";
 
-        if (result.messageType == "CHAT") {
+        if (result.messageType === "CHAT") {
           if (result.senderSessionId === this.state.sessionId) {
             message += "[Me] : ";
           } else {
@@ -81,7 +89,7 @@ class ChattingRandom extends Component {
           }
 
           message += result.message + "\n";
-        } else if (result.messageType == "DISCONNECTED") {
+        } else if (result.messageType === "DISCONNECTED") {
           message = ">> Disconnected user :(";
           this.disconnect();
         }
@@ -92,14 +100,14 @@ class ChattingRandom extends Component {
 
   connectAndSubscribe() {
     if (
-      this.state.stompClient == null ||
+      this.state.stompClient === null ||
       !this.state.stompClient.connected
     ) {
-      var socket = new SockJS("/chat-websocket");
+      var socket = new SockJS("http://211.51.75.104:8080/chat-websocket");
       this.setState({stompClient: Stomp.over(socket)});
-      this.stompClient.connect(
+      this.state.stompClient.connect(
         { chatRoomId: this.state.chatRoomId },
-        function (frame) {
+        (frame) => {
           console.log("Connected: " + frame);
           this.subscribeMessage();
         }
@@ -117,7 +125,8 @@ class ChattingRandom extends Component {
         }
   
         clearInterval(this.state.joinInterval);
-        if (chatResponse.responseResult == "SUCCESS") {
+        console.log(chatResponse);
+        if (chatResponse.responseResult === "SUCCESS") {
           this.setState({
             sessionId: chatResponse.sessionId,
             chatRoomId: chatResponse.chatRoomId
@@ -125,10 +134,10 @@ class ChattingRandom extends Component {
           this.setState({chatStatus: "chat"}); // TODO: Modify updateTemplate function
           this.updateText(">> Connected anonymous user :)\n", false);
           this.connectAndSubscribe();
-        } else if (chatResponse.responseResult == "CANCEL") {
+        } else if (chatResponse.responseResult === "CANCEL") {
           this.updateText(">> Success to cancel", false);
           this.setState({btnJoinText: JOIN});
-        } else if (chatResponse.responseResult == "TIMEOUT") {
+        } else if (chatResponse.responseResult === "TIMEOUT") {
           this.updateText(">> Can`t find user :(", false);
           this.setState({btnJoinText: JOIN});
         }
@@ -136,7 +145,7 @@ class ChattingRandom extends Component {
 
     const responseFail = (jqxhr) => {
       clearInterval(this.state.joinInterval);
-      if (jqxhr.status == 503) {
+      if (jqxhr.status === 503) {
         this.updateText(
           "\n>>> Failed to connect some user :(\nPlz try again",
           true
@@ -154,16 +163,18 @@ class ChattingRandom extends Component {
     // before using axios
     this.setState({btnJoinText: CANCEL});
     this.updateText("waiting anonymous user", false);
-    this.setState({joinInterval: setInterval(() => {
-      this.updateText(".", true);
-    }, 1000)});
+    this.setState({
+      joinInterval: setInterval(() => {
+        this.updateText(".", true);
+      }, 1000)
+    })
 
     chatApiController({
       url: '/join', // TODO: have to check this url later
       method: 'get',
       headers: {
         "Content-Type": "application/json"
-      },
+      }
     })
     .then(responseSuccess)
     .catch(responseFail)
@@ -187,6 +198,7 @@ class ChattingRandom extends Component {
     })
     .then(() => {
       clearInterval(this.state.joinInterval);
+      console.log("clear intervale due to cancel : ", this.state.joinInterval);
     });
   }
 
@@ -223,12 +235,12 @@ class ChattingRandom extends Component {
     return (
       <div>
         <div className="chatting-main-content">
-          <div class="row">
-            <textarea value={this.state.chatContent} readonly>
+          <div className="row">
+            <textarea value={this.state.chatContent} readOnly>
               {this.state.chatContent}
             </textarea>
           </div>
-          <div class="row" id="chat-action-div">
+          <div className="row" id="chat-action-div">
           </div>
         </div>
         {
@@ -243,8 +255,10 @@ class ChattingRandom extends Component {
             :
               (
                 <div>
-                  <textarea value={this.state.chatMessageInput} onChnage={this.handleChatMessageInput} />
-                  <span>Send</span>
+                  <textarea onChange={this.handleChatMessageInput}>
+                    {this.state.chatMessageInput}
+                  </textarea>
+                  <span onClick={this.sendMessage}>Send</span>
                 </div>
               )
         }
