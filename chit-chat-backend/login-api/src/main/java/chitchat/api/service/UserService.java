@@ -1,7 +1,7 @@
 package chitchat.api.service;
 
-import chitchat.api.entity.user.User;
-import chitchat.api.repository.user.UserRepository;
+import chitchat.entity.user.User;
+import chitchat.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

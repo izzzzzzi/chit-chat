@@ -1,6 +1,6 @@
 package chitchat.api.controller.user;
 
-import chitchat.api.entity.user.User;
+import chitchat.entity.user.User;
 import chitchat.api.service.UserService;
 import chitchat.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
