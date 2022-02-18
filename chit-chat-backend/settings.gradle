@@ -13,5 +13,5 @@ rootProject.name = 'chit-chat'
 //include 'eatgo-login-api'
 //include 'eatgo-restaurant-api'
 include 'chit-chat-common'
-include 'login-api'
+include 'chit-chat-login-api'
 
