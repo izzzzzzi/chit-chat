@@ -4,10 +4,10 @@ import './Profile.css';
 class Profile extends Component {
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
-            currentUser: props.currentUser.user
+            currentUser: props.currentUser
         }
+        console.log(this.state.currentUser);
     }
     render() {
         return (
@@ -15,7 +15,6 @@ class Profile extends Component {
                 <div className="container">
                     <div className="profile-info">
                         <div className="profile-avatar">
-                            {console.log(this.state.currentUser)}
                             {
                                 this.state.currentUser.profileImageUrl ? (
                                     <img src={this.state.currentUser.profileImageUrl} alt={this.state.currentUser.username}/>

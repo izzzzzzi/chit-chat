@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './app/App';
-import registerServiceWorker from './registerServiceWorker';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
     <Router>
         <App />
-    </Router>, 
+    </Router>,
     document.getElementById('root')
 );
 
-registerServiceWorker();
+// BrowserRouter : HTML5 - History API를 사용하여 페이지를 새로고침하지 않고도 주소를 변경할 수 있도록 해줌
+

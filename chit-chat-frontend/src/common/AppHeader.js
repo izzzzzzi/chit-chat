@@ -8,14 +8,17 @@ class AppHeader extends Component {
             <header className="app-header">
                 <div className="container">
                     <div className="app-branding">
-                        <Link to="/" className="app-title">Spring Social</Link>
+                        <Link to="/" className="app-title text-deco">Spring Social</Link>
                     </div>
                     <div className="app-options">
                         <nav className="app-nav">
                                 { this.props.authenticated ? (
                                     <ul>
                                         <li>
-                                            <NavLink to="/profile">Profile</NavLink>
+                                            <NavLink className="text-deco" to="/chatting-random">Chatting</NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink className="text-deco" to="/profile">Profile</NavLink>
                                         </li>
                                         <li>
                                             <a onClick={this.props.onLogout}>Logout</a>
@@ -24,10 +27,10 @@ class AppHeader extends Component {
                                 ): (
                                     <ul>
                                         <li>
-                                            <NavLink to="/login">Login</NavLink>        
+                                            <NavLink className="text-deco" to="/login">Login</NavLink>
                                         </li>
                                         <li>
-                                            <NavLink to="/signup">Signup</NavLink>        
+                                            <NavLink className="text-deco" to="/signup">Signup</NavLink>
                                         </li>
                                     </ul>
                                 )}

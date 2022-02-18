@@ -18,14 +18,22 @@
     float: right;
 }
 
+.app-nav {
+    text-decoration-line : none;
+    display: flex;
+    justify-content: space-around;
+}
+
+.text-deco {
+    text-decoration: none;
+}
+
 .app-nav ul {
-    list-style-position: none;
     margin: 0;
     padding: 0;
 }
 
 .app-nav ul li {
-    list-style-type: none;
     display: inline-block;
 }
 
@@ -37,6 +45,7 @@
     padding-right: 15px;
     color: rgba(0,0,0,0.65);
 }
+
 
 .app-nav ul li a:hover {
     color: #0f96f6;

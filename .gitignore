@@ -44,3 +44,7 @@ out/
 ### login-web ###
 !**/chit-chat-backend/login-web/build
 **/chit-chat-backend/data
+
+### frontend ###
+package-lock.json
+yarn.lock
