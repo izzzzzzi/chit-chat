@@ -18,13 +18,13 @@ services:
       test: ["CMD", "mysqladmin", "-u$MYSQL_USER", "-p$MYSQL_PASSWORD",  "ping", "-h", "localhost"]
       timeout: 10s
       retries: 10
-  login-api:
-    container_name: login-api
+  chit-chat-login-api:
+    container_name: chit-chat-login-api
     image: openjdk:8
     env_file: .env
     volumes:
       - ./run.sh:/home/chit-chat/run.sh
-      - ./login-api/build/libs:/home/chit-chat/libs
+      - ./chit-chat-login-api/build/libs:/home/chit-chat/libs
     ports:
       - 8080:8080
     expose:
@@ -32,6 +32,21 @@ services:
     depends_on:
       - mysql
     command: bash -c "cd /home/chit-chat && sh run.sh"
+#  user-api:
+#    container_name: user-api
+#    image: openjdk:8
+#    env_file: .env
+#    volumes:
+#      - ./run.sh:/home/chit-chat/run.sh
+#      - ./chit-chat-user-api/build/libs:/home/chit-chat/libs
+#    ports:
+#      - 8081:8081
+#    expose:
+#      - 8081
+#    depends_on:
+#      - mysql
+#    command: bash -c "cd /home/chit-chat && sh run.sh"
+
   # login-web:
   #   container_name: login-web
   #   image: node:16.13.2
