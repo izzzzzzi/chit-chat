@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-// import * as $ from 'jquery';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stomp-websocket';
 import './ChattingRandom.css';
 import { API_BASE_USER_URL, ACCESS_TOKEN } from "../constants";
 import axios from 'axios'
 
-const header = localStorage.getItem((ACCESS_TOKEN));
+const HEADER = localStorage.getItem((ACCESS_TOKEN));
+const JOIN = "Join";
+const CANCEL = "Cancel";
+const WAIT = "wait";
 
 const chatApiController = axios.create({
   baseURL: API_BASE_USER_URL,
@@ -15,7 +17,7 @@ const chatApiController = axios.create({
 chatApiController.interceptors.request.use(
   function (config) {
     config.headers["Content-Type"] = "application/json; charset=utf-8";
-    config.headers["Authorization"] = `Bearer ${header}`;
+    config.headers["Authorization"] = `Bearer ${HEADER}`;
     return config;
   }
 )
@@ -25,11 +27,6 @@ chatApiController.interceptors.response.use(
     return response.data;
   }
 );
-
-
-const JOIN = "Join";
-const CANCEL = "Cancel";
-const WAIT = "wait";
 
 class ChattingRandom extends Component {
   constructor(props) {
@@ -114,7 +111,7 @@ class ChattingRandom extends Component {
       // 1. SockJS를 내부에 들고 있는 client를 내어준다.
       this.setState({stompClient: Stomp.over(socket)});
       const headers = {
-        Authorization : `Bearer ${header}`
+        Authorization : `Bearer ${HEADER}`
       };
       this.state.stompClient.connect(headers, (frame) => {
         console.log('conencted :' + frame);
