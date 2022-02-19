@@ -111,6 +111,7 @@ class ChattingRandom extends Component {
     ) {
       const socket = new SockJS(`${API_BASE_USER_URL}/chat-websocket`);
       // let options = {debug: false, protocols: Stomp.VERSIONS.supportedProtocols()};
+      // 1. SockJS를 내부에 들고 있는 client를 내어준다.
       this.setState({stompClient: Stomp.over(socket)});
       const headers = {
         Authorization : `Bearer ${header}`

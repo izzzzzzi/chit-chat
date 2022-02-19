@@ -7,7 +7,6 @@ class Profile extends Component {
         this.state = {
             currentUser: props.currentUser
         }
-        console.log(this.state.currentUser);
     }
     render() {
         return (
