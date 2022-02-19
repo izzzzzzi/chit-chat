@@ -5,7 +5,9 @@ import * as Stomp from 'stomp-websocket';
 import './ChattingRandom.css';
 import { API_BASE_LOGIN_URL, API_BASE_USER_URL, ACCESS_TOKEN } from "../constants";
 import axios from 'axios'
-// import Handlebars from 'handlebars'
+
+const URL = `${API_BASE_USER_URL}/chat-websocket`;
+const header = `'Authorization': Bearer ${localStorage.getItem(ACCESS_TOKEN)}`
 
 const chatApiController = axios.create({
   baseURL: API_BASE_USER_URL,
@@ -111,9 +113,11 @@ class ChattingRandom extends Component {
       this.state.stompClient === null ||
       !this.state.stompClient.connected
     ) {
-      var socket = new SockJS(`${API_BASE_USER_URL}/chat-websocket`, null, {headers: {'Authorization': `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`}});
+      var socket = new SockJS({URL}, null, {header});
+      console.log(header)
+      console.log(URL)
       this.setState({stompClient: Stomp.over(socket)});
-      this.state.stompClient.connect(
+      this.state.stompClient.connect({header},
         { chatRoomId: this.state.chatRoomId },
         (frame) => {
           console.log("Connected: " + frame);
