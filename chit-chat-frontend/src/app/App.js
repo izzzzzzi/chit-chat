@@ -3,18 +3,17 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
+import PrivateRoute from '../common/PrivateRoute';
 import AppHeader from '../common/AppHeader';
 import Home from '../home/Home';
 import ChattingRandom from '../chatting-random/ChattingRandom';
 import Login from '../user/login/Login';
-import Signup from '../user/signup/Signup';
 import Profile from '../user/profile/Profile';
 import OAuth2RedirectHandler from '../user/oauth2/OAuth2RedirectHandler';
 import NotFound from '../common/NotFound';
 import LoadingIndicator from '../common/LoadingIndicator';
 import ApiList  from '../api/ApiList';
 import { ACCESS_TOKEN } from '../constants';
-import PrivateRoute from '../common/PrivateRoute';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
@@ -83,14 +82,14 @@ class App extends Component {
                           authenticated={authenticated}
                           currentUser={currentUser}
                           component={Profile}/>
+            <PrivateRoute path="/chatting-random"
+                          authenticated={authenticated}
+                          currentUser={currentUser}
+                          component={ChattingRandom}/>
             <Route path="/login"
               render={(props) => <Login authenticated={authenticated} {...props} />}/>
-            <Route path="/signup"
-              render={(props) => <Signup authenticated={authenticated} {...props} />}/>
             <Route path="/oauth/redirect"
               render={(props) => <OAuth2RedirectHandler loadCurrentlyLoggedInUser={this.loadCurrentlyLoggedInUser} {...props} />}/>
-            <Route path="/chatting-random"
-              render={(props) => <ChattingRandom {...props} />}/>
             <Route component={NotFound}/>
           </Switch>
         </div>

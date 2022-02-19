@@ -21,7 +21,7 @@
 .app-nav {
     text-decoration-line : none;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .text-deco {
@@ -38,7 +38,6 @@
 }
 
 .app-nav ul li a {
-    display: inline-block;
     line-height: 60px;
     vertical-align: middle;
     padding-left: 15px;
