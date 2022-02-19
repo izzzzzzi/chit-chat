@@ -1,4 +1,4 @@
-package chitchat.utils.auth;
+package chitchat.utils;
 
 import org.springframework.util.SerializationUtils;
 

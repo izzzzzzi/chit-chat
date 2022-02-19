@@ -24,7 +24,6 @@ import java.util.Map;
  * @GitHub : https://github.com/zacscoding
  */
 @Component
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class WebSocketEventListener {
 
     private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
