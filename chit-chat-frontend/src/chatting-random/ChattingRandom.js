@@ -3,11 +3,10 @@ import React, { Component } from "react";
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stomp-websocket';
 import './ChattingRandom.css';
-import { API_BASE_LOGIN_URL, API_BASE_USER_URL, ACCESS_TOKEN } from "../constants";
+import { API_BASE_USER_URL, ACCESS_TOKEN } from "../constants";
 import axios from 'axios'
 
-const URL = `${API_BASE_USER_URL}/chat-websocket`;
-const header = `'Authorization': Bearer ${localStorage.getItem(ACCESS_TOKEN)}`
+const header = localStorage.getItem((ACCESS_TOKEN));
 
 const chatApiController = axios.create({
   baseURL: API_BASE_USER_URL,
@@ -16,7 +15,7 @@ const chatApiController = axios.create({
 chatApiController.interceptors.request.use(
   function (config) {
     config.headers["Content-Type"] = "application/json; charset=utf-8";
-    config.headers["Authorization"] = `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`;
+    config.headers["Authorization"] = `Bearer ${header}`;
     return config;
   }
 )
@@ -87,17 +86,14 @@ class ChattingRandom extends Component {
     this.state.stompClient.subscribe(
       "/topic/chat/" + this.state.chatRoomId,
       (resultObj) => {
-        console.log(">> success to receive message\n", resultObj.body);
-        var result = JSON.parse(resultObj.body);
-        var message = "";
-
+        const result = JSON.parse(resultObj.body);
+        let message = "";
         if (result.messageType === "CHAT") {
           if (result.senderSessionId === this.state.sessionId) {
             message += "[Me] : ";
           } else {
             message += "[Anonymous] : ";
           }
-
           message += result.message + "\n";
         } else if (result.messageType === "DISCONNECTED") {
           message = ">> Disconnected user :(";
@@ -113,15 +109,15 @@ class ChattingRandom extends Component {
       this.state.stompClient === null ||
       !this.state.stompClient.connected
     ) {
-      var socket = new SockJS({URL}, null, {header});
-      console.log(header)
-      console.log(URL)
+      const socket = new SockJS(`${API_BASE_USER_URL}/chat-websocket`);
+      // let options = {debug: false, protocols: Stomp.VERSIONS.supportedProtocols()};
       this.setState({stompClient: Stomp.over(socket)});
-      this.state.stompClient.connect({header},
-        { chatRoomId: this.state.chatRoomId },
-        (frame) => {
-          console.log("Connected: " + frame);
-          this.subscribeMessage();
+      const headers = {
+        Authorization : `Bearer ${header}`
+      };
+      this.state.stompClient.connect(headers, (frame) => {
+        console.log('conencted :' + frame);
+        this.subscribeMessage();
         }
       );
     } else {
@@ -131,11 +127,10 @@ class ChattingRandom extends Component {
 
   join() {
     const responseSuccess = (chatResponse) => {
-      console.log("Success to receive join result. \n", chatResponse);
+      console.log(this.state.stompClient);
         if (!chatResponse) {
           return;
         }
-  
         clearInterval(this.state.joinInterval);
         console.log(chatResponse);
         if (chatResponse.responseResult === "SUCCESS") {
@@ -171,7 +166,6 @@ class ChattingRandom extends Component {
     const complete = () => {
       clearInterval(this.state.joinInterval);
     };
-
     // before using axios
     this.setState({btnJoinText: CANCEL});
     this.updateText("waiting anonymous user", false);
