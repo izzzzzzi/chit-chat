@@ -3,13 +3,21 @@ import React, { Component } from "react";
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stomp-websocket';
 import './ChattingRandom.css';
-import { API_BASE_URL } from "../constants";
+import { API_BASE_LOGIN_URL, API_BASE_USER_URL, ACCESS_TOKEN } from "../constants";
 import axios from 'axios'
 // import Handlebars from 'handlebars'
 
 const chatApiController = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: API_BASE_USER_URL,
 });
+
+chatApiController.interceptors.request.use(
+  function (config) {
+    config.headers["Content-Type"] = "application/json; charset=utf-8";
+    config.headers["Authorization"] = `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`;
+    return config;
+  }
+)
 
 chatApiController.interceptors.response.use(
   function (response) {
@@ -103,7 +111,7 @@ class ChattingRandom extends Component {
       this.state.stompClient === null ||
       !this.state.stompClient.connected
     ) {
-      var socket = new SockJS("http://211.51.75.104:8080/chat-websocket");
+      var socket = new SockJS(`${API_BASE_USER_URL}/chat-websocket`, null, {headers: {'Authorization': `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`}});
       this.setState({stompClient: Stomp.over(socket)});
       this.state.stompClient.connect(
         { chatRoomId: this.state.chatRoomId },
@@ -170,11 +178,8 @@ class ChattingRandom extends Component {
     })
 
     chatApiController({
-      url: '/join', // TODO: have to check this url later
-      method: 'get',
-      headers: {
-        "Content-Type": "application/json"
-      }
+      url: '/api/user/chat-random/join', // TODO: have to check this url later
+      method: 'get'
     })
     .then(responseSuccess)
     .catch(responseFail)
@@ -183,11 +188,8 @@ class ChattingRandom extends Component {
 
   cancel() {
     chatApiController({
-      url: '/cancel', // TODO: have to check this url later
-      method: 'get',
-      headers: {
-        "Content-Type": "application/json"
-      },
+      url: '/api/user/chat-random/cancel', // TODO: have to check this url later
+      method: 'get'
     })
     .then(() => {
       this.updateText("", false);

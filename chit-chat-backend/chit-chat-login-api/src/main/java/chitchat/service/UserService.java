@@ -1,4 +1,4 @@
-package chitchat.api.service;
+package chitchat.service;
 
 import chitchat.entity.user.User;
 import chitchat.repository.user.UserRepository;

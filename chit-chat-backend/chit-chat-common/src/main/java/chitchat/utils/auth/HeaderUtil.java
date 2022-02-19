@@ -1,4 +1,4 @@
-package chitchat.utils;
+package chitchat.utils.auth;
 
 import javax.servlet.http.HttpServletRequest;
 

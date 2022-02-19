@@ -1,4 +1,4 @@
-package chitchat.api.controller.auth;
+package chitchat.controller.auth;
 
 import chitchat.entity.auth.AuthReqModel;
 import chitchat.entity.user.UserRefreshToken;
@@ -9,8 +9,8 @@ import chitchat.oauth.entity.RoleType;
 import chitchat.oauth.entity.UserPrincipal;
 import chitchat.oauth.token.AuthToken;
 import chitchat.oauth.token.AuthTokenProvider;
-import chitchat.utils.CookieUtil;
-import chitchat.utils.HeaderUtil;
+import chitchat.utils.auth.CookieUtil;
+import chitchat.utils.auth.HeaderUtil;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

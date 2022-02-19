@@ -2,7 +2,7 @@ package chitchat.oauth.filter;
 
 import chitchat.oauth.token.AuthToken;
 import chitchat.oauth.token.AuthTokenProvider;
-import chitchat.utils.HeaderUtil;
+import chitchat.utils.auth.HeaderUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

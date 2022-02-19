@@ -52,7 +52,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             if (providerType != savedUser.getProviderType()) {
                 throw new OAuthProviderMissMatchException(
                         "Looks like you're signed up with " + providerType +
-                        " account. Please use your " + savedUser.getProviderType() + " account to login."
+                        " account. Please use your " + savedUser.getProviderType() + " account to chitchat.login."
                 );
             }
             updateUser(savedUser, userInfo);

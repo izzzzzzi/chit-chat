@@ -7,4 +7,5 @@ rootProject.name = 'chit-chat'
 
 include 'chit-chat-common'
 include 'chit-chat-login-api'
+include 'chit-chat-user-api'
 

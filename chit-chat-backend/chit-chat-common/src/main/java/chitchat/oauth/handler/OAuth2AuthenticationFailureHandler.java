@@ -1,7 +1,7 @@
 package chitchat.oauth.handler;
 
 import chitchat.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
-import chitchat.utils.CookieUtil;
+import chitchat.utils.auth.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;

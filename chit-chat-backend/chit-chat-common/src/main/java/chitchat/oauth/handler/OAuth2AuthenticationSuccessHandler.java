@@ -10,7 +10,7 @@ import chitchat.oauth.info.OAuth2UserInfoFactory;
 import chitchat.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import chitchat.oauth.token.AuthToken;
 import chitchat.oauth.token.AuthTokenProvider;
-import chitchat.utils.CookieUtil;
+import chitchat.utils.auth.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

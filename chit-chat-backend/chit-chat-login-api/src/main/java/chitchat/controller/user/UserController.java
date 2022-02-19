@@ -1,7 +1,7 @@
-package chitchat.api.controller.user;
+package chitchat.controller.user;
 
+import chitchat.service.UserService;
 import chitchat.entity.user.User;
-import chitchat.api.service.UserService;
 import chitchat.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
