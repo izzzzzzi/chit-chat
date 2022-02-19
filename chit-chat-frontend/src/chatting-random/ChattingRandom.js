@@ -212,18 +212,21 @@ class ChattingRandom extends Component {
     console.log("send message.. >> ");
     const message = this.state.chatMessageInput;
 
-    var payload = {
+    if (message == "") {
+      alert("input message!");
+    } else {
+      var payload = {
       messageType: "CHAT",
       senderSessionId: this.state.sessionId,
       message: message,
     };
-
     this.state.stompClient.send(
       "/app/chat.message/" + this.state.chatRoomId,
       {},
       JSON.stringify(payload)
     );
     this.setState({chatMessageInput: ""});
+    }
   }
 
   render() {
