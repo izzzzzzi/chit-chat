@@ -6,6 +6,7 @@ import chitchat.entity.chat.ChatResponse;
 import chitchat.entity.chat.MessageType;
 import chitchat.service.ChatService;
 import chitchat.utils.chat.ServletUtil;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,7 @@ public class ChatController {
     // tag :: websocket stomp
     @MessageMapping("/chat.message/{chatRoomId}")
     public void sendMessage(@DestinationVariable("chatRoomId") String chatRoomId, @Payload ChatMessage chatMessage) {
-        logger.info("Request message. roomd id : {} | chat message : {} | principal : {}", chatRoomId, chatMessage);
+        logger.info("Request message. room id : {} | chat message : {} | principal : {}", chatRoomId, chatMessage);
         if (!StringUtils.hasText(chatRoomId) || chatMessage == null) {
             return;
         }
