@@ -232,28 +232,31 @@ class ChattingRandom extends Component {
     return (
       <div>
         <div className="chatting-main-content">
-          <div className="row">
+          <div>
             <textarea className="chat-main" value={this.state.chatContent} readOnly/>
           </div>
-          <div className="row">
+          <div>
             {
             this.state.chatStatus === WAIT ?
               (
-                <div>
-                  <button onClick={this.handleBtnJoin}>
-                    {this.state.btnJoinText}
-                  </button>
+                <div className="chat-bottom">
+                    <button className="btn" onClick={this.handleBtnJoin}>
+                      {this.state.btnJoinText}
+                    </button>
                 </div>
               )
             :
               (
-                <div>
+                <div className="chat-bottom">
                   <input type="text" 
-                  onChange={this.handleChatMessageInput} 
-                  onKeyPress={(e)=> {if(e.key === 'Enter') this.sendMessage()}}
-                  value={this.state.chatMessageInput}/>
-                  <button onClick={this.sendMessage}>Send</button>
-                  <button onClick={this.cancel}>Cancel</button>
+                    className="chat-input"
+                    onChange={this.handleChatMessageInput} 
+                    onKeyPress={(e)=> {if(e.key === 'Enter') this.sendMessage()}}
+                    value={this.state.chatMessageInput}/>
+                  <div className="chat-btn">
+                    <button className="join-btn" onClick={this.sendMessage}>Send</button>
+                    <button className="join-btn" onClick={this.cancel}>Cancel</button>
+                  </div>
                 </div>
               )
             }
