@@ -124,7 +124,6 @@ class ChattingRandom extends Component {
 
   join() {
     const responseSuccess = (chatResponse) => {
-      console.log(this.state.stompClient);
         if (!chatResponse) {
           return;
         }
@@ -249,7 +248,10 @@ class ChattingRandom extends Component {
             :
               (
                 <div>
-                  <textarea onChange={this.handleChatMessageInput} value={this.state.chatMessageInput}/>
+                  <input type="text" 
+                  onChange={this.handleChatMessageInput} 
+                  onKeyPress={(e)=> {if(e.key === 'Enter') this.sendMessage()}}
+                  value={this.state.chatMessageInput}/>
                   <span onClick={this.sendMessage}>Send</span>
                 </div>
               )
