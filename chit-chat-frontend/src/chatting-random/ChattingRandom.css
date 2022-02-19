@@ -3,7 +3,13 @@ body {
 }
 
 textarea {
+  width: 100%;
   resize: none;
+}
+
+.chat-main {
+  height: 500px;
+   resize: none;
 }
 
 .chatting-main-content {

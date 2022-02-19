@@ -105,7 +105,6 @@ class ChattingRandom extends Component {
       !this.state.stompClient.connected
     ) {
       const socket = new SockJS(`${API_BASE_USER_URL}/chat-websocket`);
-      // let options = {debug: false, protocols: Stomp.VERSIONS.supportedProtocols()};
       // 1. SockJS를 내부에 들고 있는 client를 내어준다.
       this.setState({stompClient: Stomp.over(socket)});
       const headers = {
@@ -187,6 +186,7 @@ class ChattingRandom extends Component {
     })
     .then(() => {
       this.updateText("", false);
+      this.disconnect();
     })
     .catch((jqxhr) => {
       console.log(jqxhr);
@@ -203,15 +203,14 @@ class ChattingRandom extends Component {
       this.state.stompClient.disconnect();
       this.setState({
         stompClient: null,
-        chatStatus: WAIT
+        chatStatus: WAIT,
+        btnJoinText: JOIN
       });
     }
   }
 
   sendMessage() {
-    console.log("send message.. >> ");
     const message = this.state.chatMessageInput;
-
     if (message == "") {
       alert("input message!");
     } else {
@@ -234,11 +233,9 @@ class ChattingRandom extends Component {
       <div>
         <div className="chatting-main-content">
           <div className="row">
-            <textarea value={this.state.chatContent} readOnly>
-              {this.state.chatContent}
-            </textarea>
+            <textarea className="chat-main" value={this.state.chatContent} readOnly/>
           </div>
-          <div className="row" id="chat-action-div">
+          <div className="row">
             {
             this.state.chatStatus === WAIT ?
               (
@@ -255,7 +252,8 @@ class ChattingRandom extends Component {
                   onChange={this.handleChatMessageInput} 
                   onKeyPress={(e)=> {if(e.key === 'Enter') this.sendMessage()}}
                   value={this.state.chatMessageInput}/>
-                  <span onClick={this.sendMessage}>Send</span>
+                  <button onClick={this.sendMessage}>Send</button>
+                  <button onClick={this.cancel}>Cancel</button>
                 </div>
               )
             }
