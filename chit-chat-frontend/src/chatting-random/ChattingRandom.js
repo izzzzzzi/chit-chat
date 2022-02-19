@@ -55,7 +55,6 @@ class ChattingRandom extends Component {
   }
 
   handleChatMessageInput(event) {
-    // console.log("chat message input event: ", event);
     this.setState({chatMessageInput: event.target.value});
   }
 
@@ -211,10 +210,8 @@ class ChattingRandom extends Component {
   }
 
   sendMessage() {
-    console.log("Check.. >>\n", this.state.stompClient);
     console.log("send message.. >> ");
     const message = this.state.chatMessageInput;
-    this.setState({chatMessageInput: ""});
 
     var payload = {
       messageType: "CHAT",
@@ -227,6 +224,7 @@ class ChattingRandom extends Component {
       {},
       JSON.stringify(payload)
     );
+    this.setState({chatMessageInput: ""});
   }
 
   render() {
@@ -239,10 +237,8 @@ class ChattingRandom extends Component {
             </textarea>
           </div>
           <div className="row" id="chat-action-div">
-          </div>
-        </div>
-        {
-          this.state.chatStatus === WAIT ?
+            {
+            this.state.chatStatus === WAIT ?
               (
                 <div>
                   <button onClick={this.handleBtnJoin}>
@@ -253,14 +249,14 @@ class ChattingRandom extends Component {
             :
               (
                 <div>
-                  <textarea onChange={this.handleChatMessageInput}>
-                    {this.state.chatMessageInput}
-                  </textarea>
+                  <textarea onChange={this.handleChatMessageInput} value={this.state.chatMessageInput}/>
                   <span onClick={this.sendMessage}>Send</span>
                 </div>
               )
-        }
-      </div>
+            }
+          </div>
+        </div>
+        </div>
     );
   }
 }
