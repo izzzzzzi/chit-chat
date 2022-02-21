@@ -9,23 +9,23 @@ public class ChatResponse {
 
     private ResponseResult responseResult;
     private String chatRoomId;
-    private String sessionId;
+    private String username;
 
     public ChatResponse() {
     }
 
-    public ChatResponse(ResponseResult responseResult, String chatRoomId, String sessionId) {
+    public ChatResponse(ResponseResult responseResult, String chatRoomId, String username) {
         this.responseResult = responseResult;
         this.chatRoomId = chatRoomId;
-        this.sessionId = sessionId;
+        this.username = username;
     }
 
-    public String getSessionId() {
-        return sessionId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getChatRoomId() {
@@ -46,7 +46,7 @@ public class ChatResponse {
 
     @Override
     public String toString() {
-        return "ChatResponse{" + "responseResult=" + responseResult + ", chatRoomId='" + chatRoomId + '\'' + ", sessionId='" + sessionId + '\'' + '}';
+        return "ChatResponse{" + "responseResult=" + responseResult + ", chatRoomId='" + chatRoomId + '\'' + ", username='" + username + '\'' + '}';
     }
 
     public enum ResponseResult {

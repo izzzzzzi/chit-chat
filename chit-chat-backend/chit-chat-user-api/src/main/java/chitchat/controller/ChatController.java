@@ -6,6 +6,7 @@ import chitchat.entity.chat.ChatResponse;
 import chitchat.entity.chat.MessageType;
 import chitchat.service.ChatService;
 import chitchat.utils.ServletUtil;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -24,6 +26,7 @@ import org.springframework.web.context.request.async.DeferredResult;
  */
 @RestController
 @RequestMapping("/api/user/chat-random")
+@RequiredArgsConstructor
 public class ChatController {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
@@ -35,10 +38,11 @@ public class ChatController {
     @GetMapping("/join")
     @ResponseBody
     public DeferredResult<ChatResponse> joinRequest() {
-        String sessionId = ServletUtil.getSession().getId();
-        logger.info(">> Join request. session id : {}", sessionId);
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = principal.getUsername();
+        logger.info(">> Join request. username : {}", username);
 
-        final ChatRequest user = new ChatRequest(sessionId);
+        final ChatRequest user = new ChatRequest(username);
         final DeferredResult<ChatResponse> deferredResult = new DeferredResult<>(null);
         chatService.joinChatRoom(user, deferredResult);
 
@@ -52,10 +56,11 @@ public class ChatController {
     @GetMapping("/cancel")
     @ResponseBody
     public ResponseEntity<Void> cancelRequest() {
-        String sessionId = ServletUtil.getSession().getId();
-        logger.info(">> Cancel request. session id : {}", sessionId);
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = principal.getUsername();
+        logger.info(">> Cancel request. username : {}", username);
 
-        final ChatRequest user = new ChatRequest(sessionId);
+        final ChatRequest user = new ChatRequest(username);
         chatService.cancelChatRoom(user);
 
         return ResponseEntity.ok().build();
