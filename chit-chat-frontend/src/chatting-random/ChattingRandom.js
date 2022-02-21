@@ -4,6 +4,7 @@ import * as Stomp from 'stomp-websocket';
 import './ChattingRandom.css';
 import { API_BASE_USER_URL, ACCESS_TOKEN } from "../constants";
 import axios from 'axios'
+import { useHistory } from 'react-router-dom'
 
 const JOIN = "Join";
 const CANCEL = "Cancel";
@@ -211,7 +212,7 @@ class ChattingRandom extends Component {
 
   sendMessage() {
     const message = this.state.chatMessageInput;
-    if (message == "") {
+    if (message === "") {
       alert("input message!");
     } else {
       var payload = {
@@ -227,6 +228,10 @@ class ChattingRandom extends Component {
     this.setState({chatMessageInput: ""});
     }
   }
+
+  componentWillMount() {
+    console.log(this.props.router)
+}
 
   render() {
     return (
