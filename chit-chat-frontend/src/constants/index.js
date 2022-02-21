@@ -17,8 +17,3 @@ export const MBTI_TYPE = [
     "ISTJ", "ISFJ", "ISFP", "ISTP", "INFJ", "INTP", "INTJ", "INFP",
     "ESFP", "ESTP", "ESTJ", "ESFJ", "ENFJ", "ENFP", "ENTP", "ENTJ"
 ]
-
-export const COLOR = [
-    {type: "RED", rgb: "#FF0000"},
-    {type: "BLUE", rgb: "#0000FF"}
-]

@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import './Profile.css';
-import {ENNEAGRAM_TYPE, MBTI_TYPE, COLOR} from '../../constants/index';
+import {ENNEAGRAM_TYPE, MBTI_TYPE} from '../../constants/index';
+import ColorPicker from "../../common/ColorPicker";
 
 
-// 에니어그램(선택), 색깔(선택), 속성(선택)
+//속성(선택)
 
 class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentUser : props.currentUser
+            currentUser : props.currentUser,
         }
     }
     render() {
@@ -46,6 +47,9 @@ class Profile extends Component {
                                     <option value={enneagram} key={i}/>
                                 )})}
                             </datalist>
+                            <div>
+                                <ColorPicker/>
+                            </div>
                         </div>
                     </div>
                 </div>
