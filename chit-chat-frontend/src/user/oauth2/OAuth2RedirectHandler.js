@@ -3,10 +3,6 @@ import { ACCESS_TOKEN } from '../../constants';
 import { Redirect } from 'react-router-dom'
 
 class OAuth2RedirectHandler extends Component {
-    componentDidMount() {
-        const {location:{state}, history} = this.props;
-    }
-
     getUrlParameter(name) {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
         var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');

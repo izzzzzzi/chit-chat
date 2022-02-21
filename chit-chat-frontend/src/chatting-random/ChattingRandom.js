@@ -1,26 +1,31 @@
 import React, { Component } from "react";
-// import * as $ from 'jquery';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stomp-websocket';
 import './ChattingRandom.css';
-import { API_BASE_URL } from "../constants";
+import { API_BASE_USER_URL, ACCESS_TOKEN } from "../constants";
 import axios from 'axios'
-// import Handlebars from 'handlebars'
+
+const JOIN = "Join";
+const CANCEL = "Cancel";
+const WAIT = "wait";
 
 const chatApiController = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: API_BASE_USER_URL,
 });
+
+chatApiController.interceptors.request.use(
+  function (config) {
+    config.headers["Content-Type"] = "application/json; charset=utf-8";
+    config.headers["Authorization"] = `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`;
+    return config;
+  }
+)
 
 chatApiController.interceptors.response.use(
   function (response) {
     return response.data;
   }
 );
-
-
-const JOIN = "Join";
-const CANCEL = "Cancel";
-const WAIT = "wait";
 
 class ChattingRandom extends Component {
   constructor(props) {
@@ -50,7 +55,6 @@ class ChattingRandom extends Component {
   }
 
   handleChatMessageInput(event) {
-    // console.log("chat message input event: ", event);
     this.setState({chatMessageInput: event.target.value});
   }
 
@@ -77,17 +81,14 @@ class ChattingRandom extends Component {
     this.state.stompClient.subscribe(
       "/topic/chat/" + this.state.chatRoomId,
       (resultObj) => {
-        console.log(">> success to receive message\n", resultObj.body);
-        var result = JSON.parse(resultObj.body);
-        var message = "";
-
+        const result = JSON.parse(resultObj.body);
+        let message = "";
         if (result.messageType === "CHAT") {
           if (result.senderSessionId === this.state.sessionId) {
             message += "[Me] : ";
           } else {
             message += "[Anonymous] : ";
           }
-
           message += result.message + "\n";
         } else if (result.messageType === "DISCONNECTED") {
           message = ">> Disconnected user :(";
@@ -103,13 +104,16 @@ class ChattingRandom extends Component {
       this.state.stompClient === null ||
       !this.state.stompClient.connected
     ) {
-      var socket = new SockJS("http://211.51.75.104:8080/chat-websocket");
+      const socket = new SockJS(`${API_BASE_USER_URL}/chat-websocket`);
+      // 1. SockJS를 내부에 들고 있는 client를 내어준다.
       this.setState({stompClient: Stomp.over(socket)});
-      this.state.stompClient.connect(
-        { chatRoomId: this.state.chatRoomId },
-        (frame) => {
-          console.log("Connected: " + frame);
-          this.subscribeMessage();
+      const headers = {
+        Authorization : `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+        chatRoomId: this.state.chatRoomId
+      };
+      this.state.stompClient.connect(headers, (frame) => {
+        console.log('conencted :' + frame);
+        this.subscribeMessage();
         }
       );
     } else {
@@ -119,11 +123,9 @@ class ChattingRandom extends Component {
 
   join() {
     const responseSuccess = (chatResponse) => {
-      console.log("Success to receive join result. \n", chatResponse);
         if (!chatResponse) {
           return;
         }
-  
         clearInterval(this.state.joinInterval);
         console.log(chatResponse);
         if (chatResponse.responseResult === "SUCCESS") {
@@ -159,7 +161,6 @@ class ChattingRandom extends Component {
     const complete = () => {
       clearInterval(this.state.joinInterval);
     };
-
     // before using axios
     this.setState({btnJoinText: CANCEL});
     this.updateText("waiting anonymous user", false);
@@ -170,11 +171,8 @@ class ChattingRandom extends Component {
     })
 
     chatApiController({
-      url: '/join', // TODO: have to check this url later
-      method: 'get',
-      headers: {
-        "Content-Type": "application/json"
-      }
+      url: '/api/user/chat-random/join', // TODO: have to check this url later
+      method: 'get'
     })
     .then(responseSuccess)
     .catch(responseFail)
@@ -183,14 +181,12 @@ class ChattingRandom extends Component {
 
   cancel() {
     chatApiController({
-      url: '/cancel', // TODO: have to check this url later
-      method: 'get',
-      headers: {
-        "Content-Type": "application/json"
-      },
+      url: '/api/user/chat-random/cancel', // TODO: have to check this url later
+      method: 'get'
     })
     .then(() => {
       this.updateText("", false);
+      this.disconnect();
     })
     .catch((jqxhr) => {
       console.log(jqxhr);
@@ -207,62 +203,66 @@ class ChattingRandom extends Component {
       this.state.stompClient.disconnect();
       this.setState({
         stompClient: null,
-        chatStatus: WAIT
+        chatStatus: WAIT,
+        btnJoinText: JOIN
       });
     }
   }
 
   sendMessage() {
-    console.log("Check.. >>\n", this.state.stompClient);
-    console.log("send message.. >> ");
     const message = this.state.chatMessageInput;
-    this.setState({chatMessageInput: ""});
-
-    var payload = {
+    if (message == "") {
+      alert("input message!");
+    } else {
+      var payload = {
       messageType: "CHAT",
       senderSessionId: this.state.sessionId,
       message: message,
     };
-
     this.state.stompClient.send(
       "/app/chat.message/" + this.state.chatRoomId,
       {},
       JSON.stringify(payload)
     );
+    this.setState({chatMessageInput: ""});
+    }
   }
 
   render() {
     return (
       <div>
         <div className="chatting-main-content">
-          <div className="row">
-            <textarea value={this.state.chatContent} readOnly>
-              {this.state.chatContent}
-            </textarea>
+          <div>
+            <textarea className="chat-main" value={this.state.chatContent} readOnly/>
           </div>
-          <div className="row" id="chat-action-div">
-          </div>
-        </div>
-        {
-          this.state.chatStatus === WAIT ?
+          <div>
+            {
+            this.state.chatStatus === WAIT ?
               (
-                <div>
-                  <button onClick={this.handleBtnJoin}>
-                    {this.state.btnJoinText}
-                  </button>
+                <div className="chat-bottom">
+                    <button className="btn" onClick={this.handleBtnJoin}>
+                      {this.state.btnJoinText}
+                    </button>
                 </div>
               )
             :
               (
-                <div>
-                  <textarea onChange={this.handleChatMessageInput}>
-                    {this.state.chatMessageInput}
-                  </textarea>
-                  <span onClick={this.sendMessage}>Send</span>
+                <div className="chat-bottom">
+                  <input type="text" 
+                    className="chat-input"
+                    onChange={this.handleChatMessageInput} 
+                    onKeyPress={(e)=> {if(e.key === 'Enter') this.sendMessage()}}
+                    value={this.state.chatMessageInput}/>
+                  <div className="chat-btn">
+                    <button className="join-btn" onClick={this.sendMessage}>Send</button>
+                    <button className="join-btn" onClick={this.cancel}>Cancel</button>
+                  </div>
                 </div>
               )
-        }
-      </div>
+            }
+          </div>
+        </div>
+        </div>
     );
   }
 }

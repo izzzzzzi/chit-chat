@@ -8,7 +8,7 @@ class AppHeader extends Component {
             <header className="app-header">
                 <div className="container">
                     <div className="app-branding">
-                        <Link to="/" className="app-title text-deco">Spring Social</Link>
+                        <Link to="/" className="app-title text-deco">Chit Chat</Link>
                     </div>
                     <div className="app-options">
                         <nav className="app-nav">
@@ -27,10 +27,10 @@ class AppHeader extends Component {
                                 ): (
                                     <ul>
                                         <li>
-                                            <NavLink className="text-deco" to="/login">Login</NavLink>
+                                            <NavLink className="text-deco" to="/chatting-random">Chatting</NavLink>
                                         </li>
                                         <li>
-                                            <NavLink className="text-deco" to="/signup">Signup</NavLink>
+                                            <NavLink className="text-deco" to="/login">Login</NavLink>
                                         </li>
                                     </ul>
                                 )}
