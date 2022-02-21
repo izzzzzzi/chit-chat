@@ -79,6 +79,7 @@ class ChattingRandom extends Component {
   }
 
   subscribeMessage() {
+    const me = this.state.currentUser.username
     this.state.stompClient.subscribe(
       "/topic/chat/" + this.state.chatRoomId,
       (resultObj) => {
@@ -86,7 +87,7 @@ class ChattingRandom extends Component {
         let message = "";
         if (result.messageType === "CHAT") {
           if (result.senderSessionId === this.state.sessionId) {
-            message += "[Me] : ";
+            message += `${me} : `;
           } else {
             message += "[Anonymous] : ";
           }
