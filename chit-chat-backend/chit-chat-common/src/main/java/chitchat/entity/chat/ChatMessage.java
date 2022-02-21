@@ -7,7 +7,7 @@ package chitchat.entity.chat;
  */
 public class ChatMessage {
 
-    private String senderSessionId;
+    private String senderUsername;
     private String message;
     private MessageType messageType;
 
@@ -19,12 +19,12 @@ public class ChatMessage {
         this.messageType = messageType;
     }
 
-    public String getSenderSessionId() {
-        return senderSessionId;
+    public String getSenderUsername() {
+        return senderUsername;
     }
 
-    public void setSenderSessionId(String senderSessionId) {
-        this.senderSessionId = senderSessionId;
+    public void setSenderUsername(String senderUsername) {
+        this.senderUsername = senderUsername;
     }
 
     public String getMessage() {
@@ -37,6 +37,6 @@ public class ChatMessage {
 
     @Override
     public String toString() {
-        return "ChatMessage{" + "senderSessionId='" + senderSessionId + '\'' + ", message='" + message + '\'' + ", messageType=" + messageType + '}';
+        return "ChatMessage{" + "senderUsername='" + senderUsername + '\'' + ", message='" + message + '\'' + ", messageType=" + messageType + '}';
     }
 }

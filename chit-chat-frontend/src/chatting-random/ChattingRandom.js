@@ -39,7 +39,7 @@ class ChattingRandom extends Component {
       chatStatus: WAIT,
       socket: null,
       stompClient: null,
-      sessionId: null,
+      username: null, // username will be gotten from backend by authentication
       chatRoomId: null,
       joinInterval: null
     };
@@ -79,19 +79,13 @@ class ChattingRandom extends Component {
   }
 
   subscribeMessage() {
-    const myUserName = this.state.currentUser.username
     this.state.stompClient.subscribe(
       "/topic/chat/" + this.state.chatRoomId,
       (resultObj) => {
         const result = JSON.parse(resultObj.body);
         let message = "";
         if (result.messageType === "CHAT") {
-          if (result.senderSessionId === this.state.sessionId) {
-            message += `${myUserName} : `;
-          } else {
-            message += "[Anonymous] : ";
-          }
-          message += result.message + "\n";
+          message = `${result.senderUsername} : ${result.message}\n`;
         } else if (result.messageType === "DISCONNECTED") {
           message = ">> Disconnected user :(";
           this.disconnect();
@@ -132,11 +126,11 @@ class ChattingRandom extends Component {
         console.log(chatResponse);
         if (chatResponse.responseResult === "SUCCESS") {
           this.setState({
-            sessionId: chatResponse.sessionId,
+            username: chatResponse.username,
             chatRoomId: chatResponse.chatRoomId
           })
           this.setState({chatStatus: "chat"}); // TODO: Modify updateTemplate function
-          this.updateText(">> Connected anonymous user :)\n", false);
+          this.updateText(">> Connected to another user :)\n", false);
           this.connectAndSubscribe();
         } else if (chatResponse.responseResult === "CANCEL") {
           this.updateText(">> Success to cancel", false);
@@ -218,7 +212,7 @@ class ChattingRandom extends Component {
     } else {
       var payload = {
       messageType: "CHAT",
-      senderSessionId: this.state.sessionId,
+      senderUsername: this.state.username,
       message: message,
     };
     this.state.stompClient.send(
@@ -229,10 +223,6 @@ class ChattingRandom extends Component {
     this.setState({chatMessageInput: ""});
     }
   }
-
-  componentWillMount() {
-    console.log(this.props.router)
-}
 
   render() {
     return (
