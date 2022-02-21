@@ -16,7 +16,7 @@ const chatApiController = axios.create({
 chatApiController.interceptors.request.use(
   function (config) {
     config.headers["Content-Type"] = "application/json; charset=utf-8";
-    config.headers["Authorization"] = `Bearer ${localStorage.getItem((ACCESS_TOKEN))}`;
+    config.headers["Authorization"] = `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`;
     return config;
   }
 )
@@ -108,7 +108,7 @@ class ChattingRandom extends Component {
       // 1. SockJS를 내부에 들고 있는 client를 내어준다.
       this.setState({stompClient: Stomp.over(socket)});
       const headers = {
-        Authorization : `Bearer ${localStorage.getItem((ACCESS_TOKEN))}`,
+        Authorization : `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
         chatRoomId: this.state.chatRoomId
       };
       this.state.stompClient.connect(headers, (frame) => {
