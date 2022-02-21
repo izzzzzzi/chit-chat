@@ -9,9 +9,6 @@ import ColorPicker from "../../common/ColorPicker";
 class Profile extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            currentUser : props.currentUser,
-        }
     }
     render() {
         return (
@@ -20,19 +17,19 @@ class Profile extends Component {
                     <div className="profile-info">
                         <div className="profile-avatar">
                             {
-                                this.state.currentUser.profileImageUrl ? (
-                                    <img src={this.state.currentUser.profileImageUrl} alt={this.state.currentUser.username}/>
+                                this.props.currentUser.profileImageUrl ? (
+                                    <img src={this.props.currentUser.profileImageUrl} alt={this.props.currentUser.username}/>
                                 ) : (
                                     <div className="text-avatar">
-                                        <span>{this.state.currentUser.username && this.state.currentUser.username[0]}
+                                        <span>{this.props.currentUser.username && this.props.currentUser.username[0]}
                                         </span>
                                     </div>
                                 )
                             }
                         </div>
                         <div className="profile-name">
-                           <h2>{this.state.currentUser.username}</h2>
-                           <p className="profile-email">{this.state.currentUser.email}</p>
+                           <h2>{this.props.currentUser.username}</h2>
+                           <p className="profile-email">{this.props.currentUser.email}</p>
                         </div>
                         <div>
                             <input type="text" list='mbti-options'/>

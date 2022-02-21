@@ -24,8 +24,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      authenticated: false,
-      currentUser: null,
+      authenticated: localStorage.getItem('user') ? true : false,
+      currentUser: localStorage.getItem('user'),
       // loading: true, 임시 false
       loading: false
     }
@@ -34,8 +34,8 @@ class App extends Component {
   }
 
   loadCurrentlyLoggedInUser() {
-
     ApiList.getCurrentUser(response => {
+      localStorage.setItem('user', JSON.stringify(response.user));
       this.setState({
         currentUser: response.user,
         authenticated: true,
@@ -89,7 +89,7 @@ class App extends Component {
             <Route path="/login"
               render={(props) => <Login authenticated={authenticated} {...props} />}/>
             <Route path="/oauth/redirect"
-              render={(props) => <OAuth2RedirectHandler loadCurrentlyLoggedInUser={this.loadCurrentlyLoggedInUser} {...props} />}/>
+              render={(props) => <OAuth2RedirectHandler {...props} />}/>
             <Route component={NotFound}/>
           </Switch>
         </div>
