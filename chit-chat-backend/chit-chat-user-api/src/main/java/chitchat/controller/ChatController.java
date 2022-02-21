@@ -4,12 +4,11 @@ import chitchat.entity.chat.ChatMessage;
 import chitchat.entity.chat.ChatRequest;
 import chitchat.entity.chat.ChatResponse;
 import chitchat.entity.chat.MessageType;
+import chitchat.service.UserService;
 import chitchat.service.ChatService;
-import chitchat.utils.ServletUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -31,15 +30,17 @@ public class ChatController {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
 
-    @Autowired
-    private ChatService chatService;
+    private final ChatService chatService;
+
+    private final UserService userService;
 
     // tag :: async
     @GetMapping("/join")
     @ResponseBody
     public DeferredResult<ChatResponse> joinRequest() {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = principal.getUsername();
+        String username = userService.getUser(principal.getUsername()).getUsername();
+
         logger.info(">> Join request. username : {}", username);
 
         final ChatRequest user = new ChatRequest(username);
@@ -57,7 +58,7 @@ public class ChatController {
     @ResponseBody
     public ResponseEntity<Void> cancelRequest() {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = principal.getUsername();
+        String username = userService.getUser(principal.getUsername()).getUsername();
         logger.info(">> Cancel request. username : {}", username);
 
         final ChatRequest user = new ChatRequest(username);
