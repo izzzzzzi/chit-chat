@@ -186,13 +186,13 @@ class ChattingRandom extends Component {
     })
     .then(() => {
       this.updateText("", false);
-      this.disconnect();
     })
     .catch((jqxhr) => {
       console.log(jqxhr);
       alert("Error occur. please refresh");
     })
     .then(() => {
+      this.disconnect();
       clearInterval(this.state.joinInterval);
       console.log("clear intervale due to cancel : ", this.state.joinInterval);
     });

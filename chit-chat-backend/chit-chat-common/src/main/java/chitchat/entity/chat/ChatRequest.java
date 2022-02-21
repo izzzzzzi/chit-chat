@@ -9,21 +9,21 @@ import java.util.Objects;
  */
 public class ChatRequest {
 
-    private String sessionId;
+    private String username;
 
     public ChatRequest() {
     }
 
-    public ChatRequest(String sessionId) {
-        this.sessionId = sessionId;
+    public ChatRequest(String username) {
+        this.username = username;
     }
 
-    public String getSessionId() {
-        return sessionId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -36,16 +36,16 @@ public class ChatRequest {
         }
 
         ChatRequest that = (ChatRequest) o;
-        return Objects.equals(this.sessionId, that.sessionId);
+        return Objects.equals(this.username, that.username);
     }
 
     @Override
     public int hashCode() {
-        return sessionId.hashCode();
+        return username.hashCode();
     }
 
     @Override
     public String toString() {
-        return "ChatRequest{" + "sessionId='" + sessionId + '\'' + '}';
+        return "ChatRequest{" + "sessionId='" + username + '\'' + '}';
     }
 }
