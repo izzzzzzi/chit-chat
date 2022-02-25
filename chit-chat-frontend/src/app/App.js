@@ -13,7 +13,7 @@ import OAuth2RedirectHandler from '../user/oauth2/OAuth2RedirectHandler';
 import NotFound from '../common/NotFound';
 import LoadingIndicator from '../common/LoadingIndicator';
 import ApiList  from '../api/ApiList';
-import { ACCESS_TOKEN } from '../constants';
+import { ACCESS_TOKEN, USER } from '../constants';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
@@ -50,6 +50,7 @@ class App extends Component {
   }
 
   handleLogout() {
+    localStorage.removeItem(USER);
     localStorage.removeItem(ACCESS_TOKEN);
     this.setState({
       authenticated: false,
