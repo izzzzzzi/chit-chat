@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import './Profile.css';
 import {ENNEAGRAM_TYPE, MBTI_TYPE} from '../../constants/index';
-import ColorPicker from "../../common/ColorPicker";
-
-
-//속성(선택)
+import { Link } from 'react-router-dom';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
     }
+
+
     render() {
         return (
             <div className="profile-container">
@@ -30,26 +29,19 @@ class Profile extends Component {
                         <div className="profile-name">
                            <h2>{this.props.currentUser.username}</h2>
                            <p className="profile-email">{this.props.currentUser.email}</p>
+                           <Link to={{
+                               pathname: "/setting",
+                               state: {userInfo : this.props}
+                           }}>Edit Profile</Link>
                         </div>
                         <div className='options'>
                             <div className="option-box">
-                                <input type="text" list='mbti-options'/>
-                                <datalist id="mbti-options">
-                                    {MBTI_TYPE.map((mbti,i) => {return (
-                                        <option value={mbti} key={i}/>
-                                    )})}
-                                </datalist>
+                                <h3>{MBTI_TYPE[5]}</h3> 
+                                {/* TODO 데이터 가져오기 */}
                             </div>
                             <div className="option-box">
-                            <input type="text" list='enneagram-options'/>
-                            <datalist id="enneagram-options">
-                                {ENNEAGRAM_TYPE.map((enneagram,i) => {return (
-                                    <option value={enneagram} key={i}/>
-                                )})}
-                            </datalist>
-                            </div>
-                            <div>
-                                <ColorPicker/>
+                                <h3>{ENNEAGRAM_TYPE[4]}</h3>
+                                {/* TODO 데이터 가져오기 */}
                             </div>
                         </div>
                     </div>
@@ -59,4 +51,4 @@ class Profile extends Component {
     }
 }
 
-export default Profile
+export default Profile;

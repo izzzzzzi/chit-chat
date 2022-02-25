@@ -4,7 +4,6 @@ import * as Stomp from 'stomp-websocket';
 import './ChattingRandom.css';
 import { API_BASE_USER_URL, ACCESS_TOKEN } from "../constants";
 import axios from 'axios'
-import { useHistory } from 'react-router-dom'
 
 const JOIN = "Join";
 const CANCEL = "Cancel";
