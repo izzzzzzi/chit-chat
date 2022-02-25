@@ -75,6 +75,21 @@ public class User {
     @NotNull
     private LocalDateTime modifiedAt;
 
+    @Column(name = "MBTI_TYPE", length = 20)
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private MbtiType mbtiType;
+
+    @Column(name = "ENNEAGRAM", length = 20)
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private Enneagram enneagram;
+
+    @Column(name = "COLOR", length = 20)
+    @NotNull
+    @Size(max = 20)
+    private String color;
+
     public User(
             @NotNull @Size(max = 64) String userId,
             @NotNull @Size(max = 100) String username,
