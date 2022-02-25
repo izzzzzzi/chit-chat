@@ -6,8 +6,13 @@ import { Link } from 'react-router-dom';
 class Profile extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+        userName: this.props,
+        userMbtiType: "not choose",
+        userEnneagramType: "not choose",
+        userColorPick: "#FFF"
     }
-
+    }
 
     render() {
         return (
@@ -36,11 +41,11 @@ class Profile extends Component {
                         </div>
                         <div className='options'>
                             <div className="option-box">
-                                <h3>{MBTI_TYPE[5]}</h3> 
+                                <h3>mbti {this.state.userMbtiType}</h3> 
                                 {/* TODO 데이터 가져오기 */}
                             </div>
                             <div className="option-box">
-                                <h3>{ENNEAGRAM_TYPE[4]}</h3>
+                                <h3>enneagram {this.state.userEnneagramType}</h3>
                                 {/* TODO 데이터 가져오기 */}
                             </div>
                         </div>

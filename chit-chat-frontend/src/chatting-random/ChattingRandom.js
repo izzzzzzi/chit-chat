@@ -4,6 +4,7 @@ import * as Stomp from 'stomp-websocket';
 import './ChattingRandom.css';
 import { API_BASE_USER_URL, ACCESS_TOKEN } from "../constants";
 import axios from 'axios'
+import Modal from 'react-modal';
 
 const JOIN = "Join";
 const CANCEL = "Cancel";
@@ -38,7 +39,9 @@ class ChattingRandom extends Component {
       socket: null,
       stompClient: null,
       chatRoomId: null,
-      joinInterval: null
+      joinInterval: null,
+      showModal: false,
+      senderUsername: ""
     };
 
     this.handleChatMessageInput = this.handleChatMessageInput.bind(this);
@@ -54,6 +57,23 @@ class ChattingRandom extends Component {
 
   handleChatMessageInput(event) {
     this.setState({chatMessageInput: event.target.value});
+  }
+
+  handleOpenModal = (data) => {
+    console.log(data)
+    if (!data.senderUsername) {
+      console.log(data.senderUsername);
+      this.setState({showModal: false});
+    } else if (data.senderUsername == data.currentUser.username){
+      console.log(data.senderUsername);
+      // TODO 마지막 메세지 보낸 사람 말고 상대방 아이디 불러오기,,
+      this.setState({showModal: true});
+    }
+  }
+
+  handleCloseModal = () => {
+    this.setState({showModal: false});
+    this.setState({senderUsername:""});
   }
 
   handleBtnJoin() {
@@ -82,6 +102,7 @@ class ChattingRandom extends Component {
         const result = JSON.parse(resultObj.body);
         let message = "";
         if (result.messageType === "CHAT") {
+          this.setState({senderUsername: result.senderUsername});
           message = `${result.senderUsername} : ${result.message}\n`;
         } else if (result.messageType === "DISCONNECTED") {
           message = ">> Disconnected user :(";
@@ -188,6 +209,7 @@ class ChattingRandom extends Component {
       clearInterval(this.state.joinInterval);
       console.log("clear intervale due to cancel : ", this.state.joinInterval);
     });
+    this.handleOpenModal(this.state);
   }
 
   disconnect() {
@@ -225,6 +247,14 @@ class ChattingRandom extends Component {
     return (
       <div>
         <div className="chatting-main-content">
+          <Modal 
+            isOpen={this.state.showModal} 
+            onRequestClose={this.handleCloseModal} 
+            appElement={document.getElementById('root')}
+            >
+            <button onClick={this.handleCloseModal}>close</button>
+            {this.state.senderUsername}님은 어떠셨나요..?
+          </Modal>
           <div>
             <textarea className="chat-main" value={this.state.chatContent} readOnly/>
           </div>
