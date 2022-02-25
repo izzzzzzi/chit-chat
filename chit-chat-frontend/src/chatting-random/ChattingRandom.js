@@ -53,6 +53,14 @@ class ChattingRandom extends Component {
     this.cancel = this.cancel.bind(this);
     this.disconnect = this.disconnect.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
+    this.getHeaders = this.getHeaders.bind(this);
+  }
+
+  getHeaders() {
+    return {
+      Authorization : `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+      chatRoomId: this.state.chatRoomId
+    };
   }
 
   handleChatMessageInput(event) {
@@ -121,11 +129,7 @@ class ChattingRandom extends Component {
       const socket = new SockJS(`${API_BASE_USER_URL}/chat-websocket`);
       // 1. SockJS를 내부에 들고 있는 client를 내어준다.
       this.setState({stompClient: Stomp.over(socket)});
-      const headers = {
-        Authorization : `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
-        chatRoomId: this.state.chatRoomId
-      };
-      this.state.stompClient.connect(headers, (frame) => {
+      this.state.stompClient.connect(this.getHeaders(), (frame) => {
         console.log('conencted :' + frame);
         this.subscribeMessage();
         }
@@ -236,7 +240,7 @@ class ChattingRandom extends Component {
     };
     this.state.stompClient.send(
       "/app/chat.message/" + this.state.chatRoomId,
-      {},
+      this.getHeaders(),
       JSON.stringify(payload)
     );
     this.setState({chatMessageInput: ""});

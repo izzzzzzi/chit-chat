@@ -5,13 +5,17 @@ import chitchat.entity.chat.ChatRequest;
 import chitchat.entity.chat.ChatResponse;
 import chitchat.entity.chat.MessageType;
 import chitchat.entity.user.User;
+import chitchat.oauth.token.AuthToken;
+import chitchat.oauth.token.AuthTokenProvider;
 import chitchat.service.UserService;
 import chitchat.service.ChatService;
+import chitchat.utils.HeaderUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,6 +38,8 @@ public class ChatController {
     private final ChatService chatService;
 
     private final UserService userService;
+
+    private final AuthTokenProvider tokenProvider;
 
     // tag :: async
     @GetMapping("/join")
@@ -79,8 +85,16 @@ public class ChatController {
 
     // tag :: websocket stomp
     @MessageMapping("/chat.message/{chatRoomId}")
-    public void sendMessage(@DestinationVariable("chatRoomId") String chatRoomId, @Payload ChatMessage chatMessage) {
+    public void sendMessage(
+            @DestinationVariable("chatRoomId") String chatRoomId,
+            @Header("Authorization") String tokenStr,
+            @Payload ChatMessage chatMessage
+    ) {
+        tokenStr = HeaderUtil.getPureToken(tokenStr);
+        tokenProvider.convertAuthToken(tokenStr).validate();
+
         logger.info("Request message. room id : {} | chat message : {} | principal : {}", chatRoomId, chatMessage);
+
         if (!StringUtils.hasText(chatRoomId) || chatMessage == null) {
             return;
         }

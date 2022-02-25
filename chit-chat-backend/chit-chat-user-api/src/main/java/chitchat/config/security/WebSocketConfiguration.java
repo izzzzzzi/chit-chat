@@ -1,9 +1,6 @@
 package chitchat.config.security;
 
-import chitchat.handler.stomp.StompHandler;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
@@ -14,16 +11,14 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
  * @Date 2018-08-22
  * @GitHub : https://github.com/zacscoding
  */
-@RequiredArgsConstructor
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer {
-
-    private final StompHandler stompHandler;
+public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
 
     @Override
-    public void configureMessageBroker(MessageBrokerRegistry config) {
+    public void configureMessageBroker(final MessageBrokerRegistry config) {
         config.enableSimpleBroker("/topic/chat");
+        // Message received with one of those below destinationPrefixes will be automatically router to controllers @MessageMapping
         config.setApplicationDestinationPrefixes("/app");
     }
 
@@ -34,8 +29,4 @@ public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer 
                 .withSockJS();
     }
 
-    @Override
-    public void configureClientInboundChannel(ChannelRegistration registration) {
-        registration.interceptors(stompHandler);
-    }
 }
