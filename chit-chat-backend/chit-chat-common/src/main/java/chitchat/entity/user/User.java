@@ -75,18 +75,7 @@ public class User {
     @NotNull
     private LocalDateTime modifiedAt;
 
-    @Column(name = "MBTI_TYPE", length = 20)
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    private MbtiType mbtiType;
-
-    @Column(name = "ENNEAGRAM", length = 20)
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    private Enneagram enneagram;
-
     @Column(name = "COLOR", length = 20)
-    @NotNull
     @Size(max = 20)
     private String color;
 
@@ -99,7 +88,10 @@ public class User {
             @NotNull ProviderType providerType,
             @NotNull RoleType roleType,
             @NotNull LocalDateTime createdAt,
-            @NotNull LocalDateTime modifiedAt
+            @NotNull LocalDateTime modifiedAt,
+            @NotNull RoleType roleType,
+            @Size(max = 20) String color,
+
     ) {
         this.userId = userId;
         this.username = username;
@@ -111,5 +103,6 @@ public class User {
         this.roleType = roleType;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
+        this.color = "";
     }
 }
