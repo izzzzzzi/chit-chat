@@ -22,4 +22,13 @@ export default {
         })
         .then(response);
     },
+    settingUserProfile(data, response, error) {
+        ApiController({
+            url: '/api/v1/profile',
+            method:'post',
+            data: data
+        })
+        .then(response)
+        .catch(error);
+    }
 }

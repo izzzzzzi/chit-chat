@@ -12,6 +12,7 @@ import Profile from '../user/profile/Profile';
 import OAuth2RedirectHandler from '../user/oauth2/OAuth2RedirectHandler';
 import NotFound from '../common/NotFound';
 import LoadingIndicator from '../common/LoadingIndicator';
+import EditProfile from '../user/profile/EditProfile'
 import ApiList  from '../api/ApiList';
 import { ACCESS_TOKEN, USER } from '../constants';
 import Alert from 'react-s-alert';
@@ -87,6 +88,7 @@ class App extends Component {
                           authenticated={authenticated}
                           currentUser={currentUser}
                           component={ChattingRandom}/>
+            <PrivateRoute path="/setting" authenticated={authenticated} currentUser={currentUser} component={EditProfile}/>              
             <Route path="/login"
               render={(props) => <Login authenticated={authenticated} {...props} />}/>
             <Route path="/oauth/redirect"
