@@ -31,19 +31,23 @@ class Profile extends Component {
                            <h2>{this.props.currentUser.username}</h2>
                            <p className="profile-email">{this.props.currentUser.email}</p>
                         </div>
-                        <div>
-                            <input type="text" list='mbti-options'/>
-                            <datalist id="mbti-options">
-                                {MBTI_TYPE.map((mbti,i) => {return (
-                                    <option value={mbti} key={i}/>
-                                )})}
-                            </datalist>
+                        <div className='options'>
+                            <div className="option-box">
+                                <input type="text" list='mbti-options'/>
+                                <datalist id="mbti-options">
+                                    {MBTI_TYPE.map((mbti,i) => {return (
+                                        <option value={mbti} key={i}/>
+                                    )})}
+                                </datalist>
+                            </div>
+                            <div className="option-box">
                             <input type="text" list='enneagram-options'/>
                             <datalist id="enneagram-options">
                                 {ENNEAGRAM_TYPE.map((enneagram,i) => {return (
                                     <option value={enneagram} key={i}/>
                                 )})}
                             </datalist>
+                            </div>
                             <div>
                                 <ColorPicker/>
                             </div>

@@ -11,6 +11,20 @@
     max-width: 250px;
 }
 
+
+.option-box {
+    background-color: yellow;
+    margin: 0.5rem;
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem;
+}
+
 .profile-info .profile-name {
     font-weight: 500;
     font-size: 18px;
