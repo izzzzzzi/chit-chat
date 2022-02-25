@@ -4,6 +4,7 @@ import chitchat.entity.chat.ChatMessage;
 import chitchat.entity.chat.ChatRequest;
 import chitchat.entity.chat.ChatResponse;
 import chitchat.entity.chat.MessageType;
+import chitchat.entity.user.User;
 import chitchat.service.UserService;
 import chitchat.service.ChatService;
 import lombok.RequiredArgsConstructor;
@@ -38,18 +39,21 @@ public class ChatController {
     @GetMapping("/join")
     @ResponseBody
     public DeferredResult<ChatResponse> joinRequest() {
-        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userService.getUser(principal.getUsername()).getUsername();
+        org.springframework.security.core.userdetails.User principal =
+                (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.getUser(principal.getUsername());
+        String username = user.getUsername();
+        String userId = user.getUserId();
 
-        logger.info(">> Join request. username : {}", username);
+        logger.info(">> Join request. username : {}, userId : {}", userId, username);
 
-        final ChatRequest user = new ChatRequest(username);
+        final ChatRequest userChatRequest = new ChatRequest(username, userId);
         final DeferredResult<ChatResponse> deferredResult = new DeferredResult<>(null);
-        chatService.joinChatRoom(user, deferredResult);
+        chatService.joinChatRoom(userChatRequest, deferredResult);
 
-        deferredResult.onCompletion(() -> chatService.cancelChatRoom(user));
-        deferredResult.onError((throwable) -> chatService.cancelChatRoom(user));
-        deferredResult.onTimeout(() -> chatService.timeout(user));
+        deferredResult.onCompletion(() -> chatService.cancelChatRoom(userChatRequest));
+        deferredResult.onError((throwable) -> chatService.cancelChatRoom(userChatRequest));
+        deferredResult.onTimeout(() -> chatService.timeout(userChatRequest));
 
         return deferredResult;
     }
@@ -57,12 +61,16 @@ public class ChatController {
     @GetMapping("/cancel")
     @ResponseBody
     public ResponseEntity<Void> cancelRequest() {
-        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userService.getUser(principal.getUsername()).getUsername();
-        logger.info(">> Cancel request. username : {}", username);
+        org.springframework.security.core.userdetails.User principal =
+                (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.getUser(principal.getUsername());
+        String username = user.getUsername();
+        String userId = user.getUserId();
 
-        final ChatRequest user = new ChatRequest(username);
-        chatService.cancelChatRoom(user);
+        logger.info(">> Cancel request. userId : {}", user.getUserId());
+
+        final ChatRequest userChatRequest = new ChatRequest(username, userId);
+        chatService.cancelChatRoom(userChatRequest);
 
         return ResponseEntity.ok().build();
     }

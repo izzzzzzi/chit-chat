@@ -32,14 +32,12 @@ class ChattingRandom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: props.currentUser,
       btnJoinText: JOIN,
       chatContent: "",
       chatMessageInput: "",
       chatStatus: WAIT,
       socket: null,
       stompClient: null,
-      username: null, // username will be gotten from backend by authentication
       chatRoomId: null,
       joinInterval: null
     };
@@ -126,7 +124,6 @@ class ChattingRandom extends Component {
         console.log(chatResponse);
         if (chatResponse.responseResult === "SUCCESS") {
           this.setState({
-            username: chatResponse.username,
             chatRoomId: chatResponse.chatRoomId
           })
           this.setState({chatStatus: "chat"}); // TODO: Modify updateTemplate function
@@ -212,7 +209,8 @@ class ChattingRandom extends Component {
     } else {
       var payload = {
       messageType: "CHAT",
-      senderUsername: this.state.username,
+      senderUserId: this.props.currentUser.userId,
+      senderUsername: this.props.currentUser.username,
       message: message,
     };
     this.state.stompClient.send(
