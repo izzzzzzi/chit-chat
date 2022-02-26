@@ -5,7 +5,6 @@ import chitchat.entity.chat.ChatRequest;
 import chitchat.entity.chat.ChatResponse;
 import chitchat.entity.chat.MessageType;
 import chitchat.entity.user.User;
-import chitchat.oauth.token.AuthToken;
 import chitchat.oauth.token.AuthTokenProvider;
 import chitchat.service.UserService;
 import chitchat.service.ChatService;
