@@ -73,7 +73,15 @@ class ChattingRandom extends Component {
     if (data.ohterUserName === "") {
       // console.log("상대방은.. 채팅을 하지 않았다..");
       this.setState({showModal: false});
+<<<<<<< HEAD
     } else {this.setState({showModal: true})};
+=======
+    } else if (data.senderUsername === data.currentUser.username){
+      console.log(data.senderUsername);
+      // TODO 마지막 메세지 보낸 사람 말고 상대방 아이디 불러오기,,
+      this.setState({showModal: true});
+    }
+>>>>>>> 1d23215f8bee2fccc377ee7fd0e61f97f5794848
   }
 
   handleCloseModal = () => {
