@@ -8,10 +8,7 @@ class EditProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: this.props,
-            userMbtiType: null,
-            userEnneagramType: null,
-            userColorPick: ""
+            userInfo: this.props.location.state.userInfo
         }
     }
 
@@ -43,9 +40,10 @@ class EditProfile extends Component {
     }
 
     render() {
-        const { currentUser } = this.props.location.state.userInfo;
+        const currentUser  = this.state.userInfo;
         return (
             <div className="profile-container">
+                {console.log(currentUser)}
                 <div className="container">
                     <div className="profile-info">
                         <div className="profile-avatar">
