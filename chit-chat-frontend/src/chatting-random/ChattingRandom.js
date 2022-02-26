@@ -66,7 +66,7 @@ class ChattingRandom extends Component {
     if (!data.senderUsername) {
       console.log(data.senderUsername);
       this.setState({showModal: false});
-    } else if (data.senderUsername == data.currentUser.username){
+    } else if (data.senderUsername === data.currentUser.username){
       console.log(data.senderUsername);
       // TODO 마지막 메세지 보낸 사람 말고 상대방 아이디 불러오기,,
       this.setState({showModal: true});
