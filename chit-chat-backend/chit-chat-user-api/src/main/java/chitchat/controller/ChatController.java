@@ -4,13 +4,17 @@ import chitchat.entity.chat.ChatMessage;
 import chitchat.entity.chat.ChatRequest;
 import chitchat.entity.chat.ChatResponse;
 import chitchat.entity.chat.MessageType;
+import chitchat.entity.user.User;
+import chitchat.oauth.token.AuthTokenProvider;
 import chitchat.service.UserService;
 import chitchat.service.ChatService;
+import chitchat.utils.HeaderUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,22 +38,27 @@ public class ChatController {
 
     private final UserService userService;
 
+    private final AuthTokenProvider tokenProvider;
+
     // tag :: async
     @GetMapping("/join")
     @ResponseBody
     public DeferredResult<ChatResponse> joinRequest() {
-        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userService.getUser(principal.getUsername()).getUsername();
+        org.springframework.security.core.userdetails.User principal =
+                (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.getUser(principal.getUsername());
+        String username = user.getUsername();
+        String userId = user.getUserId();
 
-        logger.info(">> Join request. username : {}", username);
+        logger.info(">> Join request. username : {}, userId : {}", userId, username);
 
-        final ChatRequest user = new ChatRequest(username);
+        final ChatRequest userChatRequest = new ChatRequest(username, userId);
         final DeferredResult<ChatResponse> deferredResult = new DeferredResult<>(null);
-        chatService.joinChatRoom(user, deferredResult);
+        chatService.joinChatRoom(userChatRequest, deferredResult);
 
-        deferredResult.onCompletion(() -> chatService.cancelChatRoom(user));
-        deferredResult.onError((throwable) -> chatService.cancelChatRoom(user));
-        deferredResult.onTimeout(() -> chatService.timeout(user));
+        deferredResult.onCompletion(() -> chatService.cancelChatRoom(userChatRequest));
+        deferredResult.onError((throwable) -> chatService.cancelChatRoom(userChatRequest));
+        deferredResult.onTimeout(() -> chatService.timeout(userChatRequest));
 
         return deferredResult;
     }
@@ -57,12 +66,16 @@ public class ChatController {
     @GetMapping("/cancel")
     @ResponseBody
     public ResponseEntity<Void> cancelRequest() {
-        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userService.getUser(principal.getUsername()).getUsername();
-        logger.info(">> Cancel request. username : {}", username);
+        org.springframework.security.core.userdetails.User principal =
+                (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.getUser(principal.getUsername());
+        String username = user.getUsername();
+        String userId = user.getUserId();
 
-        final ChatRequest user = new ChatRequest(username);
-        chatService.cancelChatRoom(user);
+        logger.info(">> Cancel request. userId : {}", user.getUserId());
+
+        final ChatRequest userChatRequest = new ChatRequest(username, userId);
+        chatService.cancelChatRoom(userChatRequest);
 
         return ResponseEntity.ok().build();
     }
@@ -71,8 +84,16 @@ public class ChatController {
 
     // tag :: websocket stomp
     @MessageMapping("/chat.message/{chatRoomId}")
-    public void sendMessage(@DestinationVariable("chatRoomId") String chatRoomId, @Payload ChatMessage chatMessage) {
+    public void sendMessage(
+            @DestinationVariable("chatRoomId") String chatRoomId,
+            @Header("Authorization") String tokenStr,
+            @Payload ChatMessage chatMessage
+    ) {
+        tokenStr = HeaderUtil.getPureToken(tokenStr);
+        tokenProvider.convertAuthToken(tokenStr).validate();
+
         logger.info("Request message. room id : {} | chat message : {} | principal : {}", chatRoomId, chatMessage);
+
         if (!StringUtils.hasText(chatRoomId) || chatMessage == null) {
             return;
         }

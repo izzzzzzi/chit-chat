@@ -32,14 +32,12 @@ class ChattingRandom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: props.currentUser,
       btnJoinText: JOIN,
       chatContent: "",
       chatMessageInput: "",
       chatStatus: WAIT,
       socket: null,
       stompClient: null,
-      username: null, // username will be gotten from backend by authentication
       chatRoomId: null,
       joinInterval: null,
       showModal: false,
@@ -55,6 +53,14 @@ class ChattingRandom extends Component {
     this.cancel = this.cancel.bind(this);
     this.disconnect = this.disconnect.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
+    this.getHeaders = this.getHeaders.bind(this);
+  }
+
+  getHeaders() {
+    return {
+      Authorization : `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+      chatRoomId: this.state.chatRoomId
+    };
   }
 
   handleChatMessageInput(event) {
@@ -66,7 +72,11 @@ class ChattingRandom extends Component {
     if (!data.senderUsername) {
       console.log(data.senderUsername);
       this.setState({showModal: false});
+<<<<<<< HEAD
     } else if (data.senderUsername === data.currentUser.username){
+=======
+    } else if (data.senderUsername == data.currentUser.username){
+>>>>>>> 938edae1820a378e0cf8bedd5ee27f6b58b258f1
       console.log(data.senderUsername);
       // TODO 마지막 메세지 보낸 사람 말고 상대방 아이디 불러오기,,
       this.setState({showModal: true});
@@ -123,11 +133,7 @@ class ChattingRandom extends Component {
       const socket = new SockJS(`${API_BASE_USER_URL}/chat-websocket`);
       // 1. SockJS를 내부에 들고 있는 client를 내어준다.
       this.setState({stompClient: Stomp.over(socket)});
-      const headers = {
-        Authorization : `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
-        chatRoomId: this.state.chatRoomId
-      };
-      this.state.stompClient.connect(headers, (frame) => {
+      this.state.stompClient.connect(this.getHeaders(), (frame) => {
         console.log('conencted :' + frame);
         this.subscribeMessage();
         }
@@ -146,7 +152,6 @@ class ChattingRandom extends Component {
         console.log(chatResponse);
         if (chatResponse.responseResult === "SUCCESS") {
           this.setState({
-            username: chatResponse.username,
             chatRoomId: chatResponse.chatRoomId
           })
           this.setState({chatStatus: "chat"}); // TODO: Modify updateTemplate function
@@ -233,12 +238,13 @@ class ChattingRandom extends Component {
     } else {
       var payload = {
       messageType: "CHAT",
-      senderUsername: this.state.username,
+      senderUserId: this.props.currentUser.userId,
+      senderUsername: this.props.currentUser.username,
       message: message,
     };
     this.state.stompClient.send(
       "/app/chat.message/" + this.state.chatRoomId,
-      {},
+      this.getHeaders(),
       JSON.stringify(payload)
     );
     this.setState({chatMessageInput: ""});

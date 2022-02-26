@@ -64,7 +64,7 @@ public class ChatService {
     public void cancelChatRoom(ChatRequest chatRequest) {
         try {
             lock.writeLock().lock();
-            setJoinResult(waitingUsers.remove(chatRequest), new ChatResponse(ResponseResult.CANCEL, null, chatRequest.getUsername()));
+            setJoinResult(waitingUsers.remove(chatRequest), new ChatResponse(ResponseResult.CANCEL, null, chatRequest.getUsername(), chatRequest.getUserId()));
         } finally {
             lock.writeLock().unlock();
         }
@@ -74,7 +74,7 @@ public class ChatService {
         try {
             lock.writeLock().lock();
             logger.info(chatRequest.toString());
-            setJoinResult(waitingUsers.remove(chatRequest), new ChatResponse(ResponseResult.TIMEOUT, null, chatRequest.getUsername()));
+            setJoinResult(waitingUsers.remove(chatRequest), new ChatResponse(ResponseResult.TIMEOUT, null, chatRequest.getUsername(), chatRequest.getUserId()));
         } finally {
             lock.writeLock().unlock();
         }
@@ -97,8 +97,8 @@ public class ChatService {
             DeferredResult<ChatResponse> user1Result = waitingUsers.remove(user1);
             DeferredResult<ChatResponse> user2Result = waitingUsers.remove(user2);
 
-            user1Result.setResult(new ChatResponse(ResponseResult.SUCCESS, uuid, user1.getUsername()));
-            user2Result.setResult(new ChatResponse(ResponseResult.SUCCESS, uuid, user2.getUsername()));
+            user1Result.setResult(new ChatResponse(ResponseResult.SUCCESS, uuid, user1.getUsername(), user1.getUserId()));
+            user2Result.setResult(new ChatResponse(ResponseResult.SUCCESS, uuid, user2.getUsername(), user1.getUserId()));
         } catch (Exception e) {
             logger.warn("Exception occur while checking waiting users", e);
         } finally {
