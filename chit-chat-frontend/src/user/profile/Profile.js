@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Profile.css';
 import { Link } from 'react-router-dom';
+import Emoji from './Emoji';
 
 class Profile extends Component {
     constructor(props) {
@@ -29,14 +30,13 @@ class Profile extends Component {
                             }
                         </div>
                         <div className="profile-name">
-                           <h2>{userInfo.username}</h2>
-                           <p className="profile-email">{userInfo.email}</p>
-                           <Link to={{
+                           {/* <Link to={{
                                pathname: "/setting",
                                state: {userInfo : userInfo}
-                           }}>Edit Profile</Link>
+                           }}>Edit Profile</Link> */}
                         </div>
                         <div className='options'>
+                            <Emoji label="alien" symbol="👽︎"/>
                             <div className="option-box">
                                 <h3>{userInfo.mbtiTypeInfo ? userInfo.mbtiTypeInfo : "no vote"}</h3> 
                                 {/* TODO 데이터 가져오기 */}
