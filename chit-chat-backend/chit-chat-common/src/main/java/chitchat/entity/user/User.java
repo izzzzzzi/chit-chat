@@ -3,20 +3,18 @@ package chitchat.entity.user;
 import chitchat.oauth.entity.ProviderType;
 import chitchat.oauth.entity.RoleType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Entity
 @Table(name = "USER")
 public class User {
@@ -75,9 +73,24 @@ public class User {
     @NotNull
     private LocalDateTime modifiedAt;
 
-    @Column(name = "COLOR", length = 20)
-    @Size(max = 20)
-    private String color;
+    @Column(name = "REPUTATION")
+    @Max(5)
+    private Float reputation;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JoinColumn(name = "MBTI_TYPE_INFO_SEQ")
+    private MBTITypeInfo mbtiTypeInfo;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JoinColumn(name = "ENNEAGRAM_TYPE_INFO_SEQ")
+    private EnneagramTypeInfo enneagramTypeInfo;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JoinColumn(name = "COLOR_TYPE_INFO_SEQ")
+    private ColorTypeInfo colorTypeInfo;
 
     public User(
             @NotNull @Size(max = 64) String userId,
@@ -88,10 +101,7 @@ public class User {
             @NotNull ProviderType providerType,
             @NotNull RoleType roleType,
             @NotNull LocalDateTime createdAt,
-            @NotNull LocalDateTime modifiedAt,
-            @NotNull RoleType roleType,
-            @Size(max = 20) String color,
-
+            @NotNull LocalDateTime modifiedAt
     ) {
         this.userId = userId;
         this.username = username;
@@ -103,6 +113,9 @@ public class User {
         this.roleType = roleType;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
-        this.color = "";
+        this.reputation = 0f;
+        this.mbtiTypeInfo = new MBTITypeInfo();
+        this.enneagramTypeInfo = new EnneagramTypeInfo();
+        this.colorTypeInfo = new ColorTypeInfo();
     }
 }
