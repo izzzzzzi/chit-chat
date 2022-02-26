@@ -22,16 +22,9 @@ export default {
         })
         .then(response);
     },
-    getUserProfile(response) {
-        ApiController({
-            url: 'api/v1/profile',
-            method: 'get'
-        })
-        .them(response);
-    },
     settingUserProfile(data, response, error) {
         ApiController({
-            url: '/api/v1/profile',
+            url: '/api/v1/users',
             method:'post',
             data: data
         })

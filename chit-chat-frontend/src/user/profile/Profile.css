@@ -3,7 +3,10 @@
 }
 
 .profile-info {
+    display: flex;
+    justify-content: center;
     text-align: center;
+    flex-direction: column;
 }
 
 .profile-info .profile-avatar img {
@@ -19,7 +22,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     padding: 1rem;
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Profile.css';
-import { Link } from 'react-router-dom';
 import Emoji from './Emoji';
+import { MBTI_TYPE, ENNEAGRAM_TYPE } from '../../constants/index'
 
 class Profile extends Component {
     constructor(props) {
@@ -13,6 +13,9 @@ class Profile extends Component {
 
     render() {
         const userInfo = this.state.userInfo;
+        const mbtiList = MBTI_TYPE.map((mbti) => (<li>{mbti}</li>));
+        const enneagramList = ENNEAGRAM_TYPE.map((e) => (<li>{e}</li>));
+
         return (
             <div className="profile-container">
                 <div className="container">
@@ -38,12 +41,10 @@ class Profile extends Component {
                         <div className='options'>
                             <Emoji label="alien" symbol="👽︎"/>
                             <div className="option-box">
-                                <h3>{userInfo.mbtiTypeInfo ? userInfo.mbtiTypeInfo : "no vote"}</h3> 
-                                {/* TODO 데이터 가져오기 */}
+                                {mbtiList}
                             </div>
                             <div className="option-box">
-                                <h3>{userInfo.enneagramTypeInfo ? userInfo.enneagramTypeInfo : "no vote"}</h3>
-                                {/* TODO 데이터 가져오기 */}
+                                {enneagramList}
                             </div>
                         </div>
                     </div>
