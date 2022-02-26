@@ -25,7 +25,7 @@ class App extends Component {
     super(props);
     this.state = {
       authenticated: localStorage.getItem('user') ? true : false,
-      currentUser: localStorage.getItem('user'),
+      currentUser: JSON.parse(localStorage.getItem('user')),
       // loading: true, 임시 false
       loading: false
     }
@@ -37,6 +37,7 @@ class App extends Component {
     ApiList.getCurrentUser(response => {
       localStorage.setItem('user', JSON.stringify(response.user));
       this.setState({
+        // 유저 정보 유지 
         currentUser: response.user,
         authenticated: true,
         loading: false
@@ -67,6 +68,7 @@ class App extends Component {
     const loading = this.state.loading;
     const authenticated = this.state.authenticated;
     const currentUser = this.state.currentUser;
+    console.log(currentUser);
 
     if(loading) {
       return <LoadingIndicator />

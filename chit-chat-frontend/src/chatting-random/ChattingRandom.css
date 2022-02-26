@@ -25,8 +25,7 @@ textarea:focus {
 }
 
 .chat-btn {
-  /* background-color: #f5f5f5; */
-  background-color: yellow;
+  background-color: #f5f5f5;
   display: flex;
   justify-content: right;
 }
@@ -67,6 +66,5 @@ textarea:focus {
 }
 
 .options {
-  background-color: yellow;
   padding: 1rem;
 }
