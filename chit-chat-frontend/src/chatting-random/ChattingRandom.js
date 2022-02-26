@@ -5,6 +5,7 @@ import './ChattingRandom.css';
 import { API_BASE_USER_URL, ACCESS_TOKEN } from "../constants";
 import axios from 'axios'
 import Modal from 'react-modal';
+import {ENNEAGRAM_TYPE, MBTI_TYPE} from '../constants/index';
 
 const JOIN = "Join";
 const CANCEL = "Cancel";
@@ -41,7 +42,8 @@ class ChattingRandom extends Component {
       chatRoomId: null,
       joinInterval: null,
       showModal: false,
-      senderUsername: ""
+      senderUsername: "",
+      ohterUserName: ""
     };
 
     this.handleChatMessageInput = this.handleChatMessageInput.bind(this);
@@ -68,24 +70,15 @@ class ChattingRandom extends Component {
   }
 
   handleOpenModal = (data) => {
-    console.log(data)
-    if (!data.senderUsername) {
-      console.log(data.senderUsername);
+    if (data.ohterUserName === "") {
+      // console.log("상대방은.. 채팅을 하지 않았다..");
       this.setState({showModal: false});
-<<<<<<< HEAD
-    } else if (data.senderUsername === data.currentUser.username){
-=======
-    } else if (data.senderUsername == data.currentUser.username){
->>>>>>> 938edae1820a378e0cf8bedd5ee27f6b58b258f1
-      console.log(data.senderUsername);
-      // TODO 마지막 메세지 보낸 사람 말고 상대방 아이디 불러오기,,
-      this.setState({showModal: true});
-    }
+    } else {this.setState({showModal: true})};
   }
 
   handleCloseModal = () => {
+    this.setState({ohterUserName:""});
     this.setState({showModal: false});
-    this.setState({senderUsername:""});
   }
 
   handleBtnJoin() {
@@ -116,6 +109,9 @@ class ChattingRandom extends Component {
         if (result.messageType === "CHAT") {
           this.setState({senderUsername: result.senderUsername});
           message = `${result.senderUsername} : ${result.message}\n`;
+          if (this.props.currentUser.username !== result.senderUsername){
+            this.setState({ohterUserName: result.senderUsername});
+          } 
         } else if (result.messageType === "DISCONNECTED") {
           message = ">> Disconnected user :(";
           this.disconnect();
@@ -131,10 +127,9 @@ class ChattingRandom extends Component {
       !this.state.stompClient.connected
     ) {
       const socket = new SockJS(`${API_BASE_USER_URL}/chat-websocket`);
-      // 1. SockJS를 내부에 들고 있는 client를 내어준다.
       this.setState({stompClient: Stomp.over(socket)});
       this.state.stompClient.connect(this.getHeaders(), (frame) => {
-        console.log('conencted :' + frame);
+        // console.log('conencted :' + frame);
         this.subscribeMessage();
         }
       );
@@ -149,7 +144,7 @@ class ChattingRandom extends Component {
           return;
         }
         clearInterval(this.state.joinInterval);
-        console.log(chatResponse);
+        // console.log(chatResponse);
         if (chatResponse.responseResult === "SUCCESS") {
           this.setState({
             chatRoomId: chatResponse.chatRoomId
@@ -167,7 +162,7 @@ class ChattingRandom extends Component {
     };
 
     const responseFail = (jqxhr) => {
-      clearInterval(this.state.joinInterval);
+      // clearInterval(this.state.joinInterval);
       if (jqxhr.status === 503) {
         this.updateText(
           "\n>>> Failed to connect some user :(\nPlz try again",
@@ -176,7 +171,7 @@ class ChattingRandom extends Component {
       } else {
         this.updateText(jqxhr, true);
       }
-      console.log(jqxhr);
+      // console.log(jqxhr);
     }
 
     const complete = () => {
@@ -209,15 +204,14 @@ class ChattingRandom extends Component {
       this.updateText("", false);
     })
     .catch((jqxhr) => {
-      console.log(jqxhr);
+      // console.log(jqxhr);
       alert("Error occur. please refresh");
     })
     .then(() => {
       this.disconnect();
       clearInterval(this.state.joinInterval);
-      console.log("clear intervale due to cancel : ", this.state.joinInterval);
+      // console.log("clear intervale due to cancel : ", this.state.joinInterval);
     });
-    this.handleOpenModal(this.state);
   }
 
   disconnect() {
@@ -226,8 +220,11 @@ class ChattingRandom extends Component {
       this.setState({
         stompClient: null,
         chatStatus: WAIT,
-        btnJoinText: JOIN
+        btnJoinText: JOIN,
+        showModal: true
       });
+      // console.log(this.state.ohterUserName)
+      this.handleOpenModal(this.state);
     }
   }
 
@@ -251,6 +248,10 @@ class ChattingRandom extends Component {
     }
   }
 
+  vote = () => {
+
+  }
+
   render() {
     return (
       <div>
@@ -260,8 +261,27 @@ class ChattingRandom extends Component {
             onRequestClose={this.handleCloseModal} 
             appElement={document.getElementById('root')}
             >
-            <button onClick={this.handleCloseModal}>close</button>
-            {this.state.senderUsername}님은 어떠셨나요..?
+            <div className="vote-container">
+            <button onClick={this.handleCloseModal}>X</button>
+            <h2>Vote {this.state.ohterUserName}'s personalities!</h2>
+              <div className="option-box">
+                  <input type="text" list='mbti-options'onChange={this.setMbtiType}/>
+                  <datalist id="mbti-options">
+                      {MBTI_TYPE.map((mbti,i) => {return (
+                          <option value={mbti} key={i}/>
+                      )})}
+                  </datalist>
+              </div>
+              <div className="option-box">
+              <input type="text" list='enneagram-options' onChange={this.setEnneagram}/>
+                  <datalist id="enneagram-options">
+                      {ENNEAGRAM_TYPE.map((enneagram,i) => {return (
+                          <option value={enneagram} key={i}/>
+                      )})}
+                  </datalist>
+              </div>
+              <button onClick={this.vote}>Submit</button>
+              </div>
           </Modal>
           <div>
             <textarea className="chat-main" value={this.state.chatContent} readOnly/>
