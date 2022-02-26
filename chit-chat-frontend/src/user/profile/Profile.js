@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Profile.css';
-import {ENNEAGRAM_TYPE, MBTI_TYPE} from '../../constants/index';
 import { Link } from 'react-router-dom';
 
 class Profile extends Component {
