@@ -5,9 +5,20 @@ import logo from '../img/ProfilePicture.png'
 export default function Home () {
     return(
         <div className="home-container">
+            <h1 className="home-title">CHIT CHAT HOME</h1>
             <div className="container">
-                    <img className='app-logo' src={logo} alt='logo'/>
-                <h1 className="home-title">CHIT CHAT HOME</h1>
+                <img className='graf-circle' src={logo} alt='logo'/> 
+                <div className="graf-circle"/> 
+                <div className="graf-circle"/>
+                <div className="graf-circle"/>
+                <div className="graf-circle"/>
+                <div className="graf-circle"/>
+                <div className="graf-circle"/>
+                <div className="graf-circle"/>
+                <div className="graf-circle"/>
+                <div className="graf-circle"/>
+                <div className="graf-circle"/>
+                <div className="graf-circle"/>
             </div>
         </div>        
     )
