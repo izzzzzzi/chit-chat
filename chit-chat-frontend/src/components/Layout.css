@@ -5,3 +5,9 @@
 .s-alert-close::before, .s-alert-close::after {
     width: 2px;
 }
+
+.wrapper {
+    padding-top: 60px;
+    margin: 0 auto;
+    margin-top: 2rem;
+}

@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Baloo');
+
+* {
+    box-sizing: inherit;
+}
+
+.app-wrapper {
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    width: 100%;
+    top: 0px;
+    z-index: 5;
+    background-color: #fff;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.20);
+    font-size: 2rem;
+    font-family: 'Baloo';
+    padding: 0.1rem 1rem 0;
+}
+
+.app-nav {
+    padding-right: 1rem;
+}
+
+.app-nav ul li {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+.app-nav ul li a {
+    text-decoration-line : none;
+    vertical-align: middle;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: rgba(0,0,0,0.65);
+}
+
+
+.app-nav ul li a:hover {
+    color: #0f96f6;
+}
+
+.app-nav ul li a.active {
+    color: #0f96f6;
+}
