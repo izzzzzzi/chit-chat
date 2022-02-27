@@ -6,17 +6,17 @@ import './Header.css';
 export default function AppHeader(props) {
     return (
         <div className='app-wrapper'>
-            <div>
+            <div className='app-logo'>
                 <Link to="/">Chit Chat</Link>
             </div>
             <div className='app-nav'>
                 { props.authenticated ? (
                     <ul>
                         <li>
-                            <NavLink to="/chatting-random">Chatting</NavLink>
+                            <Link to="/chatting-random">Chatting</Link>
                         </li>
                         <li>
-                            <NavLink to="/profile">Profile</NavLink>
+                            <Link to="/profile">Profile</Link>
                         </li>
                         <li>
                             <a onClick={props.onLogout}>Logout</a>
@@ -25,10 +25,10 @@ export default function AppHeader(props) {
                 ): (
                     <ul>
                         <li>
-                            <NavLink to="/chatting-random">Chatting</NavLink>
+                            <Link to="/chatting-random">Chatting</Link>
                         </li>
                         <li>
-                            <NavLink to="/login">Login</NavLink>
+                            <Link to="/login">Login</Link>
                         </li>
                     </ul>
                 )}

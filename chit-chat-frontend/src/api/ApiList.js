@@ -30,5 +30,14 @@ export default {
         })
         .then(response)
         .catch(error);
-    }
+    },
+    voteOtherUserType(data, response, error) {
+    ApiController({
+        // url: '/api/v1/',
+        method: 'post',
+        data: data,
+    })
+    .then(response)
+    .catch(error);
+},
 }

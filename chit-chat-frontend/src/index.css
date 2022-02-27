@@ -207,25 +207,3 @@ a:hover {
   margin-bottom: 10px;
 }
 
-/**
-  Or separator
-**/
-
-.or-separator {
-  border-bottom: 1px solid #eee;
-  padding: 10px 0;
-  position: relative;
-  display: block;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  font-size: 1em;    
-}
-
-.or-text {
-  position: absolute;
-  left: 46%;
-  top: 0;
-  background: #fff;
-  padding: 10px;
-  color: rgba(0,0,0,.45);
-}

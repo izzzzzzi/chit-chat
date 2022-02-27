@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from 'react-modal';
 import {ENNEAGRAM_TYPE, MBTI_TYPE} from '../constants/index';
+import ApiList from "../api/ApiList";
 
 export default function VoteModal (props) {
   const [mbtiType, setMbtiType] = useState("");
@@ -15,12 +16,24 @@ export default function VoteModal (props) {
     setEnneagram(e.target.value);
   }
 
+  // useEffect(() => {
+  //   ApiList.getCurrentUser(res => {
+  //     setCurrentUser(res.user);
+  //     // setCurrentUser(localStorage.setItem('user', JSON.stringify(res.user)));
+  //     setAuth(true);
+  //     setLoading(false);
+  //     console.log(currentUser)
+  //     if (!res) {setLoading(true)};
+  //   })
+  // }, []);
+
   // post data to server
   const vote = () => {
     const voteData = {
       mbtiType: mbtiType,
       enneagramm: enneagramm
     }
+    ApiList.voteOtherUserType(voteData);
   }
 
   return (
