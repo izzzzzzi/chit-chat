@@ -4,8 +4,7 @@ import * as Stomp from 'stomp-websocket';
 import './ChattingRandom.css';
 import { API_BASE_USER_URL, ACCESS_TOKEN } from "../constants";
 import axios from 'axios'
-import Modal from 'react-modal';
-import {ENNEAGRAM_TYPE, MBTI_TYPE} from '../constants/index';
+import VoteModal from './VoteModal';
 
 const JOIN = "Join";
 const CANCEL = "Cancel";
@@ -71,7 +70,6 @@ class ChattingRandom extends Component {
 
   handleOpenModal = (data) => {
     if (data.ohterUserName === "") {
-      // console.log("상대방은.. 채팅을 하지 않았다..");
       this.setState({showModal: false});
     } else {this.setState({showModal: true})};
   }
@@ -216,15 +214,13 @@ class ChattingRandom extends Component {
 
   disconnect() {
     if (this.state.stompClient !== null) {
+      this.handleOpenModal(this.state.ohterUserName);
       this.state.stompClient.disconnect();
       this.setState({
         stompClient: null,
         chatStatus: WAIT,
-        btnJoinText: JOIN,
-        showModal: true
+        btnJoinText: JOIN
       });
-      // console.log(this.state.ohterUserName)
-      this.handleOpenModal(this.state);
     }
   }
 
@@ -248,41 +244,14 @@ class ChattingRandom extends Component {
     }
   }
 
-  vote = () => {
-
-  }
-
   render() {
     return (
       <div>
         <div className="chatting-main-content">
-          <Modal 
-            isOpen={this.state.showModal} 
-            onRequestClose={this.handleCloseModal} 
-            appElement={document.getElementById('root')}
-            >
-            <div className="vote-container">
-            <button onClick={this.handleCloseModal}>X</button>
-            <h2>Vote {this.state.ohterUserName}'s personalities!</h2>
-              <div className="option-box">
-                  <input type="text" list='mbti-options'onChange={this.setMbtiType}/>
-                  <datalist id="mbti-options">
-                      {MBTI_TYPE.map((mbti,i) => {return (
-                          <option value={mbti} key={i}/>
-                      )})}
-                  </datalist>
-              </div>
-              <div className="option-box">
-              <input type="text" list='enneagram-options' onChange={this.setEnneagram}/>
-                  <datalist id="enneagram-options">
-                      {ENNEAGRAM_TYPE.map((enneagram,i) => {return (
-                          <option value={enneagram} key={i}/>
-                      )})}
-                  </datalist>
-              </div>
-              <button onClick={this.vote}>Submit</button>
-              </div>
-          </Modal>
+          <VoteModal 
+            ohterUserName={this.state.ohterUserName} 
+            showModal={this.state.showModal}
+            handleCloseModal={this.handleCloseModal}/>
           <div>
             <textarea className="chat-main" value={this.state.chatContent} readOnly/>
           </div>
