@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from 'react-modal';
 import {ENNEAGRAM_TYPE, MBTI_TYPE} from '../constants/index';
 
 export default function VoteModal (props) {
+  const [mbtiType, setMbtiType] = useState("");
+  const [enneagramm, setEnneagram] = useState("");
 
   console.log(props.showModal);
-  const setMbtiType = () => {
-    console.log("test")
+  const handleMbtiType = (e) => {
+    setMbtiType(e.target.value);
   }
 
-    const setEnneagram = () => {
-    console.log("test")
+  const handleEnneagram = (e) => {
+    setEnneagram(e.target.value);
   }
 
+  // post data to server
   const vote = () => {
-    console.log("vote")
+    const voteData = {
+      mbtiType: mbtiType,
+      enneagramm: enneagramm
+    }
   }
 
   return (
@@ -27,7 +33,7 @@ export default function VoteModal (props) {
       <button onClick={props.handleCloseModal}>X</button>
       <h2>Vote {props.ohterUserName}'s personalities!</h2>
         <div className="option-box">
-            <input type="text" list='mbti-options'onChange={setMbtiType}/>
+            <input type="text" list='mbti-options'onChange={handleMbtiType}/>
             <datalist id="mbti-options">
                 {MBTI_TYPE.map((mbti,i) => {return (
                     <option value={mbti} key={i}/>
@@ -35,7 +41,7 @@ export default function VoteModal (props) {
             </datalist>
         </div>
         <div className="option-box">
-        <input type="text" list='enneagram-options' onChange={setEnneagram}/>
+        <input type="text" list='enneagram-options' onChange={handleEnneagram}/>
             <datalist id="enneagram-options">
                 {ENNEAGRAM_TYPE.map((enneagram,i) => {return (
                     <option value={enneagram} key={i}/>
