@@ -64,40 +64,6 @@ class ChattingRandom extends Component {
     };
   }
 
-  handleChatMessageInput(event) {
-    this.setState({chatMessageInput: event.target.value});
-  }
-
-  handleOpenModal = (data) => {
-    if (data.ohterUserName === "") {
-      this.setState({showModal: false});
-    } else {this.setState({showModal: true})};
-  }
-
-  handleCloseModal = () => {
-    this.setState({ohterUserName:""});
-    this.setState({showModal: false});
-  }
-
-  handleBtnJoin() {
-    var type = this.state.btnJoinText;
-    if (type === JOIN) {
-      this.setState({btnJoinText: CANCEL});
-      this.join();
-    } else if (type === CANCEL) {
-      this.setState({btnJoinText: JOIN});
-      this.cancel();
-    }
-  }
-
-  updateText(message, append) {
-    if (append) {
-      this.setState({chatContent: this.state.chatContent + message})
-    } else {
-      this.setState({chatContent: message})
-    }
-  }
-
   subscribeMessage() {
     this.state.stompClient.subscribe(
       "/topic/chat/" + this.state.chatRoomId,
@@ -127,7 +93,6 @@ class ChattingRandom extends Component {
       const socket = new SockJS(`${API_BASE_USER_URL}/chat-websocket`);
       this.setState({stompClient: Stomp.over(socket)});
       this.state.stompClient.connect(this.getHeaders(), (frame) => {
-        // console.log('conencted :' + frame);
         this.subscribeMessage();
         }
       );
@@ -136,13 +101,42 @@ class ChattingRandom extends Component {
     }
   }
 
+  handleChatMessageInput(event) {
+    this.setState({chatMessageInput: event.target.value});
+  }
+
+  handleOpenModal = () => {
+    if (this.state.ohterUserName !== "" ) this.setState({showModal: true});
+  }
+
+  handleCloseModal = () => {
+    this.setState({ohterUserName:""});
+    this.setState({showModal: false});
+  }
+
+  handleBtnJoin() {
+    var type = this.state.btnJoinText;
+    if (type === JOIN) {
+      this.setState({btnJoinText: CANCEL});
+      this.join();
+    } else if (type === CANCEL) {
+      this.setState({btnJoinText: JOIN});
+      this.cancel();
+    }
+  }
+
+  updateText(message, append) {
+    if (append) {
+      this.setState({chatContent: this.state.chatContent + message})
+    } else {
+      this.setState({chatContent: message})
+    }
+  }
+
   join() {
     const responseSuccess = (chatResponse) => {
-        if (!chatResponse) {
-          return;
-        }
+        if (!chatResponse) return;
         clearInterval(this.state.joinInterval);
-        // console.log(chatResponse);
         if (chatResponse.responseResult === "SUCCESS") {
           this.setState({
             chatRoomId: chatResponse.chatRoomId
@@ -160,7 +154,7 @@ class ChattingRandom extends Component {
     };
 
     const responseFail = (jqxhr) => {
-      // clearInterval(this.state.joinInterval);
+      clearInterval(this.state.joinInterval);
       if (jqxhr.status === 503) {
         this.updateText(
           "\n>>> Failed to connect some user :(\nPlz try again",
@@ -169,7 +163,6 @@ class ChattingRandom extends Component {
       } else {
         this.updateText(jqxhr, true);
       }
-      // console.log(jqxhr);
     }
 
     const complete = () => {
@@ -193,37 +186,6 @@ class ChattingRandom extends Component {
     .then(complete);
   }
 
-  cancel() {
-    chatApiController({
-      url: '/api/user/chat-random/cancel', // TODO: have to check this url later
-      method: 'get'
-    })
-    .then(() => {
-      this.updateText("", false);
-    })
-    .catch((jqxhr) => {
-      // console.log(jqxhr);
-      alert("Error occur. please refresh");
-    })
-    .then(() => {
-      this.disconnect();
-      clearInterval(this.state.joinInterval);
-      // console.log("clear intervale due to cancel : ", this.state.joinInterval);
-    });
-  }
-
-  disconnect() {
-    if (this.state.stompClient !== null) {
-      this.handleOpenModal(this.state.ohterUserName);
-      this.state.stompClient.disconnect();
-      this.setState({
-        stompClient: null,
-        chatStatus: WAIT,
-        btnJoinText: JOIN
-      });
-    }
-  }
-
   sendMessage() {
     const message = this.state.chatMessageInput;
     if (message === "") {
@@ -241,6 +203,35 @@ class ChattingRandom extends Component {
       JSON.stringify(payload)
     );
     this.setState({chatMessageInput: ""});
+    }
+  }
+
+  cancel() {
+    chatApiController({
+      url: '/api/user/chat-random/cancel', // TODO: have to check this url later
+      method: 'get'
+    })
+    .then(() => {
+      this.updateText("", false);
+    })
+    .catch((jqxhr) => {
+      alert("Error occur. please refresh");
+    })
+    .then(() => {
+      this.disconnect();
+      clearInterval(this.state.joinInterval);
+    });
+    this.handleOpenModal();
+  }
+
+  disconnect() {
+    if (this.state.stompClient !== null) {
+      this.state.stompClient.disconnect();
+      this.setState({
+        stompClient: null,
+        chatStatus: WAIT,
+        btnJoinText: JOIN
+      });
     }
   }
 

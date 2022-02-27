@@ -23,7 +23,6 @@ export default function VoteModal (props) {
       onRequestClose={props.handleCloseModal} 
       appElement={document.getElementById('root')}
       >
-        {console.log(props.showModal)}
       <div className="vote-container">
       <button onClick={props.handleCloseModal}>X</button>
       <h2>Vote {props.ohterUserName}'s personalities!</h2>
