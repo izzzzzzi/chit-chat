@@ -1,9 +1,11 @@
 package chitchat.entity.user;
 
+import chitchat.entity.ballot.Ballot;
+import chitchat.enums.PersonalityResultType;
+import chitchat.enums.PersonalityTheoryType;
 import chitchat.oauth.entity.ProviderType;
 import chitchat.oauth.entity.RoleType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,86 +13,79 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "USER")
+@Table(name = "user")
 public class User {
     @JsonIgnore
     @Id
-    @Column(name = "USER_SEQ")
+    @Column(name = "user_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userSeq;
 
-    @Column(name = "USER_ID", length = 64, unique = true)
+    @Column(name = "user_id", length = 64, unique = true)
     @NotNull
     @Size(max = 64)
     private String userId;
 
-    @Column(name = "USERNAME", length = 100)
+    @Column(name = "username", length = 100)
     @NotNull
     @Size(max = 100)
     private String username;
 
     @JsonIgnore
-    @Column(name = "PASSWORD", length = 128)
+    @Column(name = "password", length = 128)
     @NotNull
     @Size(max = 128)
     private String password;
 
-    @Column(name = "EMAIL", length = 512, unique = true)
+    @Column(name = "email", length = 512, unique = true)
     @NotNull
     @Size(max = 512)
     private String email;
 
-    @Column(name = "EMAIL_VERIFIED_YN", length = 1)
+    @Column(name = "email_verified_yn", length = 1)
     @NotNull
     @Size(min = 1, max = 1)
     private String emailVerifiedYn;
 
-    @Column(name = "PROFILE_IMAGE_URL", length = 512)
+    @Column(name = "profile_image_url", length = 512)
     @NotNull
     @Size(max = 512)
     private String profileImageUrl;
 
-    @Column(name = "PROVIDER_TYPE", length = 20)
+    @Column(name = "provider_type", length = 20)
     @Enumerated(EnumType.STRING)
     @NotNull
     private ProviderType providerType;
 
-    @Column(name = "ROLE_TYPE", length = 20)
+    @Column(name = "role_type", length = 20)
     @Enumerated(EnumType.STRING)
     @NotNull
     private RoleType roleType;
 
-    @Column(name = "CREATED_AT")
+    @Column(name = "created_at")
     @NotNull
     private LocalDateTime createdAt;
 
-    @Column(name = "MODIFIED_AT")
+    @Column(name = "modified_at")
     @NotNull
     private LocalDateTime modifiedAt;
 
-    @Column(name = "REPUTATION")
+    @Column(name = "reputation")
     @Max(5)
     private Float reputation;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JsonManagedReference
-    @JoinColumn(name = "MBTI_TYPE_INFO_SEQ")
-    private MBTITypeInfo mbtiTypeInfo;
+    @OneToMany(mappedBy = "ballotTo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Ballot> ballotFrom;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JsonManagedReference
-    @JoinColumn(name = "ENNEAGRAM_TYPE_INFO_SEQ")
-    private EnneagramTypeInfo enneagramTypeInfo;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JsonManagedReference
-    @JoinColumn(name = "COLOR_TYPE_INFO_SEQ")
-    private ColorTypeInfo colorTypeInfo;
+    @OneToMany(mappedBy = "ballotFrom", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Ballot> ballotTo;
 
     public User(
             @NotNull @Size(max = 64) String userId,
@@ -114,8 +109,20 @@ public class User {
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
         this.reputation = 0f;
-        this.mbtiTypeInfo = new MBTITypeInfo();
-        this.enneagramTypeInfo = new EnneagramTypeInfo();
-        this.colorTypeInfo = new ColorTypeInfo();
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class DetailResponse {
+        private User user;
+        private Map<PersonalityTheoryType, BallotRecord> voteRecords;
+
+        public static User.DetailResponse from(User user, Map<PersonalityTheoryType, BallotRecord> voteRecords) {
+            return new User.DetailResponse(
+                    user,
+                    voteRecords
+            );
+        }
     }
 }

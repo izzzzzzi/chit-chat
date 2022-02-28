@@ -2,7 +2,7 @@ package chitchat.controller.auth;
 
 import chitchat.entity.auth.AuthReqModel;
 import chitchat.entity.user.UserRefreshToken;
-import chitchat.repository.user.UserRefreshTokenRepository;
+import chitchat.repository.UserRefreshTokenRepository;
 import chitchat.common.ApiResponse;
 import chitchat.config.properties.AppProperties;
 import chitchat.oauth.entity.RoleType;

@@ -1,4 +1,4 @@
-package chitchat.repository.user;
+package chitchat.repository;
 
 import chitchat.entity.user.UserRefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;

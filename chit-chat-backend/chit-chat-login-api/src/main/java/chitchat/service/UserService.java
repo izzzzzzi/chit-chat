@@ -1,7 +1,7 @@
 package chitchat.service;
 
 import chitchat.entity.user.User;
-import chitchat.repository.user.UserRepository;
+import chitchat.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +11,6 @@ public class UserService {
     private final UserRepository userRepository;
 
     public User getUser(String userId) {
-        return userRepository.findByUserId(userId);
+        return userRepository.findByUserId(userId).orElse(null);
     }
 }

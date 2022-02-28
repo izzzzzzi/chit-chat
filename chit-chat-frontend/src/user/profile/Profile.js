@@ -38,11 +38,11 @@ class Profile extends Component {
                         </div>
                         <div className='options'>
                             <div className="option-box">
-                                <h3>{userInfo.mbtiTypeInfo ? userInfo.mbtiTypeInfo : "no vote"}</h3> 
+                                {/* <h3>{userInfo.mbtiTypeInfo ? userInfo.mbtiTypeInfo : "no vote"}</h3>  */}
                                 {/* TODO 데이터 가져오기 */}
                             </div>
                             <div className="option-box">
-                                <h3>{userInfo.enneagramTypeInfo ? userInfo.enneagramTypeInfo : "no vote"}</h3>
+                                {/* <h3>{userInfo.enneagramTypeInfo ? userInfo.enneagramTypeInfo : "no vote"}</h3> */}
                                 {/* TODO 데이터 가져오기 */}
                             </div>
                         </div>

@@ -1,7 +1,7 @@
 package chitchat.oauth.service;
 
 import chitchat.entity.user.User;
-import chitchat.repository.user.UserRepository;
+import chitchat.repository.UserRepository;
 import chitchat.oauth.entity.ProviderType;
 import chitchat.oauth.entity.RoleType;
 import chitchat.oauth.entity.UserPrincipal;
@@ -43,7 +43,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         ProviderType providerType = ProviderType.valueOf(userRequest.getClientRegistration().getRegistrationId().toUpperCase());
 
         OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
-        User savedUser = userRepository.findByUserId(userInfo.getId());
+        User savedUser = userRepository.findByUserId(userInfo.getId()).orElse(null);
         if (savedUser == null) {
             savedUser = userRepository.findByEmail(userInfo.getEmail());
         }

@@ -1,7 +1,7 @@
 package chitchat.oauth.handler;
 
 import chitchat.entity.user.UserRefreshToken;
-import chitchat.repository.user.UserRefreshTokenRepository;
+import chitchat.repository.UserRefreshTokenRepository;
 import chitchat.config.properties.AppProperties;
 import chitchat.oauth.entity.ProviderType;
 import chitchat.oauth.entity.RoleType;

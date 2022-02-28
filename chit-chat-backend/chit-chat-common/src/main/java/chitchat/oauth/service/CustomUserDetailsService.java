@@ -1,7 +1,7 @@
 package chitchat.oauth.service;
 
 import chitchat.entity.user.User;
-import chitchat.repository.user.UserRepository;
+import chitchat.repository.UserRepository;
 import chitchat.oauth.entity.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +17,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserId(username);
+        User user = userRepository.findByUserId(username).orElse(null);
         if (user == null) {
             throw new UsernameNotFoundException("Can not find username.");
         }

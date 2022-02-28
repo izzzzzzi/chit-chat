@@ -1,6 +1,6 @@
 package chitchat.config.security;
 
-import chitchat.repository.user.UserRefreshTokenRepository;
+import chitchat.repository.UserRefreshTokenRepository;
 import chitchat.config.properties.AppProperties;
 import chitchat.config.properties.CorsProperties;
 import chitchat.oauth.entity.RoleType;
