@@ -3,7 +3,7 @@
     min-height: calc(100vh - 60px);
     overflow: auto;
     position: relative;
-    padding-top: 60px;
+    width: 100%;
 }
 
 .home-title {

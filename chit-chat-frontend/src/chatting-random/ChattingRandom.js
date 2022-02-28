@@ -214,7 +214,7 @@ class ChattingRandom extends Component {
             ohterUserName={this.state.ohterUserName} 
             showModal={this.state.showModal}
             handleCloseModal={this.handleCloseModal}/>
-          <div>
+          <div className="chat-main">
             <textarea className="chat-main" value={this.state.chatContent} readOnly/>
           </div>
           <div>
@@ -222,7 +222,7 @@ class ChattingRandom extends Component {
             this.state.chatStatus === WAIT ?
               (
                 <div className="chat-bottom">
-                    <button className="btn" onClick={this.handleBtnJoin}>
+                    <button className="join-btn btn" onClick={this.handleBtnJoin}>
                       {this.state.btnJoinText}
                     </button>
                 </div>
@@ -236,8 +236,8 @@ class ChattingRandom extends Component {
                     onKeyPress={(e)=> {if(e.key === 'Enter') this.sendMessage()}}
                     value={this.state.chatMessageInput}/>
                   <div className="chat-btn">
-                    <button className="join-btn" onClick={this.sendMessage}>Send</button>
-                    <button className="join-btn" onClick={this.cancel}>Cancel</button>
+                    <button className="join-btn btn" onClick={this.sendMessage}>Send</button>
+                    <button className="join-btn btn" onClick={this.cancel}>Cancel</button>
                   </div>
                 </div>
               )
