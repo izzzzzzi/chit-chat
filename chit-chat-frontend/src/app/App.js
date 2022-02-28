@@ -1,85 +1,55 @@
-import React, { Component } from 'react';
-import {
-  Route,
-  Switch
-} from 'react-router-dom';
-import PrivateRoute from '../common/PrivateRoute';
-import AppHeader from '../common/AppHeader';
+import React, { useState, useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import PrivateRoute from '../components/PrivateRoute';
+import Header from '../components/Header';
+import Layout from '../components/Layout';
+import NotFound from '../components/NotFound';
+import LoadingIndicator from '../components/LoadingIndicator';
 import Home from '../home/Home';
 import ChattingRandom from '../chatting-random/ChattingRandom';
 import Login from '../user/login/Login';
 import Profile from '../user/profile/Profile';
 import OAuth2RedirectHandler from '../user/oauth2/OAuth2RedirectHandler';
-import NotFound from '../common/NotFound';
-import LoadingIndicator from '../common/LoadingIndicator';
-import EditProfile from '../user/profile/EditProfile'
 import ApiList  from '../api/ApiList';
 import { ACCESS_TOKEN, USER } from '../constants';
 import Alert from 'react-s-alert';
-import 'react-s-alert/dist/s-alert-default.css';
-import 'react-s-alert/dist/s-alert-css-effects/slide.css';
-import './App.css';
+import VoteModal from '../chatting-random/VoteModal';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      authenticated: localStorage.getItem('user') ? true : false,
-      currentUser: JSON.parse(localStorage.getItem('user')),
-      // loading: true, 임시 false
-      loading: false
-    }
-    this.loadCurrentlyLoggedInUser = this.loadCurrentlyLoggedInUser.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-  }
+export default function App () {
+  const [loading, setLoading] = useState(false);
+  const [authenticated, setAuth] = useState(false);
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')));
+  useEffect(() => {
+    ApiList.getCurrentUser(res => {
+      console.log(currentUser);
+      setCurrentUser(res.user);
+      setAuth(true);
+      setLoading(false);
+      console.log(currentUser)
+      if (!res) {setLoading(true)};
+    })
+  }, []);
 
-  loadCurrentlyLoggedInUser() {
-    ApiList.getCurrentUser(response => {
-      localStorage.setItem('user', JSON.stringify(response.user));
-      this.setState({
-        // 유저 정보 유지 
-        currentUser: response.user,
-        authenticated: true,
-        loading: false
-      })
-      if(!response) {
-        this.setState({
-          loading: false
-        })
-      }
-    });
-  }
-
-  handleLogout() {
+  const handleLogout = (e) => {
+    e.preventDefault();
     localStorage.removeItem(USER);
     localStorage.removeItem(ACCESS_TOKEN);
-    this.setState({
-      authenticated: false,
-      currentUser: null
+    setAuth(false);
+    setCurrentUser(null);
+    Alert.success("You're safely logged out!", {
+      position: 'top-right',
+      effect: 'slide',
     });
-    Alert.success("You're safely logged out!");
   }
 
-  componentDidMount() {
-    this.loadCurrentlyLoggedInUser();
-  }
-
-  render() {
-    const loading = this.state.loading;
-    const authenticated = this.state.authenticated;
-    const currentUser = this.state.currentUser;
-    console.log(currentUser);
-
-    if(loading) {
-      return <LoadingIndicator />
-    }
-    return (
-      <div className="app">
-        <div className="app-top-box">
-          <AppHeader authenticated={authenticated} onLogout={this.handleLogout} />
-        </div>
-        <div className="app-body">
-          <Switch>
+  if(loading) { return <LoadingIndicator /> }
+  return (
+    <Layout>
+      <Header authenticated={authenticated} onLogout={handleLogout}/>
+      {/* <Alert stack={{limit: 3}} 
+          timeout = {3000}
+          position='top-right' effect='slide' offset={65} /> */}
+      <Switch>
             <Route exact path="/" component={Home}/>
             <PrivateRoute path="/profile"
                           authenticated={authenticated}
@@ -88,21 +58,20 @@ class App extends Component {
             <PrivateRoute path="/chatting-random"
                           authenticated={authenticated}
                           currentUser={currentUser}
-                          component={ChattingRandom}/>
-            <PrivateRoute path="/setting" authenticated={authenticated} currentUser={currentUser} component={EditProfile}/>              
+                          component={ChattingRandom}/>    
+            <PrivateRoute path="/voting"
+                          authenticated={authenticated}
+                          currentUser={currentUser}
+                          component={VoteModal}/>    
+            <Route path="/voting" component={VoteModal}/>         
             <Route path="/login"
               render={(props) => <Login authenticated={authenticated} {...props} />}/>
             <Route path="/oauth/redirect"
               render={(props) => <OAuth2RedirectHandler {...props} />}/>
             <Route component={NotFound}/>
           </Switch>
-        </div>
-        <Alert stack={{limit: 3}} 
-          timeout = {3000}
-          position='top-right' effect='slide' offset={65} />
-      </div>
-    );
-  }
+    </Layout>
+
+  )
 }
 
-export default App;

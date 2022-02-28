@@ -2,32 +2,10 @@ import React, { Component } from "react";
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stomp-websocket';
 import './ChattingRandom.css';
-import { API_BASE_USER_URL, ACCESS_TOKEN } from "../constants";
-import axios from 'axios'
-import Modal from 'react-modal';
-import {ENNEAGRAM_TYPE, MBTI_TYPE} from '../constants/index';
-
-const JOIN = "Join";
-const CANCEL = "Cancel";
-const WAIT = "wait";
-
-const chatApiController = axios.create({
-  baseURL: API_BASE_USER_URL,
-});
-
-chatApiController.interceptors.request.use(
-  function (config) {
-    config.headers["Content-Type"] = "application/json; charset=utf-8";
-    config.headers["Authorization"] = `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`;
-    return config;
-  }
-)
-
-chatApiController.interceptors.response.use(
-  function (response) {
-    return response.data;
-  }
-);
+import { API_BASE_USER_URL, ACCESS_TOKEN, JOIN, CANCEL, WAIT } from "../constants";
+import ApiController from '../api/ChatApiController';
+import VoteModal from './VoteModal';
+import ApiList from "../api/ApiList";
 
 class ChattingRandom extends Component {
   constructor(props) {
@@ -65,41 +43,6 @@ class ChattingRandom extends Component {
     };
   }
 
-  handleChatMessageInput(event) {
-    this.setState({chatMessageInput: event.target.value});
-  }
-
-  handleOpenModal = (data) => {
-    if (data.ohterUserName === "") {
-      // console.log("상대방은.. 채팅을 하지 않았다..");
-      this.setState({showModal: false});
-    } else {this.setState({showModal: true})};
-  }
-
-  handleCloseModal = () => {
-    this.setState({ohterUserName:""});
-    this.setState({showModal: false});
-  }
-
-  handleBtnJoin() {
-    var type = this.state.btnJoinText;
-    if (type === JOIN) {
-      this.setState({btnJoinText: CANCEL});
-      this.join();
-    } else if (type === CANCEL) {
-      this.setState({btnJoinText: JOIN});
-      this.cancel();
-    }
-  }
-
-  updateText(message, append) {
-    if (append) {
-      this.setState({chatContent: this.state.chatContent + message})
-    } else {
-      this.setState({chatContent: message})
-    }
-  }
-
   subscribeMessage() {
     this.state.stompClient.subscribe(
       "/topic/chat/" + this.state.chatRoomId,
@@ -129,7 +72,6 @@ class ChattingRandom extends Component {
       const socket = new SockJS(`${API_BASE_USER_URL}/chat-websocket`);
       this.setState({stompClient: Stomp.over(socket)});
       this.state.stompClient.connect(this.getHeaders(), (frame) => {
-        // console.log('conencted :' + frame);
         this.subscribeMessage();
         }
       );
@@ -140,11 +82,8 @@ class ChattingRandom extends Component {
 
   join() {
     const responseSuccess = (chatResponse) => {
-        if (!chatResponse) {
-          return;
-        }
+        if (!chatResponse) return;
         clearInterval(this.state.joinInterval);
-        // console.log(chatResponse);
         if (chatResponse.responseResult === "SUCCESS") {
           this.setState({
             chatRoomId: chatResponse.chatRoomId
@@ -162,7 +101,7 @@ class ChattingRandom extends Component {
     };
 
     const responseFail = (jqxhr) => {
-      // clearInterval(this.state.joinInterval);
+      clearInterval(this.state.joinInterval);
       if (jqxhr.status === 503) {
         this.updateText(
           "\n>>> Failed to connect some user :(\nPlz try again",
@@ -171,13 +110,11 @@ class ChattingRandom extends Component {
       } else {
         this.updateText(jqxhr, true);
       }
-      // console.log(jqxhr);
     }
 
     const complete = () => {
       clearInterval(this.state.joinInterval);
     };
-    // before using axios
     this.setState({btnJoinText: CANCEL});
     this.updateText("waiting anonymous user", false);
     this.setState({
@@ -186,46 +123,7 @@ class ChattingRandom extends Component {
       }, 1000)
     })
 
-    chatApiController({
-      url: '/api/user/chat-random/join', // TODO: have to check this url later
-      method: 'get'
-    })
-    .then(responseSuccess)
-    .catch(responseFail)
-    .then(complete);
-  }
-
-  cancel() {
-    chatApiController({
-      url: '/api/user/chat-random/cancel', // TODO: have to check this url later
-      method: 'get'
-    })
-    .then(() => {
-      this.updateText("", false);
-    })
-    .catch((jqxhr) => {
-      // console.log(jqxhr);
-      alert("Error occur. please refresh");
-    })
-    .then(() => {
-      this.disconnect();
-      clearInterval(this.state.joinInterval);
-      // console.log("clear intervale due to cancel : ", this.state.joinInterval);
-    });
-  }
-
-  disconnect() {
-    if (this.state.stompClient !== null) {
-      this.state.stompClient.disconnect();
-      this.setState({
-        stompClient: null,
-        chatStatus: WAIT,
-        btnJoinText: JOIN,
-        showModal: true
-      });
-      // console.log(this.state.ohterUserName)
-      this.handleOpenModal(this.state);
-    }
+    ApiList.chatConnection(responseSuccess, responseFail, complete);
   }
 
   sendMessage() {
@@ -248,42 +146,75 @@ class ChattingRandom extends Component {
     }
   }
 
-  vote = () => {
+  cancel() {
+    ApiController({
+      url: '/api/user/chat-random/cancel', // TODO: have to check this url later
+      method: 'get'
+    })
+    .then(() => {
+      this.updateText("", false);
+    })
+    .catch((jqxhr) => {
+      alert("Error occur. please refresh");
+    })
+    .then(() => {
+      this.disconnect();
+      clearInterval(this.state.joinInterval);
+    });
+  }
 
+  disconnect() {
+    if (this.state.stompClient !== null) {
+      this.handleOpenModal();
+      this.state.stompClient.disconnect();
+      this.setState({
+        stompClient: null,
+        chatStatus: WAIT,
+        btnJoinText: JOIN
+      });
+    }
+  }
+
+    handleChatMessageInput(event) {
+    this.setState({chatMessageInput: event.target.value});
+  }
+
+  handleOpenModal = () => {
+    if (this.state.ohterUserName !== "" ) this.setState({showModal: true});
+  }
+
+  handleCloseModal = () => {
+    this.setState({ohterUserName:""});
+    this.setState({showModal: false});
+  }
+
+  handleBtnJoin() {
+    var type = this.state.btnJoinText;
+    if (type === JOIN) {
+      this.setState({btnJoinText: CANCEL});
+      this.join();
+    } else if (type === CANCEL) {
+      this.setState({btnJoinText: JOIN});
+      this.cancel();
+    }
+  }
+
+  updateText(message, append) {
+    if (append) {
+      this.setState({chatContent: this.state.chatContent + message})
+    } else {
+      this.setState({chatContent: message})
+    }
   }
 
   render() {
     return (
-      <div>
         <div className="chatting-main-content">
-          <Modal 
-            isOpen={this.state.showModal} 
-            onRequestClose={this.handleCloseModal} 
-            appElement={document.getElementById('root')}
-            >
-            <div className="vote-container">
-            <button onClick={this.handleCloseModal}>X</button>
-            <h2>Vote {this.state.ohterUserName}'s personalities!</h2>
-              <div className="option-box">
-                  <input type="text" list='mbti-options'onChange={this.setMbtiType}/>
-                  <datalist id="mbti-options">
-                      {MBTI_TYPE.map((mbti,i) => {return (
-                          <option value={mbti} key={i}/>
-                      )})}
-                  </datalist>
-              </div>
-              <div className="option-box">
-              <input type="text" list='enneagram-options' onChange={this.setEnneagram}/>
-                  <datalist id="enneagram-options">
-                      {ENNEAGRAM_TYPE.map((enneagram,i) => {return (
-                          <option value={enneagram} key={i}/>
-                      )})}
-                  </datalist>
-              </div>
-              <button onClick={this.vote}>Submit</button>
-              </div>
-          </Modal>
-          <div>
+          <VoteModal 
+            ohterUserName={this.state.ohterUserName} 
+            showModal={this.state.showModal}
+            handleCloseModal={this.handleCloseModal}/>
+          <div className="chat-main">
             <textarea className="chat-main" value={this.state.chatContent} readOnly/>
           </div>
           <div>
@@ -291,7 +222,7 @@ class ChattingRandom extends Component {
             this.state.chatStatus === WAIT ?
               (
                 <div className="chat-bottom">
-                    <button className="btn" onClick={this.handleBtnJoin}>
+                    <button className="join-btn btn" onClick={this.handleBtnJoin}>
                       {this.state.btnJoinText}
                     </button>
                 </div>
@@ -305,14 +236,13 @@ class ChattingRandom extends Component {
                     onKeyPress={(e)=> {if(e.key === 'Enter') this.sendMessage()}}
                     value={this.state.chatMessageInput}/>
                   <div className="chat-btn">
-                    <button className="join-btn" onClick={this.sendMessage}>Send</button>
-                    <button className="join-btn" onClick={this.cancel}>Cancel</button>
+                    <button className="join-btn btn" onClick={this.sendMessage}>Send</button>
+                    <button className="join-btn btn" onClick={this.cancel}>Cancel</button>
                   </div>
                 </div>
               )
             }
           </div>
-        </div>
         </div>
     );
   }

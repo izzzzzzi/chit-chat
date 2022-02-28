@@ -1,56 +1,51 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './Profile.css';
-import { Link } from 'react-router-dom';
+import Emoji from './Emoji';
+import profilePicture from '../../img/ProfilePicture.png'
+import { MBTI_TYPE, ENNEAGRAM_TYPE } from '../../constants/index'
+import Layout from '../../components/Layout'
+import ProgressBar from '../../components/ProgressBar';
 
-class Profile extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            userInfo: this.props.currentUser
-        }
-    }
+export default function Profile(props) {
+    const userInfo = props.currentUser;
+    const mbtiList = MBTI_TYPE.map((mbti, i) => (<li key={i}>{mbti}</li>));
+    const enneagramList = ENNEAGRAM_TYPE.map((e, i) => (<li key={i}>{e}</li>));
 
-    render() {
-        const userInfo = this.state.userInfo;
-        return (
-            <div className="profile-container">
-                <div className="container">
-                    <div className="profile-info">
-                        <div className="profile-avatar">
-                            {
-                                userInfo.profileImageUrl ? (
-                                    <img src={userInfo.profileImageUrl} alt={userInfo.username}/>
-                                ) : (
-                                    <div className="text-avatar">
-                                        <span>{userInfo.username}
-                                        </span>
-                                    </div>
-                                )
-                            }
-                        </div>
-                        <div className="profile-name">
-                           <h2>{userInfo.username}</h2>
-                           <p className="profile-email">{userInfo.email}</p>
-                           <Link to={{
-                               pathname: "/setting",
-                               state: {userInfo : userInfo}
-                           }}>Edit Profile</Link>
-                        </div>
-                        <div className='options'>
-                            <div className="option-box">
-                                {/* <h3>{userInfo.mbtiTypeInfo ? userInfo.mbtiTypeInfo : "no vote"}</h3>  */}
-                                {/* TODO 데이터 가져오기 */}
-                            </div>
-                            <div className="option-box">
-                                {/* <h3>{userInfo.enneagramTypeInfo ? userInfo.enneagramTypeInfo : "no vote"}</h3> */}
-                                {/* TODO 데이터 가져오기 */}
-                            </div>
-                        </div>
+    const testData = [
+        { bgcolor: "rgb(75, 73, 73)", completed: 60 },
+        { bgcolor: "rgb(75, 73, 73)", completed: 30 },
+        { bgcolor: "rgb(75, 73, 73)", completed: 53 },
+    ];
+
+    return (
+        <Layout>
+                <div className='profile-avatar'>
+                    <img 
+                        src={userInfo.profileImageUrl ? userInfo.profileImageUrl : profilePicture} 
+                        alt={userInfo.username}/>
+                     <Emoji className="profile-name" label="alien" symbol="👽︎"/>
+                </div>
+            <div className='vote-text'>
+                <h2>Vote</h2>
+            </div>
+                <div className='vote-container'>
+                    <div className='options'>
+                        <ul>
+                        {testData.map((item, idx) => (
+                        <li>INTP<ProgressBar className="progress-bar" key={idx} bgcolor={item.bgcolor} completed={item.completed} /></li>
+                        ))}
+                        </ul>
+                    </div>
+                    <div className='options'>
+                        <ul>
+                        {testData.map((item, idx) => (
+                        <li>1w9<ProgressBar key={idx} bgcolor={item.bgcolor} completed={item.completed} /></li>
+                        ))}
+                        </ul>
                     </div>
                 </div>
-            </div>
-        );
-    }
+        </Layout>
+        
+    )
 }
 
-export default Profile;
