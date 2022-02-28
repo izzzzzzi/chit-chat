@@ -2,31 +2,10 @@ import React, { Component } from "react";
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stomp-websocket';
 import './ChattingRandom.css';
-import { API_BASE_USER_URL, ACCESS_TOKEN } from "../constants";
-import axios from 'axios'
+import { API_BASE_USER_URL, ACCESS_TOKEN, JOIN, CANCEL, WAIT } from "../constants";
+import ApiController from '../api/ChatApiController';
 import VoteModal from './VoteModal';
-
-const JOIN = "Join";
-const CANCEL = "Cancel";
-const WAIT = "wait";
-
-const chatApiController = axios.create({
-  baseURL: API_BASE_USER_URL,
-});
-
-chatApiController.interceptors.request.use(
-  function (config) {
-    config.headers["Content-Type"] = "application/json; charset=utf-8";
-    config.headers["Authorization"] = `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`;
-    return config;
-  }
-)
-
-chatApiController.interceptors.response.use(
-  function (response) {
-    return response.data;
-  }
-);
+import ApiList from "../api/ApiList";
 
 class ChattingRandom extends Component {
   constructor(props) {
@@ -101,38 +80,6 @@ class ChattingRandom extends Component {
     }
   }
 
-  handleChatMessageInput(event) {
-    this.setState({chatMessageInput: event.target.value});
-  }
-
-  handleOpenModal = () => {
-    if (this.state.ohterUserName !== "" ) this.setState({showModal: true});
-  }
-
-  handleCloseModal = () => {
-    this.setState({ohterUserName:""});
-    this.setState({showModal: false});
-  }
-
-  handleBtnJoin() {
-    var type = this.state.btnJoinText;
-    if (type === JOIN) {
-      this.setState({btnJoinText: CANCEL});
-      this.join();
-    } else if (type === CANCEL) {
-      this.setState({btnJoinText: JOIN});
-      this.cancel();
-    }
-  }
-
-  updateText(message, append) {
-    if (append) {
-      this.setState({chatContent: this.state.chatContent + message})
-    } else {
-      this.setState({chatContent: message})
-    }
-  }
-
   join() {
     const responseSuccess = (chatResponse) => {
         if (!chatResponse) return;
@@ -168,7 +115,6 @@ class ChattingRandom extends Component {
     const complete = () => {
       clearInterval(this.state.joinInterval);
     };
-    // before using axios
     this.setState({btnJoinText: CANCEL});
     this.updateText("waiting anonymous user", false);
     this.setState({
@@ -177,13 +123,7 @@ class ChattingRandom extends Component {
       }, 1000)
     })
 
-    chatApiController({
-      url: '/api/user/chat-random/join', // TODO: have to check this url later
-      method: 'get'
-    })
-    .then(responseSuccess)
-    .catch(responseFail)
-    .then(complete);
+    ApiList.chatConnection(responseSuccess, responseFail, complete);
   }
 
   sendMessage() {
@@ -207,7 +147,7 @@ class ChattingRandom extends Component {
   }
 
   cancel() {
-    chatApiController({
+    ApiController({
       url: '/api/user/chat-random/cancel', // TODO: have to check this url later
       method: 'get'
     })
@@ -232,6 +172,38 @@ class ChattingRandom extends Component {
         chatStatus: WAIT,
         btnJoinText: JOIN
       });
+    }
+  }
+
+    handleChatMessageInput(event) {
+    this.setState({chatMessageInput: event.target.value});
+  }
+
+  handleOpenModal = () => {
+    if (this.state.ohterUserName !== "" ) this.setState({showModal: true});
+  }
+
+  handleCloseModal = () => {
+    this.setState({ohterUserName:""});
+    this.setState({showModal: false});
+  }
+
+  handleBtnJoin() {
+    var type = this.state.btnJoinText;
+    if (type === JOIN) {
+      this.setState({btnJoinText: CANCEL});
+      this.join();
+    } else if (type === CANCEL) {
+      this.setState({btnJoinText: JOIN});
+      this.cancel();
+    }
+  }
+
+  updateText(message, append) {
+    if (append) {
+      this.setState({chatContent: this.state.chatContent + message})
+    } else {
+      this.setState({chatContent: message})
     }
   }
 

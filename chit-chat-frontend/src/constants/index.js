@@ -18,3 +18,7 @@ export const MBTI_TYPE = [
     "ISTJ", "ISFJ", "ISFP", "ISTP", "INFJ", "INTP", "INTJ", "INFP",
     "ESFP", "ESTP", "ESTJ", "ESFJ", "ENFJ", "ENFP", "ENTP", "ENTJ"
 ]
+
+export const JOIN = "Join";
+export const CANCEL = "Cancel";
+export const WAIT = "wait";
