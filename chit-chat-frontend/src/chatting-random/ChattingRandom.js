@@ -209,7 +209,6 @@ class ChattingRandom extends Component {
 
   render() {
     return (
-      <div>
         <div className="chatting-main-content">
           <VoteModal 
             ohterUserName={this.state.ohterUserName} 
@@ -244,7 +243,6 @@ class ChattingRandom extends Component {
               )
             }
           </div>
-        </div>
         </div>
     );
   }

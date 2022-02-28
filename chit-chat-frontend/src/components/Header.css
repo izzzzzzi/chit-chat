@@ -54,3 +54,13 @@
 .app-nav ul li a.active {
     color: #0f96f6;
 }
+
+@media only screen and (max-width: 610px) {
+    .app-nav {
+        display:none;
+    }
+    .app-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+}
