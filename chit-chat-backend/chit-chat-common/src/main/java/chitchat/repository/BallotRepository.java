@@ -23,7 +23,7 @@ public interface BallotRepository extends JpaRepository<Ballot, Long> {
             "FROM Ballot AS b " +
             "WHERE b.ballotTo = :user " +
             "GROUP BY b.personalityResultType " +
-            "ORDER BY b.personalityResultType DESC"
+            "ORDER BY COUNT(b.personalityResultType) DESC"
     )
     List<BallotRecord> findWhoVote(@Param("user") User user);
 }

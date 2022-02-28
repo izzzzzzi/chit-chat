@@ -13,6 +13,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -116,9 +117,9 @@ public class User {
     @AllArgsConstructor
     public static class DetailResponse {
         private User user;
-        private Map<PersonalityTheoryType, BallotRecord> voteRecords;
+        private Map<Integer, List<BallotRecord>> voteRecords;
 
-        public static User.DetailResponse from(User user, Map<PersonalityTheoryType, BallotRecord> voteRecords) {
+        public static User.DetailResponse from(User user, Map<Integer, List<BallotRecord>> voteRecords) {
             return new User.DetailResponse(
                     user,
                     voteRecords
