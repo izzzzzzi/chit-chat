@@ -2,67 +2,79 @@ import React, { useState } from "react";
 import Modal from 'react-modal';
 import {ENNEAGRAM_TYPE, MBTI_TYPE} from '../constants/index';
 import ApiList from "../api/ApiList";
+import './VoteModal.css';
+import { Select } from 'grommet';
 
 export default function VoteModal (props) {
   const [mbtiType, setMbtiType] = useState("");
   const [enneagramm, setEnneagram] = useState("");
 
-  console.log(props.showModal);
-  const handleMbtiType = (e) => {
-    setMbtiType(e.target.value);
-  }
+  const ballotFromUserId = "sampleUser"
+  // JSON.parse(localStorage.getItem('user').username);
 
-  const handleEnneagram = (e) => {
-    setEnneagram(e.target.value);
-  }
-
-  // useEffect(() => {
-  //   ApiList.getCurrentUser(res => {
-  //     setCurrentUser(res.user);
-  //     // setCurrentUser(localStorage.setItem('user', JSON.stringify(res.user)));
-  //     setAuth(true);
-  //     setLoading(false);
-  //     console.log(currentUser)
-  //     if (!res) {setLoading(true)};
-  //   })
-  // }, []);
-
-  // post data to server
-  const vote = () => {
+  const handleMbtiType = ({option}) => {
+    setMbtiType(option);
     const voteData = {
-      mbtiType: mbtiType,
-      enneagramm: enneagramm
+      ballotFromUserId: ballotFromUserId,
+      ballotToUserId: props.ohterUserName,
+      personalityResultType: mbtiType,
+    }
+    // ApiList.voteOtherUserType(voteData);
+    console.log(voteData);
+  }
+
+  const handleEnneagram = ({option}) => {
+    setEnneagram(option);
+    const voteData = {
+      ballotFromUserId: ballotFromUserId,
+      ballotToUserId: props.ohterUserName,
+      personalityResultType: enneagramm,
+    }
+    // ApiList.voteOtherUserType(voteData);
+    console.log(voteData);
+  }
+  // post data to server
+  const voting = () => {
+    const voteData = {
+      ballotFromUserId: ballotFromUserId,
+      ballotToUserId: props.ohterUserName,
+      personalityResultType: mbtiType,
     }
     ApiList.voteOtherUserType(voteData);
   }
 
+  const cancelVote = () => {
+    console.log(props)
+    props.handleCloseModal();
+  }
+
+// ENNEAGRAM_CANCEL_VOTE
+// MBTI_CANCEL_VOTE
+
   return (
-    <Modal 
-      isOpen={props.showModal} 
+    <div className="modal-container">
+     <Modal isOpen={props.showModal} 
       onRequestClose={props.handleCloseModal} 
-      appElement={document.getElementById('root')}
-      >
-      <div className="vote-container">
-      <button onClick={props.handleCloseModal}>X</button>
-      <h2>Vote {props.ohterUserName}'s personalities!</h2>
-        <div className="option-box">
-            <input type="text" list='mbti-options'onChange={handleMbtiType}/>
-            <datalist id="mbti-options">
-                {MBTI_TYPE.map((mbti,i) => {return (
-                    <option value={mbti} key={i}/>
-                )})}
-            </datalist>
+      appElement={document.getElementById('root')}>
+      <div className="option-container">
+        <span>Vote {props.ohterUserName}'s personalities!</span>
+        <div className="select-wrapper">
+          <Select className="select-box"
+            options={MBTI_TYPE.map((mbti,i)=> mbti)}
+            value={mbtiType}
+            onChange={handleMbtiType}
+          />
         </div>
-        <div className="option-box">
-        <input type="text" list='enneagram-options' onChange={handleEnneagram}/>
-            <datalist id="enneagram-options">
-                {ENNEAGRAM_TYPE.map((enneagram,i) => {return (
-                    <option value={enneagram} key={i}/>
-                )})}
-            </datalist>
+        <div className="select-wrapper">
+          <Select className="select-box"
+            options={ENNEAGRAM_TYPE.map((mbti,i)=> mbti)}
+            value={enneagramm}
+            onChange={handleEnneagram}
+          />
         </div>
-        <button onClick={vote}>Submit</button>
-        </div>
+        <button onClick={cancelVote}>cancel</button>
+      </div>
     </Modal>
+   </div>
   )
 }

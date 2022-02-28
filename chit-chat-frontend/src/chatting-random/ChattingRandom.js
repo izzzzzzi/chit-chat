@@ -161,11 +161,11 @@ class ChattingRandom extends Component {
       this.disconnect();
       clearInterval(this.state.joinInterval);
     });
-    this.handleOpenModal();
   }
 
   disconnect() {
     if (this.state.stompClient !== null) {
+      this.handleOpenModal();
       this.state.stompClient.disconnect();
       this.setState({
         stompClient: null,

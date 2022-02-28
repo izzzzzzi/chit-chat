@@ -13,6 +13,7 @@ import OAuth2RedirectHandler from '../user/oauth2/OAuth2RedirectHandler';
 import ApiList  from '../api/ApiList';
 import { ACCESS_TOKEN, USER } from '../constants';
 import Alert from 'react-s-alert';
+import VoteModal from '../chatting-random/VoteModal';
 
 export default function App () {
   const [loading, setLoading] = useState(false);
@@ -20,8 +21,8 @@ export default function App () {
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')));
   useEffect(() => {
     ApiList.getCurrentUser(res => {
+      console.log(currentUser);
       setCurrentUser(res.user);
-      // setCurrentUser(localStorage.setItem('user', JSON.stringify(res.user)));
       setAuth(true);
       setLoading(false);
       console.log(currentUser)
@@ -57,7 +58,12 @@ export default function App () {
             <PrivateRoute path="/chatting-random"
                           authenticated={authenticated}
                           currentUser={currentUser}
-                          component={ChattingRandom}/>            
+                          component={ChattingRandom}/>    
+            <PrivateRoute path="/voting"
+                          authenticated={authenticated}
+                          currentUser={currentUser}
+                          component={VoteModal}/>    
+            <Route path="/voting" component={VoteModal}/>         
             <Route path="/login"
               render={(props) => <Login authenticated={authenticated} {...props} />}/>
             <Route path="/oauth/redirect"

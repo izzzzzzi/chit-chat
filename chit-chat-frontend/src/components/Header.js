@@ -13,6 +13,9 @@ export default function AppHeader(props) {
                 { props.authenticated ? (
                     <ul>
                         <li>
+                            <Link to="/voting">Voting</Link>
+                        </li>
+                        <li>
                             <Link to="/chatting-random">Chatting</Link>
                         </li>
                         <li>

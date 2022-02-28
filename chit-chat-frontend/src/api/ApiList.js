@@ -43,7 +43,7 @@ export default {
     },
     voteOtherUserType(data, response, error) {
     UserApiController({
-        // url: '/api/v1/',
+        url: '/api/v1/users/ballot/vote',
         method: 'post',
         data: data,
     })

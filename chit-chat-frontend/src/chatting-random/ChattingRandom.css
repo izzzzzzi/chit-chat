@@ -60,20 +60,3 @@ textarea:focus {
 .join-btn {
   width: 100%;
 }
-
-.vote-container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.option-box {
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin: 0.5rem;
-}
-
-.options {
-  padding: 1rem;
-}
