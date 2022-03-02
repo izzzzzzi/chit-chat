@@ -37,8 +37,8 @@ public class UserService {
             }
             voteRecords.get(personalityTheoryTypeId).add(ballotRecord);
         }
-        User.DetailResponse userDetail = User.DetailResponse.from(user, voteRecords);
+        User.DetailResponse userResponse = User.DetailResponse.from(user, voteRecords);
 
-        return ApiResponse.success("userDetail", userDetail);
+        return ApiResponse.success("user", userResponse);
     }
 }

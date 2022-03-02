@@ -117,12 +117,30 @@ public class User {
     @Setter
     @AllArgsConstructor
     public static class DetailResponse {
-        private User user;
+        private String userId;
+        private String username;
+        private String email;
+        private String emailVerifiedYn;
+        private String profileImageUrl;
+        private ProviderType providerType;
+        private RoleType roleType;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
+        private Float reputation;
         private Map<Integer, List<BallotRecord>> voteRecords;
 
         public static User.DetailResponse from(User user, Map<Integer, List<BallotRecord>> voteRecords) {
             return new User.DetailResponse(
-                    user,
+                    user.getUserId(),
+                    user.getUsername(),
+                    user.getEmail(),
+                    user.getEmailVerifiedYn(),
+                    user.getProfileImageUrl(),
+                    user.getProviderType(),
+                    user.getRoleType(),
+                    user.getCreatedAt(),
+                    user.getModifiedAt(),
+                    user.getReputation(),
                     voteRecords
             );
         }
