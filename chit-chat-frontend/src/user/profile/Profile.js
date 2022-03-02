@@ -8,7 +8,6 @@ import ProgressBar from '../../components/ProgressBar';
 
 export default function Profile(props) {
     const userDetail = props.currentUser;
-    console.log(userDetail.voteRecords);
     const mbtiList = MBTI_TYPE.map((mbti, i) => (<li key={i}>{mbti}</li>));
     const enneagramList = ENNEAGRAM_TYPE.map((e, i) => (<li key={i}>{e}</li>));
 

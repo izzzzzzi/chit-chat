@@ -17,14 +17,15 @@ import VoteModal from '../chatting-random/VoteModal';
 
 export default function App () {
   const [loading, setLoading] = useState(false);
-  const [authenticated, setAuth] = useState(false);
-  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [authenticated, setAuth] = useState((localStorage.getItem(ACCESS_TOKEN)) ? true : false);
+  const [currentUser, setCurrentUser] = useState({});
+  // const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')));
   useEffect(() => {
     ApiList.getCurrentUser(res => {
       setCurrentUser(res.user);
       setAuth(true);
       setLoading(false);
-      if (!res) {setLoading(true); console.log(res.user)};
+      if (!res) {setLoading(true);};
     })
   }, []);
 
