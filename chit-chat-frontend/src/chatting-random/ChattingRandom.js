@@ -53,7 +53,7 @@ class ChattingRandom extends Component {
         if (result.messageType === "CHAT") {
           this.setState({senderUsername: result.senderUsername});
           message = `${result.senderUsername} : ${result.message}\n`;
-          if (this.props.currentUser.user.username !== result.senderUsername){
+          if (this.props.currentUser.username !== result.senderUsername){
             this.setState({ohterUserName: result.senderUsername});
             this.setState({ohterUserId: result.senderUserId});
           } 
@@ -135,11 +135,11 @@ class ChattingRandom extends Component {
     } else {
       var payload = {
       messageType: "CHAT",
-      senderUserId: this.props.currentUser.user.userId,
-      senderUsername: this.props.currentUser.user.username,
+      senderUserId: this.props.currentUser.userId,
+      senderUsername: this.props.currentUser.username,
       message: message,
     };
-    this.setState({senderUserId: this.props.currentUser.user.userId});
+    this.setState({senderUserId: this.props.currentUser.userId});
     this.state.stompClient.send(
       "/app/chat.message/" + this.state.chatRoomId,
       this.getHeaders(),

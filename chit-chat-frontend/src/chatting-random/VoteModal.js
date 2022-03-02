@@ -14,7 +14,7 @@ export default function VoteModal (props) {
     const voteData = {
       ballotFromUserId: props.senderUserId,
       ballotToUserId: props.ohterUserId,
-      personalityResultType: mbtiType,
+      personalityResultType: option,
     }
     ApiList.voteOtherUserType(voteData);
     console.log(voteData);
