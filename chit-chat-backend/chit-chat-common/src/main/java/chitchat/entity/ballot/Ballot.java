@@ -71,11 +71,16 @@ public class Ballot {
         private PersonalityResultType personalityResultType;
 
         public static Ballot.Response from(Ballot ballot) {
-            return new Ballot.Response(
-                    ballot.ballotFrom.getUserId(),
-                    ballot.ballotTo.getUserId(),
-                    ballot.getPersonalityResultType()
-            );
+            if (ballot == null) {
+                return null;
+            }
+            else {
+                return new Ballot.Response(
+                        ballot.ballotFrom.getUserId(),
+                        ballot.ballotTo.getUserId(),
+                        ballot.getPersonalityResultType()
+                );
+            }
         }
     }
 }
