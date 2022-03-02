@@ -35,7 +35,6 @@ class EditProfile extends Component {
     onSubmit = () => {
         this.setColor();
         const data = Object.assign({}, this.state);
-        console.log(data);
         ApiList.settingUserProfile(data);
     }
 
@@ -43,7 +42,6 @@ class EditProfile extends Component {
         const currentUser  = this.state.userInfo;
         return (
             <div className="profile-container">
-                {console.log(currentUser)}
                 <div className="container">
                     <div className="profile-info">
                         <div className="profile-avatar">

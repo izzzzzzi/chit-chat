@@ -21,12 +21,10 @@ export default function App () {
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')));
   useEffect(() => {
     ApiList.getCurrentUser(res => {
-      console.log(currentUser);
-      setCurrentUser(res.user);
+      setCurrentUser(res.userDetail);
       setAuth(true);
       setLoading(false);
-      console.log(currentUser)
-      if (!res) {setLoading(true)};
+      if (!res) {setLoading(true); console.log(res.user)};
     })
   }, []);
 

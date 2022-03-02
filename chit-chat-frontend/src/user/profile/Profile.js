@@ -7,7 +7,7 @@ import Layout from '../../components/Layout'
 import ProgressBar from '../../components/ProgressBar';
 
 export default function Profile(props) {
-    const userInfo = props.currentUser;
+    const userDetail = props.currentUser;
     const mbtiList = MBTI_TYPE.map((mbti, i) => (<li key={i}>{mbti}</li>));
     const enneagramList = ENNEAGRAM_TYPE.map((e, i) => (<li key={i}>{e}</li>));
 
@@ -21,8 +21,8 @@ export default function Profile(props) {
         <Layout>
                 <div className='profile-avatar'>
                     <img 
-                        src={userInfo.profileImageUrl ? userInfo.profileImageUrl : profilePicture} 
-                        alt={userInfo.username}/>
+                        src={userDetail.profileImageUrl ? userDetail.profileImageUrl : profilePicture} 
+                        alt={userDetail.username}/>
                      <Emoji className="profile-name" label="alien" symbol="👽︎"/>
                 </div>
             <div className='vote-text'>

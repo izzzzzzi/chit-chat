@@ -1,5 +1,6 @@
 import UserApiController from './UserApiController';
-import ChatApiController from './ChatApiController'
+import ChatApiController from './ChatApiController';
+import VoteApiController from './VoteApiController'
 
 
 // ajax : axios (callback function matching)
@@ -42,7 +43,7 @@ export default {
         .catch(error);
     },
     voteOtherUserType(data, response, error) {
-    UserApiController({
+    VoteApiController({
         url: '/api/v1/users/ballot/vote',
         method: 'post',
         data: data,
@@ -51,3 +52,4 @@ export default {
     .catch(error);
 },
 }
+

@@ -6,9 +6,6 @@ export default function OAuth2RedirectHandler(props) {
     const getUrlParameter = (name) => {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
         var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-
-        console.log(props.location.search)
-
         var results = regex.exec(props.location.search);
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };

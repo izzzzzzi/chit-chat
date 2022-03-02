@@ -9,37 +9,25 @@ export default function VoteModal (props) {
   const [mbtiType, setMbtiType] = useState("");
   const [enneagramm, setEnneagram] = useState("");
 
-  const ballotFromUserId = "sampleUser"
-  // JSON.parse(localStorage.getItem('user').username);
-
   const handleMbtiType = ({option}) => {
     setMbtiType(option);
     const voteData = {
-      ballotFromUserId: ballotFromUserId,
-      ballotToUserId: props.ohterUserName,
+      ballotFromUserId: props.senderUserId,
+      ballotToUserId: props.ohterUserId,
       personalityResultType: mbtiType,
     }
-    // ApiList.voteOtherUserType(voteData);
+    ApiList.voteOtherUserType(voteData);
     console.log(voteData);
   }
 
   const handleEnneagram = ({option}) => {
     setEnneagram(option);
     const voteData = {
-      ballotFromUserId: ballotFromUserId,
-      ballotToUserId: props.ohterUserName,
+      ballotFromUserId: props.senderUserId,
+      ballotToUserId: props.ohterUserId,
       personalityResultType: enneagramm,
     }
-    // ApiList.voteOtherUserType(voteData);
     console.log(voteData);
-  }
-  // post data to server
-  const voting = () => {
-    const voteData = {
-      ballotFromUserId: ballotFromUserId,
-      ballotToUserId: props.ohterUserName,
-      personalityResultType: mbtiType,
-    }
     ApiList.voteOtherUserType(voteData);
   }
 
