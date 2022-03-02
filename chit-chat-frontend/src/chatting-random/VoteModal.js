@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from 'react-modal';
-import {ENNEAGRAM_TYPE, MBTI_TYPE} from '../constants/index';
+import {ENNEAGRAM_TYPE, MBTI_TYPE, ENNEAGRAM_TO_REQUEST_ENUM, MBTI_TO_REQUEST_ENUM} from '../constants/index';
 import ApiList from "../api/ApiList";
 import './VoteModal.css';
 import { Select } from 'grommet';
@@ -14,7 +14,7 @@ export default function VoteModal (props) {
     const voteData = {
       ballotFromUserId: props.senderUserId,
       ballotToUserId: props.ohterUserId,
-      personalityResultType: option,
+      personalityResultType: MBTI_TO_REQUEST_ENUM[option],
     }
     ApiList.voteOtherUserType(voteData);
     console.log(voteData);
@@ -25,7 +25,7 @@ export default function VoteModal (props) {
     const voteData = {
       ballotFromUserId: props.senderUserId,
       ballotToUserId: props.ohterUserId,
-      personalityResultType: enneagramm,
+      personalityResultType: ENNEAGRAM_TO_REQUEST_ENUM[option],
     }
     console.log(voteData);
     ApiList.voteOtherUserType(voteData);
