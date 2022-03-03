@@ -62,6 +62,9 @@ export const MBTI_TO_REQUEST_ENUM = {
     'ENTJ' : 'ENTJ'
 }
 
+export const MBTI_ID = "0";
+export const ENNEAGRAM_ID = "1";
+
 export const JOIN = "Join";
 export const CANCEL = "Cancel";
 export const WAIT = "wait";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import PrivateRoute from '../components/PrivateRoute';
 import Header from '../components/Header';
 import Layout from '../components/Layout';
@@ -22,6 +22,7 @@ export default function App () {
   // const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')));
   useEffect(() => {
     ApiList.getCurrentUser(res => {
+      localStorage.setItem(USER, JSON.stringify(res.user));
       setCurrentUser(res.user);
       setAuth(true);
       setLoading(false);
@@ -70,7 +71,6 @@ export default function App () {
             <Route component={NotFound}/>
           </Switch>
     </Layout>
-
   )
 }
 
