@@ -30,14 +30,20 @@ public class UserService {
         List<BallotRecord> ballotRecords = ballotRepository.findWhoVote(user);
 
         Map<Integer, List<BallotRecord>> voteRecords = new HashMap<>();
+        Map<Integer, Long> typeTotalVoteCounts = new HashMap<>();
+
         for (BallotRecord ballotRecord : ballotRecords) {
             Integer personalityTheoryTypeId = ballotRecord.getPersonalityResultType().getPersonalityTheoryType().getId();
             if (voteRecords.containsKey(personalityTheoryTypeId) == false) {
                 voteRecords.put(personalityTheoryTypeId, new ArrayList<>());
+                typeTotalVoteCounts.put(personalityTheoryTypeId, 0L);
             }
+
             voteRecords.get(personalityTheoryTypeId).add(ballotRecord);
+            typeTotalVoteCounts.put(personalityTheoryTypeId, typeTotalVoteCounts.get(personalityTheoryTypeId) + ballotRecord.getVoteCount());
         }
-        User.DetailResponse userResponse = User.DetailResponse.from(user, voteRecords);
+
+        User.DetailResponse userResponse = User.DetailResponse.from(user, voteRecords, typeTotalVoteCounts);
 
         return ApiResponse.success("user", userResponse);
     }

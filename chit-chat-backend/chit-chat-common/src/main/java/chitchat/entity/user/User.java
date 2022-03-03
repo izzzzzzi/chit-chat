@@ -128,8 +128,13 @@ public class User {
         private LocalDateTime modifiedAt;
         private Float reputation;
         private Map<Integer, List<BallotRecord>> voteRecords;
+        private Map<Integer, Long> typeTotalVoteCounts;
 
-        public static User.DetailResponse from(User user, Map<Integer, List<BallotRecord>> voteRecords) {
+        public static User.DetailResponse from(
+                User user, Map<Integer,
+                List<BallotRecord>> voteRecords,
+                Map<Integer, Long> typeTotalVoteCounts
+        ) {
             return new User.DetailResponse(
                     user.getUserId(),
                     user.getUsername(),
@@ -141,7 +146,8 @@ public class User {
                     user.getCreatedAt(),
                     user.getModifiedAt(),
                     user.getReputation(),
-                    voteRecords
+                    voteRecords,
+                    typeTotalVoteCounts
             );
         }
     }
