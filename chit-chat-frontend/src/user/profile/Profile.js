@@ -15,17 +15,20 @@ export default function Profile(props) {
     // mbtiList = MBTI_TYPE.map((mbti, i) => (<li key={i}>{mbti}</li>));
     // const enneagramList = ENNEAGRAM_TYPE.map((e, i) => (<li key={i}>{e}</li>));
 
-      useEffect(() => {
+    useEffect(() => {
         ApiList.getCurrentUser(res => {
-        setUserDetail(res.user);
-        const data = res.user.voteRecords
-        const mbtis = data[Object.keys(data)[0]];
-        const enneagrams = data[Object.keys(data)[1]];
-        setMbtiCount(mbtis);
-        setenneagramCount(enneagrams);
-        if (!res) {console.log(res)};
+            setUserDetail(res.user);
+            console.log();
+            const data = res.user.voteRecords
+            if ("0" in data) {
+                setMbtiCount(Object.values(data["0"]));
+            }
+            if ("1" in data) {
+                setenneagramCount(Object.values(data["1"]));
+            }
+            if (!res) {console.log(res)};
         })
-        }, []);
+    }, []);
 
     const testData = [
         { bgcolor: "rgb(75, 73, 73)", completed: 60 },
@@ -48,14 +51,14 @@ export default function Profile(props) {
                     <div className='options'>
                         <ul>
                         {mbtiCount.map((item, idx) => (
-                        <li><ProgressBar className="progress-bar" key={idx} bgcolor={item.bgcolor} completed={item.completed} /></li>
+                        <li><ProgressBar className="progress-bar" key={idx} bgcolor={item.bgcolor} completed={item.voteCount} /></li>
                         ))}
                         </ul>
                     </div>
                     <div className='options'>
                         <ul>
                         {enneagramCount.map((item, idx) => (
-                        <li>{item}<ProgressBar key={idx} bgcolor={item.bgcolor} completed={item.completed} /></li>
+                        <li>{item}<ProgressBar key={idx} bgcolor={item.bgcolor} completed={item.voteCount} /></li>
                         ))}
                         </ul>
                     </div>
