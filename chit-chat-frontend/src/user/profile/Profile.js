@@ -9,8 +9,7 @@ import ApiList from '../../api/ApiList';
 
 export default function Profile(props) {
     const [userDetail, setUserDetail] = useState({});
-    // const userDetail = props.currentUser;
-    const [mbtiCount, setMbtiCount] = useState([]);
+    const [mbti, setMbti] = useState([]);
     const [enneagramCount, setenneagramCount] = useState([]);
     // mbtiList = MBTI_TYPE.map((mbti, i) => (<li key={i}>{mbti}</li>));
     // const enneagramList = ENNEAGRAM_TYPE.map((e, i) => (<li key={i}>{e}</li>));
@@ -18,13 +17,25 @@ export default function Profile(props) {
     useEffect(() => {
         ApiList.getCurrentUser(res => {
             setUserDetail(res.user);
-            console.log();
-            const data = res.user.voteRecords
+            const data = res.user.voteRecords;
             if ("0" in data) {
-                setMbtiCount(Object.values(data["0"]));
+                // 객체의 value로 이루어진 배열이 반환
+                const obj = Object.values(data["0"]);
+                setMbti(mbti => mbti.concat(obj)); 
+                console.log(mbti);
+            obj.map((value,index) => {
+                const newMbti = [];
+                newMbti[index] = (value);
+                console.log(newMbti);
+                // setMbti(mbti => mbti.concat(newMbti));
+                // setMbti(mbti => [...mbti, newMbti]);
+                console.log(mbti);
+            })
+                // const mbtiArray = Object.entries(data["0"]);
             }
             if ("1" in data) {
-                setenneagramCount(Object.values(data["1"]));
+                console.log("----");
+                // setenneagramCount(Object.values(data["1"]));
             }
             if (!res) {console.log(res)};
         })
@@ -49,11 +60,11 @@ export default function Profile(props) {
             </div>
                 <div className='vote-container'>
                     <div className='options'>
-                        <ul>
-                        {mbtiCount.map((item, idx) => (
+                        {/* <ul>
+                        {mbtiTypeName.map((item, idx) => (
                         <li><ProgressBar className="progress-bar" key={idx} bgcolor={item.bgcolor} completed={item.voteCount} /></li>
                         ))}
-                        </ul>
+                        </ul> */}
                     </div>
                     <div className='options'>
                         <ul>
