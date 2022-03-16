@@ -13,6 +13,8 @@ import chitchat.utils.CookieUtil;
 import chitchat.utils.HeaderUtil;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,6 +30,8 @@ import java.util.Date;
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     private final AppProperties appProperties;
     private final AuthTokenProvider tokenProvider;
@@ -89,14 +93,9 @@ public class AuthController {
         // access token 확인
         String accessToken = HeaderUtil.getAccessToken(request);
         AuthToken authToken = tokenProvider.convertAuthToken(accessToken);
-        if (!authToken.validate()) {
-            return ApiResponse.invalidAccessToken();
-        }
-
-        // expired access token 인지 확인
         Claims claims = authToken.getExpiredTokenClaims();
         if (claims == null) {
-            return ApiResponse.notExpiredTokenYet();
+            return ApiResponse.invalidAccessToken();
         }
 
         String userId = claims.getSubject();
@@ -108,7 +107,7 @@ public class AuthController {
                 .orElse((null));
         AuthToken authRefreshToken = tokenProvider.convertAuthToken(refreshToken);
 
-        if (authRefreshToken.validate()) {
+        if (!authRefreshToken.validate()) {
             return ApiResponse.invalidRefreshToken();
         }
 
