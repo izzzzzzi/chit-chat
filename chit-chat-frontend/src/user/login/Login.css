@@ -1,7 +1,9 @@
 .login-container {
+    margin-left: 2rem;
+    margin-right: 2rem;
     text-align: center;
     margin-top: 2rem;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
 }
 
 .social-login {
@@ -38,11 +40,6 @@
 }
 
 .social-btn.facebook img {
-    height: 24px;
-    margin-left: 3px;
-}
-
-.social-btn.github img {
     height: 24px;
     margin-left: 3px;
 }
