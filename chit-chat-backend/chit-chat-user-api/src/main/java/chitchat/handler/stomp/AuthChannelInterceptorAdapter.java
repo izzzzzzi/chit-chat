@@ -31,8 +31,6 @@ public class AuthChannelInterceptorAdapter implements ChannelInterceptor {
         final StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 
         if (StompCommand.CONNECT == accessor.getCommand()) {
-            logger.info("\n\n\nin\n\n\n");
-
             final UsernamePasswordAuthenticationToken user = webSocketAuthenticatorService.setAuthenticationOrFail(accessor);
 
             accessor.setUser(user);
