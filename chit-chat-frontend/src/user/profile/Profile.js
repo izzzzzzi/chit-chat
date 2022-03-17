@@ -22,7 +22,8 @@ export default function Profile(props) {
           src={currentUser.profileImageUrl && currentUser.profileImageUrl}
           alt={currentUser.username}
         />
-        <Emoji className="profile-name" label="alien" symbol="👽︎" />
+        {currentUser.nickname}
+        {/* { currentUser.nickname ? <Emoji className="profile-name" label="alien" symbol="👽︎" />} */}
       </div>
       <div className="vote-text">
         <h2>Vote</h2>
