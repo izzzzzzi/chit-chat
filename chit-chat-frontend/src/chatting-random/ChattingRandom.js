@@ -51,9 +51,10 @@ class ChattingRandom extends Component {
         const result = JSON.parse(resultObj.body);
         let message = "";
         if (result.messageType === "CHAT") {
+          console.log(result);
           this.setState({senderUsername: result.senderUsername});
           message = `${result.senderUsername} : ${result.message}\n`;
-          if (this.props.currentUser.username !== result.senderUsername){
+          if (this.props.currentUser.nickname !== result.senderUsername){
             this.setState({ohterUserName: result.senderUsername});
             this.setState({ohterUserId: result.senderUserId});
           } 
@@ -136,7 +137,7 @@ class ChattingRandom extends Component {
       var payload = {
       messageType: "CHAT",
       senderUserId: this.props.currentUser.userId,
-      senderUsername: this.props.currentUser.username,
+      senderUsername: this.props.currentUser.nickname,
       message: message,
     };
     this.setState({senderUserId: this.props.currentUser.userId});
