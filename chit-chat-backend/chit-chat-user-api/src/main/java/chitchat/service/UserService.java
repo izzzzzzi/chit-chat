@@ -49,7 +49,9 @@ public class UserService {
         if (nicknameStringBuilder.length() > 0) {
             nicknameStringBuilder.deleteCharAt(nicknameStringBuilder.length() - 1);
         }
-
+        else {
+            nicknameStringBuilder.append("👽");
+        }
 
         User.DetailResponse userResponse = User.DetailResponse.from(user, voteRecords, typeTotalVoteCounts, nicknameStringBuilder.toString());
 
