@@ -25,7 +25,7 @@ export const ENNEAGRAM_TO_REQUEST_ENUM = {
     '1w9' : 'ONE_WING_NONE',
     '1w2' : 'ONE_WING_TWO',
     '2w1' : 'TWO_WING_ONE',
-    '2w3' : 'TWO_WING_TRHEE',
+    '2w3' : 'TWO_WING_THREE',
     '3w2' : 'THREE_WING_TWO',
     '3w4' : 'THREE_WING_FOUR',
     '4w3' : 'FOUR_WING_THREE',
