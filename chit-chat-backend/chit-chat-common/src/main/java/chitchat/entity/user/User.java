@@ -118,6 +118,7 @@ public class User {
     @AllArgsConstructor
     public static class DetailResponse {
         private String userId;
+        private String nickname;
         private String username;
         private String email;
         private String emailVerifiedYn;
@@ -133,10 +134,12 @@ public class User {
         public static User.DetailResponse from(
                 User user, Map<Integer,
                 List<BallotRecord>> voteRecords,
-                Map<Integer, Long> typeTotalVoteCounts
+                Map<Integer, Long> typeTotalVoteCounts,
+                String nickname
         ) {
             return new User.DetailResponse(
                     user.getUserId(),
+                    nickname,
                     user.getUsername(),
                     user.getEmail(),
                     user.getEmailVerifiedYn(),

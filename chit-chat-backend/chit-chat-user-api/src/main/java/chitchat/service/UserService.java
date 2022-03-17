@@ -10,10 +10,7 @@ import chitchat.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +40,18 @@ public class UserService {
             typeTotalVoteCounts.put(personalityTheoryTypeId, typeTotalVoteCounts.get(personalityTheoryTypeId) + ballotRecord.getVoteCount());
         }
 
-        User.DetailResponse userResponse = User.DetailResponse.from(user, voteRecords, typeTotalVoteCounts);
+        // making nickname
+        StringBuilder nicknameStringBuilder = new StringBuilder("");
+        for (Map.Entry<Integer, List<BallotRecord>> elem : voteRecords.entrySet()){
+            nicknameStringBuilder.append(elem.getValue().get(0).getPersonalityResultType().getName());
+            nicknameStringBuilder.append("_");
+        }
+        if (nicknameStringBuilder.length() > 0) {
+            nicknameStringBuilder.deleteCharAt(nicknameStringBuilder.length() - 1);
+        }
+
+
+        User.DetailResponse userResponse = User.DetailResponse.from(user, voteRecords, typeTotalVoteCounts, nicknameStringBuilder.toString());
 
         return ApiResponse.success("user", userResponse);
     }
