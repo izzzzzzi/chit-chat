@@ -41,6 +41,28 @@ export const ENNEAGRAM_TO_REQUEST_ENUM = {
     '9w1' : 'NINE_WING_ONE'
 }
 
+export const RESPONSE_ENNEAGRAM_TO_ENNEAGRAM = {
+    'i don\'t know you' : 'CANCEL_ENNEAGRAM_VOTE',
+    'ONE_WING_NONE' : '1w9',
+    'ONE_WING_TWO' : '1w2',
+    'TWO_WING_ONE' : '2w1',
+    'TWO_WING_THREE' : '2w3',
+    'THREE_WING_TWO' : '3w2',
+    'THREE_WING_FOUR' : '3w4',
+    'FOUR_WING_THREE' : '4w3',
+    'FOUR_WING_FIVE' : '4w5',
+    'FIVE_WING_FOUR' : '5w4',
+    'FIVE_WING_SIX' : '5w6',
+    'SIX_WING_FIVE' : '6w5',
+    'SIX_WING_SEVEN' : '6w7',
+    'SEVEN_WING_SIX' : '7w6',
+    'SEVEN_WING_EIGHT' : '7w8',
+    'EIGHT_WING_SEVEN' : '8w7',
+    'EIGHT_WING_NINE' : '8w9',
+    'NINE_WING_EIGHT' : '9w8',
+    'NINE_WING_ONE' : '9w1'
+};
+
 export const MBTI_TO_REQUEST_ENUM = {
     'i don\'t know you' : 'CANCEL_MBTI_VOTE',
     'ISTJ' : 'ISTJ',
@@ -59,7 +81,27 @@ export const MBTI_TO_REQUEST_ENUM = {
     'ENFP' : 'ENFP',
     'ENTP' : 'ENTP',
     'ENTJ' : 'ENTJ'
-}
+};
+
+export const RESPONSE_MBTI_TO_MBTI = {
+    'CANCEL_MBTI_VOTE' : 'i don\'t know you',
+    'ISTJ' : 'ISTJ',
+    'ISFJ' : 'ISFJ',
+    'ISFP' : 'ISFP',
+    'ISTP' : 'ISTP',
+    'INFJ' : 'INFJ',
+    'INTP' : 'INTP',
+    'INTJ' : 'INTJ',
+    'INFP' : 'INFP',
+    'ESFP' : 'ESFP',
+    'ESTP' : 'ESTP',
+    'ESTJ' : 'ESTJ',
+    'ESFJ' : 'ESFJ',
+    'ENFJ' : 'ENFJ',
+    'ENFP' : 'ENFP',
+    'ENTP' : 'ENTP',
+    'ENTJ' : 'ENTJ'
+};
 
 export const MBTI_ID = "0";
 export const ENNEAGRAM_ID = "1";

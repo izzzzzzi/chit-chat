@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
 import Emoji from "./Emoji";
-import { USER, MBTI_ID, ENNEAGRAM_ID } from "../../constants/index";
+import {
+  USER,
+  MBTI_ID,
+  ENNEAGRAM_ID,
+  RESPONSE_ENNEAGRAM_TO_ENNEAGRAM,
+  RESPONSE_MBTI_TO_MBTI
+} from "../../constants/index";
 import Layout from "../../components/Layout";
 import ProgressBar from "../../components/ProgressBar";
 import ApiList from "../../api/ApiList";
@@ -34,7 +40,7 @@ export default function Profile(props) {
             {Object.keys(currentUser.typeTotalVoteCounts).includes(MBTI_ID) &&
               currentUser.voteRecords[MBTI_ID].map((item, idx) => (
                 <li>
-                  {item.personalityResultType}
+                  {RESPONSE_MBTI_TO_MBTI[item.personalityResultType]}
                   <ProgressBar
                     className="progress-bar"
                     key={idx}
@@ -50,7 +56,7 @@ export default function Profile(props) {
             {Object.keys(currentUser.typeTotalVoteCounts).includes(ENNEAGRAM_ID) &&
               currentUser.voteRecords[ENNEAGRAM_ID].map((item, idx) => (
                 <li>
-                  {item.personalityResultType}
+                  {RESPONSE_ENNEAGRAM_TO_ENNEAGRAM[item.personalityResultType]}
                   <ProgressBar
                     className="progress-bar"
                     key={idx}
