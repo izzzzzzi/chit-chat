@@ -1,5 +1,5 @@
-export const API_BASE_LOGIN_URL = 'http://localhost:8080';
-export const API_BASE_USER_URL = 'http://localhost:8081';
+export const API_BASE_LOGIN_URL = `http://${window.location.hostname}:8080`;
+export const API_BASE_USER_URL = `http://${window.location.hostname}:8081`;
 export const ACCESS_TOKEN = 'accessToken';
 export const USER = 'user';
 
