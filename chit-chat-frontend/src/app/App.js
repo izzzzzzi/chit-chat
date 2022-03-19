@@ -14,16 +14,17 @@ import ApiList  from '../api/ApiList';
 import { ACCESS_TOKEN, USER } from '../constants';
 import Alert from 'react-s-alert';
 import VoteModal from '../chatting-random/VoteModal';
+import ApiController from '../api/ApiController';
 
 export default function App () {
   const [loading, setLoading] = useState(false);
-  const [authenticated, setAuth] = useState((localStorage.getItem(ACCESS_TOKEN)) ? true : false);
+  const [authenticated, setAuth] = useState((localStorage.getItem(USER)) ? true : false);
   const [currentUser, setCurrentUser] = useState({});
   // const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')));
   useEffect(() => {
     ApiList.getCurrentUser(res => {
-      localStorage.setItem(USER, JSON.stringify(res.user));
-      setCurrentUser(res.user);
+      localStorage.setItem(USER, JSON.stringify(res.body.user));
+      setCurrentUser(res.body.user);
       setAuth(true);
       setLoading(false);
       if (!res) {setLoading(true);};
@@ -33,7 +34,7 @@ export default function App () {
   const handleLogout = (e) => {
     e.preventDefault();
     localStorage.removeItem(USER);
-    localStorage.removeItem(ACCESS_TOKEN);
+    ApiController.defaults.headers.common.Authorization = '';
     setAuth(false);
     setCurrentUser(null);
     Alert.success("You're safely logged out!", {

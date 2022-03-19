@@ -66,7 +66,8 @@ public class AuthController {
 
         long refreshTokenExpiry = appProperties.getAuth().getRefreshTokenExpiry();
         AuthToken refreshToken = tokenProvider.createAuthToken(
-                appProperties.getAuth().getTokenSecret(),
+                userId,
+                ((UserPrincipal) authentication.getPrincipal()).getRoleType().getCode(),
                 new Date(now.getTime() + refreshTokenExpiry)
         );
 
@@ -90,22 +91,14 @@ public class AuthController {
 
     @GetMapping("/refresh")
     public ApiResponse refreshToken (HttpServletRequest request, HttpServletResponse response) {
-        // access token 확인
-        String accessToken = HeaderUtil.getAccessToken(request);
-        AuthToken authToken = tokenProvider.convertAuthToken(accessToken);
-        Claims claims = authToken.getExpiredTokenClaims();
-        if (claims == null) {
-            return ApiResponse.invalidAccessToken();
-        }
-
-        String userId = claims.getSubject();
-        RoleType roleType = RoleType.of(claims.get("role", String.class));
-
         // refresh token
         String refreshToken = CookieUtil.getCookie(request, REFRESH_TOKEN)
                 .map(Cookie::getValue)
                 .orElse((null));
         AuthToken authRefreshToken = tokenProvider.convertAuthToken(refreshToken);
+        Claims claims = authRefreshToken.getTokenClaims();
+        String userId = claims.getSubject();
+        RoleType roleType = RoleType.of(claims.get("role", String.class));
 
         if (!authRefreshToken.validate()) {
             return ApiResponse.invalidRefreshToken();
@@ -132,7 +125,8 @@ public class AuthController {
             long refreshTokenExpiry = appProperties.getAuth().getRefreshTokenExpiry();
 
             authRefreshToken = tokenProvider.createAuthToken(
-                    appProperties.getAuth().getTokenSecret(),
+                    userId,
+                    roleType.getCode(),
                     new Date(now.getTime() + refreshTokenExpiry)
             );
 

@@ -85,7 +85,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         long refreshTokenExpiry = appProperties.getAuth().getRefreshTokenExpiry();
 
         AuthToken refreshToken = tokenProvider.createAuthToken(
-                appProperties.getAuth().getTokenSecret(),
+                userInfo.getId(),
+                roleType.getCode(),
                 new Date(now.getTime() + refreshTokenExpiry)
         );
 

@@ -13,7 +13,7 @@ export default function VoteModal (props) {
     setMbtiType(option);
     const voteData = {
       ballotFromUserId: props.senderUserId,
-      ballotToUserId: props.ohterUserId,
+      ballotToUserId: props.otherUserId,
       personalityResultType: MBTI_TO_REQUEST_ENUM[option],
     }
     ApiList.voteOtherUserType(voteData);
@@ -24,7 +24,7 @@ export default function VoteModal (props) {
     setEnneagram(option);
     const voteData = {
       ballotFromUserId: props.senderUserId,
-      ballotToUserId: props.ohterUserId,
+      ballotToUserId: props.otherUserId,
       personalityResultType: ENNEAGRAM_TO_REQUEST_ENUM[option],
     }
     console.log(voteData);
@@ -45,7 +45,7 @@ export default function VoteModal (props) {
       onRequestClose={props.handleCloseModal} 
       appElement={document.getElementById('root')}>
       <div className="option-container">
-        <span>Vote {props.ohterUserName}'s personalities!</span>
+        <span>Vote {props.OtherNickname}'s personalities!</span>
         <div className="select-wrapper">
           <Select className="select-box"
             options={MBTI_TYPE.map((mbti,i)=> mbti)}

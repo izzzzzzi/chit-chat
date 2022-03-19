@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stomp-websocket';
 import './ChattingRandom.css';
-import { API_BASE_USER_URL, ACCESS_TOKEN, JOIN, CANCEL, WAIT } from "../constants";
-import ApiController from '../api/ChatApiController';
+import { API_BASE_USER_URL, JOIN, CANCEL, WAIT } from "../constants";
+import ApiController from '../api/ApiController';
 import VoteModal from './VoteModal';
 import ApiList from "../api/ApiList";
 
@@ -21,8 +21,8 @@ class ChattingRandom extends Component {
       joinInterval: null,
       showModal: false,
       senderUsername: "",
-      ohterUserName: "",
-      ohterUserId: ""
+      otherNickname: "",
+      otherUserId: ""
     };
 
     this.handleChatMessageInput = this.handleChatMessageInput.bind(this);
@@ -39,7 +39,7 @@ class ChattingRandom extends Component {
 
   getHeaders() {
     return {
-      Authorization : `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+      Authorization : ApiController.defaults.headers.common.Authorization,
       chatRoomId: this.state.chatRoomId
     };
   }
@@ -54,9 +54,9 @@ class ChattingRandom extends Component {
           console.log(result);
           this.setState({senderUsername: result.senderUsername});
           message = `${result.senderUsername} : ${result.message}\n`;
-          if (this.props.currentUser.nickname !== result.senderUsername){
-            this.setState({ohterUserName: result.senderUsername});
-            this.setState({ohterUserId: result.senderUserId});
+          if (this.props.currentUser.userId !== result.senderUserId){
+            this.setState({otherNickname: result.senderUsername});
+            this.setState({otherUserId: result.senderUserId});
           } 
         } else if (result.messageType === "DISCONNECTED") {
           message = ">> Disconnected user :(";
@@ -105,6 +105,7 @@ class ChattingRandom extends Component {
 
     const responseFail = (jqxhr) => {
       clearInterval(this.state.joinInterval);
+      console.log(jqxhr);
       if (jqxhr.status === 503) {
         this.updateText(
           "\n>>> Failed to connect some user :(\nPlz try again",
@@ -152,7 +153,7 @@ class ChattingRandom extends Component {
 
   cancel() {
     ApiController({
-      url: '/api/user/chat-random/cancel', // TODO: have to check this url later
+      url: `${API_BASE_USER_URL}/api/user/chat-random/cancel`, // TODO: have to check this url later
       method: 'get'
     })
     .then(() => {
@@ -184,11 +185,11 @@ class ChattingRandom extends Component {
   }
 
   handleOpenModal = () => {
-    if (this.state.ohterUserName !== "" ) this.setState({showModal: true});
+    if (this.state.otherNickname !== "" ) this.setState({showModal: true});
   }
 
   handleCloseModal = () => {
-    this.setState({ohterUserName:""});
+    this.setState({otherNickname:""});
     this.setState({showModal: false});
   }
 
@@ -215,8 +216,8 @@ class ChattingRandom extends Component {
     return (
         <div className="chatting-main-content">
           <VoteModal 
-            ohterUserId={this.state.ohterUserId}
-            ohterUserName={this.state.ohterUserName} 
+            otherUserId={this.state.otherUserId}
+            otherNickname={this.state.otherNickname} 
             senderUserId={this.state.senderUserId}
             showModal={this.state.showModal}
             handleCloseModal={this.handleCloseModal}/>
