@@ -19,7 +19,16 @@ export default function Profile(props) {
     { bgcolor: "rgb(75, 73, 73)", completed: 53 },
   ];
 
-  const currentUser = JSON.parse(localStorage.getItem(USER));
+  let currentUser = JSON.parse(localStorage.getItem(USER));
+
+  useEffect(() => {
+    ApiList.getCurrentUser(res => {
+      localStorage.setItem(USER, JSON.stringify(res.body.user));
+      currentUser = res.body.user;
+    })
+  }, []);
+
+  
 
   return (
     <Layout>
