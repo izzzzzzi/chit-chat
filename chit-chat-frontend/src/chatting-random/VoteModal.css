@@ -1,0 +1,36 @@
+.modal-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 60px;
+  padding: 0;
+}
+
+.option-container {
+    width: 40%;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background-color: rgb(104, 104, 104);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 1rem;
+}
+
+.option-container span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.select-wrapper {
+  margin: 1em;
+}
+
+.select-box {
+  width: 100%;
+}
+

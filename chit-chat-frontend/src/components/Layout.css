@@ -1,0 +1,17 @@
+.s-alert-box {
+    min-width: 250px;
+}
+
+.s-alert-close::before, .s-alert-close::after {
+    width: 2px;
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 60px;
+    margin: 0 auto;
+}

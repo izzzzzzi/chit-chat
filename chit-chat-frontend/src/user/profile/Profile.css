@@ -1,0 +1,54 @@
+
+.profile-avatar img {
+    border: 5px solid rgb(75, 73, 73);
+    border-radius: 50%;
+    max-width: 250px;
+}
+
+.profile-avatar {
+    width: 60%;
+    margin: 0.1rem;
+    padding: 2rem;
+    background-color: rgb(104, 104, 104);
+    border-radius: 1rem;
+}
+
+.vote-container {
+    width: 60%;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background-color: rgb(104, 104, 104);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 1rem;
+}
+
+.vote-text {
+    width: 60%;
+    padding-right: 2rem;
+}
+
+.vote-text h2 {
+    border-radius: 10px;
+}
+
+.options {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 10px;
+    margin: 1rem;
+}
+
+.options ul {
+    width: 100%;
+    flex-direction: column;
+    list-style:none;
+    padding: 0;
+    margin: 0 auto;
+}
+.options li {
+    border-radius: 10%;
+}

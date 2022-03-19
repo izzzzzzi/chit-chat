@@ -1,0 +1,779 @@
+{
+  "id": 365924,
+  "mbti_profile": "Ezaki Hikaru (Kep1er)",
+  "profile_name_searchable": "ezakihikarukep1er",
+  "allow_commenting": true,
+  "allow_voting": true,
+  "user_id": 255231,
+  "contributor": "ash!!",
+  "contributor_create_date": "2021-07-28 22:19:40",
+  "contributor_pic_path": "https://lh3.googleusercontent.com/a-/AOh14GjYr33t0u_N-qVxrKym2fbSvjkw6CUUG2rAmyKIFw=s96-c",
+  "display_order": 0,
+  "edit_lock": 0,
+  "edit_lock_picture": 0,
+  "is_active": true,
+  "is_approved": true,
+  "mbti_enneagram_type": "ISFP 6w7",
+  "mbti_type": "ISFP 6w7",
+  "pdb_comment_access": true,
+  "pdb_page_owner": 0,
+  "pdb_public_access": true,
+  "wiki_description": "Ezaki Hikaru (Japanese: 江崎 ひかる; Korean: 에자키 히카루) is a Japanese trainee under Avex Artist Academy. She is a former member of +GANG. She placed seventh on Mnet's reality survival show Girls Planet 999, making her a member of the girl group Kep1er.",
+  "watch_count": 34,
+  "comment_count": 24,
+  "vote_count": 80,
+  "vote_count_enneagram": 30,
+  "vote_count_mbti": 80,
+  "total_vote_counts": 144,
+  "personality_type": "ISFP - 6w7 - so/sp - 683 - SEI - RCUAN - Phlegmatic-Sanguine",
+  "type_updated_date": "2021-12-09 07:00:13",
+  "enneagram_vote": "",
+  "enneagram_vote_id": 0,
+  "mbti_vote": "",
+  "mbti_vote_id": 0,
+  "is_watching": false,
+  "image_exists": true,
+  "profile_image_url": "https://www.personality-database.com/profile_images/365924.png",
+  "profile_image_credit": "",
+  "profile_image_credit_id": 302892,
+  "profile_image_credit_type": "0",
+  "profile_image_credit_url": "undefined",
+  "alt_subcategory": "",
+  "related_subcategories": "",
+  "cat_id": 14,
+  "category": "Music",
+  "category_is_fictional": false,
+  "sub_cat_id": 1548,
+  "subcategory": "K-Pop",
+  "subcat_link_info": {
+    "sub_cat_id": 1548,
+    "cat_id": 14,
+    "property_id": 1,
+    "subcategory": "K-Pop"
+  },
+  "related_subcat_link_info": null,
+  "related_profiles": [
+    {
+      "id": 28432,
+      "mbti_profile": "Lee Felix (Stray Kids)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/28432.png",
+      "profile_name": "Lee Felix (Stray Kids)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 4241,
+      "mbti_profile": "Suga (BTS)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/4241.png",
+      "profile_name": "Suga (BTS)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 12138,
+      "mbti_profile": "Taeyeon (SNSD)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/12138.png",
+      "profile_name": "Taeyeon (SNSD)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 12809,
+      "mbti_profile": "Mina (TWICE)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/12809.png",
+      "profile_name": "Mina (TWICE)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 12937,
+      "mbti_profile": "Kim Jisoo (BLACKPINK)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/12937.png",
+      "profile_name": "Kim Jisoo (BLACKPINK)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 28430,
+      "mbti_profile": "Lee Know (Stray Kids)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/28430.png",
+      "profile_name": "Lee Know (Stray Kids)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 20601,
+      "mbti_profile": "Son Chaeyoung (TWICE)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/20601.png",
+      "profile_name": "Son Chaeyoung (TWICE)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 20600,
+      "mbti_profile": "Tzuyu (TWICE)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/20600.png",
+      "profile_name": "Tzuyu (TWICE)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 210555,
+      "mbti_profile": "Winter (aespa)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/210555.png",
+      "profile_name": "Winter (aespa)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 12939,
+      "mbti_profile": "Jennie (BLACKPINK)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/12939.png",
+      "profile_name": "Jennie (BLACKPINK)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 24928,
+      "mbti_profile": "Jaemin (NCT)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/24928.png",
+      "profile_name": "Jaemin (NCT)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 12940,
+      "mbti_profile": "Rosé (BLACKPINK)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/12940.png",
+      "profile_name": "Rosé (BLACKPINK)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 4245,
+      "mbti_profile": "Jimin (BTS)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/4245.png",
+      "profile_name": "Jimin (BTS)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 24835,
+      "mbti_profile": "IU",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/24835.png",
+      "profile_name": "IU",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 24923,
+      "mbti_profile": "Mark Lee (NCT)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/24923.png",
+      "profile_name": "Mark Lee (NCT)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 20603,
+      "mbti_profile": "Park Jihyo (TWICE)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/20603.png",
+      "profile_name": "Park Jihyo (TWICE)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 28424,
+      "mbti_profile": "Hwang Hyunjin (Stray Kids)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/28424.png",
+      "profile_name": "Hwang Hyunjin (Stray Kids)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 4243,
+      "mbti_profile": "Jungkook (BTS)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/4243.png",
+      "profile_name": "Jungkook (BTS)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 24954,
+      "mbti_profile": "Yeonjun (TXT)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/24954.png",
+      "profile_name": "Yeonjun (TXT)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 26813,
+      "mbti_profile": "Shin Ryujin (ITZY)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/26813.png",
+      "profile_name": "Shin Ryujin (ITZY)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 24956,
+      "mbti_profile": "Taehyun (TXT)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/24956.png",
+      "profile_name": "Taehyun (TXT)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 24924,
+      "mbti_profile": "Taeyong (NCT)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/24924.png",
+      "profile_name": "Taeyong (NCT)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 24926,
+      "mbti_profile": "Jaehyun (NCT)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/24926.png",
+      "profile_name": "Jaehyun (NCT)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 4244,
+      "mbti_profile": "RM (BTS)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/4244.png",
+      "profile_name": "RM (BTS)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 10253,
+      "mbti_profile": "Irene (Red Velvet)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/10253.png",
+      "profile_name": "Irene (Red Velvet)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 152879,
+      "mbti_profile": "Jungwon (ENHYPEN)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/152879.png",
+      "profile_name": "Jungwon (ENHYPEN)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 152870,
+      "mbti_profile": "Jake (ENHYPEN)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/152870.png",
+      "profile_name": "Jake (ENHYPEN)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 4247,
+      "mbti_profile": "Taehyung \"V\" (BTS)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/4247.png",
+      "profile_name": "Taehyung \"V\" (BTS)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 4242,
+      "mbti_profile": "Jin (BTS)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/4242.png",
+      "profile_name": "Jin (BTS)",
+      "profile_subcat": "K-Pop"
+    },
+    {
+      "id": 24955,
+      "mbti_profile": "Beomgyu (TXT)",
+      "subcategory": "K-Pop",
+      "profile_image_url": "https://www.personality-database.com/profile_images/24955.png",
+      "profile_name": "Beomgyu (TXT)",
+      "profile_subcat": "K-Pop"
+    }
+  ],
+  "functions": ["Fi", "Se", "Ni", "Te"],
+  "systems": [
+    {
+      "hex_color": "#888888",
+      "id": 1,
+      "personality_type": "XXXX",
+      "personality_type_id": 0,
+      "system_name": "Four Letter",
+      "system_vote_count": 80,
+      "user_vote_type_id": 0,
+      "vote_id": 0
+    },
+    {
+      "hex_color": "#006775",
+      "id": 2,
+      "personality_type": "XXXX",
+      "personality_type_id": 0,
+      "system_name": "Enneagram",
+      "system_vote_count": 30,
+      "user_vote_type_id": 0,
+      "vote_id": 0
+    },
+    {
+      "hex_color": "#006775",
+      "id": 5,
+      "personality_type": "XXXX",
+      "personality_type_id": 0,
+      "system_name": "Instinctual Variant",
+      "system_vote_count": 8,
+      "user_vote_type_id": 0,
+      "vote_id": 0
+    },
+    {
+      "hex_color": "#006775",
+      "id": 6,
+      "personality_type": "XXXX",
+      "personality_type_id": 0,
+      "system_name": "Tritype",
+      "system_vote_count": 9,
+      "user_vote_type_id": 0,
+      "vote_id": 0
+    },
+    {
+      "hex_color": "#888888",
+      "id": 3,
+      "personality_type": "XXXX",
+      "personality_type_id": 0,
+      "system_name": "Socionics",
+      "system_vote_count": 3,
+      "user_vote_type_id": 0,
+      "vote_id": 0
+    },
+    {
+      "hex_color": "#888888",
+      "id": 9,
+      "personality_type": "XXXX",
+      "personality_type_id": 0,
+      "system_name": "Big 5 (SLOAN)",
+      "system_vote_count": 3,
+      "user_vote_type_id": 0,
+      "vote_id": 0
+    },
+    {
+      "hex_color": "#888888",
+      "id": 8,
+      "personality_type": "XXXX",
+      "personality_type_id": 0,
+      "system_name": "Attitudinal Psyche",
+      "system_vote_count": 0,
+      "user_vote_type_id": 0,
+      "vote_id": 0
+    },
+    {
+      "hex_color": "#888888",
+      "id": 7,
+      "personality_type": "XXXX",
+      "personality_type_id": 0,
+      "system_name": "Temperaments",
+      "system_vote_count": 11,
+      "user_vote_type_id": 0,
+      "vote_id": 0
+    }
+  ],
+  "breakdown_systems": {
+    "1": [
+      {
+        "myValue": "ISFP",
+        "personality_system_id": 1,
+        "personality_type": "ISFP",
+        "theCount": 46
+      },
+      {
+        "myValue": "ISTP",
+        "personality_system_id": 1,
+        "personality_type": "ISTP",
+        "theCount": 9
+      },
+      {
+        "myValue": "ISTJ",
+        "personality_system_id": 1,
+        "personality_type": "ISTJ",
+        "theCount": 8
+      },
+      {
+        "myValue": "ESTP",
+        "personality_system_id": 1,
+        "personality_type": "ESTP",
+        "theCount": 4
+      },
+      {
+        "myValue": "ENFP",
+        "personality_system_id": 1,
+        "personality_type": "ENFP",
+        "theCount": 3
+      },
+      {
+        "myValue": "ENTJ",
+        "personality_system_id": 1,
+        "personality_type": "ENTJ",
+        "theCount": 3
+      },
+      {
+        "myValue": "ESFJ",
+        "personality_system_id": 1,
+        "personality_type": "ESFJ",
+        "theCount": 2
+      },
+      {
+        "myValue": "ESFP",
+        "personality_system_id": 1,
+        "personality_type": "ESFP",
+        "theCount": 2
+      },
+      {
+        "myValue": "ESTJ",
+        "personality_system_id": 1,
+        "personality_type": "ESTJ",
+        "theCount": 1
+      },
+      {
+        "myValue": "INFP",
+        "personality_system_id": 1,
+        "personality_type": "INFP",
+        "theCount": 1
+      },
+      {
+        "myValue": "INTJ",
+        "personality_system_id": 1,
+        "personality_type": "INTJ",
+        "theCount": 1
+      }
+    ],
+    "2": [
+      {
+        "myValue": "6w7",
+        "personality_system_id": 2,
+        "personality_type": "6w7",
+        "theCount": 18
+      },
+      {
+        "myValue": "9w8",
+        "personality_system_id": 2,
+        "personality_type": "9w8",
+        "theCount": 5
+      },
+      {
+        "myValue": "4w3",
+        "personality_system_id": 2,
+        "personality_type": "4w3",
+        "theCount": 2
+      },
+      {
+        "myValue": "2w3",
+        "personality_system_id": 2,
+        "personality_type": "2w3",
+        "theCount": 1
+      },
+      {
+        "myValue": "3w2",
+        "personality_system_id": 2,
+        "personality_type": "3w2",
+        "theCount": 1
+      },
+      {
+        "myValue": "3w4",
+        "personality_system_id": 2,
+        "personality_type": "3w4",
+        "theCount": 1
+      },
+      {
+        "myValue": "5w4",
+        "personality_system_id": 2,
+        "personality_type": "5w4",
+        "theCount": 1
+      },
+      {
+        "myValue": "9w1",
+        "personality_system_id": 2,
+        "personality_type": "9w1",
+        "theCount": 1
+      }
+    ],
+    "3": [
+      {
+        "myValue": "SEI",
+        "personality_system_id": 3,
+        "personality_type": "SEI",
+        "theCount": 3
+      }
+    ],
+    "5": [
+      {
+        "myValue": "so/sp",
+        "personality_system_id": 5,
+        "personality_type": "so/sp",
+        "theCount": 3
+      },
+      {
+        "myValue": "sp/so",
+        "personality_system_id": 5,
+        "personality_type": "sp/so",
+        "theCount": 2
+      },
+      {
+        "myValue": "sp/sx",
+        "personality_system_id": 5,
+        "personality_type": "sp/sx",
+        "theCount": 2
+      },
+      {
+        "myValue": "so/sx",
+        "personality_system_id": 5,
+        "personality_type": "so/sx",
+        "theCount": 1
+      }
+    ],
+    "6": [
+      {
+        "myValue": "683",
+        "personality_system_id": 6,
+        "personality_type": "683",
+        "theCount": 3
+      },
+      {
+        "myValue": "386",
+        "personality_system_id": 6,
+        "personality_type": "386",
+        "theCount": 2
+      },
+      {
+        "myValue": "649",
+        "personality_system_id": 6,
+        "personality_type": "649",
+        "theCount": 1
+      },
+      {
+        "myValue": "936",
+        "personality_system_id": 6,
+        "personality_type": "936",
+        "theCount": 1
+      },
+      {
+        "myValue": "964",
+        "personality_system_id": 6,
+        "personality_type": "964",
+        "theCount": 1
+      },
+      {
+        "myValue": "974",
+        "personality_system_id": 6,
+        "personality_type": "974",
+        "theCount": 1
+      }
+    ],
+    "7": [
+      {
+        "myValue": "Phlegmatic-Sanguine",
+        "personality_system_id": 7,
+        "personality_type": "Phlegmatic-Sanguine",
+        "theCount": 10
+      },
+      {
+        "myValue": "Sanguine-Phlegmatic",
+        "personality_system_id": 7,
+        "personality_type": "Sanguine-Phlegmatic",
+        "theCount": 1
+      }
+    ],
+    "8": [
+      {
+        "myValue": "XXXX",
+        "personality_system_id": 0,
+        "personality_type": "XXXX",
+        "theCount": 0
+      }
+    ],
+    "9": [
+      {
+        "myValue": "RCUAN",
+        "personality_system_id": 9,
+        "personality_type": "RCUAN",
+        "theCount": 1
+      },
+      {
+        "myValue": "SCOAN",
+        "personality_system_id": 9,
+        "personality_type": "SCOAN",
+        "theCount": 1
+      },
+      {
+        "myValue": "SCUEN",
+        "personality_system_id": 9,
+        "personality_type": "SCUEN",
+        "theCount": 1
+      }
+    ]
+  },
+  "breakdown_config": {
+    "expand": {
+      "1": 3,
+      "2": 3,
+      "3": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
+    },
+    "fire": { "1": 0, "2": 0, "3": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0 }
+  },
+  "mbti_letter_stats": [
+    { "type": "I", "percentage": "81%" },
+    { "type": "S", "percentage": "90%" },
+    { "type": "F", "percentage": "68%" },
+    { "type": "P", "percentage": "81%" }
+  ],
+  "topic_info": {
+    "can_generate": false,
+    "topic": {
+      "description": "Ezaki Hikaru (Japanese: 江崎 ひかる; Korean: 에자키 히카루) is a Japanese trainee under Avex Artist Academy. She is a former member of +GANG. She placed seventh on Mnet's reality survival show Girls Planet 999, making her a member of the girl group Kep1er.",
+      "follow_count": 0,
+      "id": 281366,
+      "is_following": false,
+      "is_moderated": false,
+      "name_readable": "Ezaki Hikaru (Kep1er)",
+      "post_count": 0,
+      "source_profile_id": 365924,
+      "related_topics": [
+        {
+          "description": "Kim Tae-hyung (Korean: 김태형; born December 30, 1995), also known by his stage name V, is a South Korean singer, songwriter, record producer, and actor. He is a vocalist of the South Korean boy group BTS.",
+          "follow_count": 24,
+          "id": 3911,
+          "is_moderated": false,
+          "name_readable": "Taehyung \"V\" (BTS)",
+          "post_count": 253
+        },
+        {
+          "description": "Min Yoon-gi (Hangul: 민윤기; born March 9, 1993), better known by his stage names Suga and Agust D, is a South Korean rapper, songwriter, and record producer. Managed under Big Hit Entertainment, he debuted as a member of the South Korean pop idol group BTS in 2013. In 2016, he released his first solo mixtape Agust D. Suga has over 60 songs attributed to him by the Korea Music Copyright Association as a songwriter and producer, including Suran's \"Wine\", which won best Soul/R\u0026B track of the year at the 2017 Melon Music Awards.",
+          "follow_count": 25,
+          "id": 3905,
+          "is_moderated": false,
+          "name_readable": "Suga (BTS)",
+          "post_count": 185
+        },
+        {
+          "description": "Kim Ji-soo (Hangul: 김지수; born January 3, 1995), better known mononymously as Jisoo, is a South Korean singer. She is the visual, lead vocalist, and oldest member of BLACKPINK.",
+          "follow_count": 15,
+          "id": 11938,
+          "is_moderated": false,
+          "name_readable": "Kim Jisoo (BLACKPINK)",
+          "post_count": 129
+        },
+        {
+          "description": "Kim Seok-jin (Korean: 김석진; born on December 4, 1992), also known by his stage name Jin, is a South Korean singer, songwriter, and member of the South Korean boy band BTS since June 2013. He was scouted for the group while in university and joined Big Hit Entertainment as an actor, eventually transitioning to a Korean idol.",
+          "follow_count": 13,
+          "id": 3906,
+          "is_moderated": false,
+          "name_readable": "Jin (BTS)",
+          "post_count": 127
+        },
+        {
+          "description": "Jeon Jung-kook (Korean: 전정국; born September 1, 1997), better known mononymously as Jungkook (stylized as Jung Kook), is a South Korean singer and songwriter. He is a member of and vocalist in the South Korean boy band BTS.",
+          "follow_count": 20,
+          "id": 3907,
+          "is_moderated": false,
+          "name_readable": "Jungkook (BTS)",
+          "post_count": 123
+        },
+        {
+          "description": "Kim Nam-joon (Hangul: 김남준; born September 12, 1994), better known as RM (formerly known as Rap Monster) or Namjoon, is a South Korean rapper, songwriter, and record producer. He is the main rapper and leader of the South Korean boy group BTS, managed under Big Hit Entertainment. In 2015, he released his first solo mixtape, RM. To date, he has recorded with artists such as Wale, Warren G, Gaeko, Krizz Kaliko, MFBTY, and Primary.",
+          "follow_count": 18,
+          "id": 3908,
+          "is_moderated": false,
+          "name_readable": "RM (BTS)",
+          "post_count": 113
+        },
+        {
+          "description": "Hwang Hyunjin (Hangul: 황현진), better known as Hyunjin, is the visual, main dancer, and lead rapper of K-pop boy group Stray Kids.",
+          "follow_count": 12,
+          "id": 25616,
+          "is_moderated": false,
+          "name_readable": "Hwang Hyunjin (Stray Kids)",
+          "post_count": 70
+        },
+        {
+          "description": "Park Ji-min (Korean: 박지민; born on October 13, 1995), better known mononymously as Jimin, is a South Korean singer, songwriter, and dancer. In 2013 he debuted as a member of the South Korean boy band BTS, under the record label Big Hit Entertainment.",
+          "follow_count": 10,
+          "id": 3909,
+          "is_moderated": false,
+          "name_readable": "Jimin (BTS)",
+          "post_count": 64
+        },
+        {
+          "description": "Kang Taehyun (강태현; February 5, 2002) is a member of the South Korean boy group, TXT under Big Hit Entertainment.",
+          "follow_count": 3,
+          "id": 22459,
+          "is_moderated": false,
+          "name_readable": "Taehyun (TXT)",
+          "post_count": 35
+        },
+        {
+          "description": "Lalisa Manoban (birth name: Pranpriya Manoban, born March 27, 1997 in Bangkok, Thailand) better known by her stage name, Lisa, is a Thai rapper, singer, dancer and model, currently based in South Korea. She is the main dancer, lead rapper, sub vocalist, and maknae of BLACKPINK. And most importantly, stream Lalisa.",
+          "follow_count": 8,
+          "id": 11939,
+          "is_moderated": false,
+          "name_readable": "Lisa (BLACKPINK)",
+          "post_count": 29
+        },
+        {
+          "description": "Choi Yeonjun (Hangul: 최연준; September 13, 1999) is a member of the South Korean boyband, TXT under Bighit Entertainment.",
+          "follow_count": 7,
+          "id": 22457,
+          "is_moderated": false,
+          "name_readable": "Yeonjun (TXT)",
+          "post_count": 29
+        },
+        {
+          "description": "Lucas Wong Yuk-hei, better known by the mononym Lucas, is a Hong Kong rapper, singer, and model. He is a member of the South Korean boy group NCT, its Chinese sub-unit WayV, and formerly of SMROOKIES.",
+          "follow_count": 1,
+          "id": 22439,
+          "is_moderated": false,
+          "name_readable": "Lucas (WayV)",
+          "post_count": 25
+        },
+        {
+          "description": "Jeong Yun-o; (정윤오; born Jeong Jae-hyun; February 14, 1997) better known by his stage name Jaehyun, is a South Korean singer, rapper and actor. He is best known as a member of the South Korean boy group NCT and its sub-units NCT U and NCT 127. From 2013 until before his debut, he performed as a part of SMROOKIES.",
+          "follow_count": 4,
+          "id": 22430,
+          "is_moderated": false,
+          "name_readable": "Jaehyun (NCT)",
+          "post_count": 25
+        },
+        {
+          "description": "Shin Ryu-jin (Hangul: 신류진), better known by the mononym Ryujin (Hangul: 류진), is a South Korean idol under JYP Entertainment. She’s the main rapper, lead dance, sub vocalist, and center of the girlgroup ITZY. She previously participated in the reality survival show MIXNINE.",
+          "follow_count": 5,
+          "id": 24094,
+          "is_moderated": false,
+          "name_readable": "Shin Ryujin (ITZY)",
+          "post_count": 24
+        },
+        {
+          "description": "Kwon Ji-yong (권지용) born August 18, 1988, also known by his stage name G-Dragon (지드래곤), is a South Korean singer-songwriter, rapper, record producer, entrepreneur and fashion icon known for penning chart-topping singles and his stage presence that has garnered him the title \"King of K-pop\". From age twelve, G-Dragon trained for six years at South Korean entertainment label YG Entertainment before debuting in 2006 as a member of the hip hop boy band Big Bang, which went on to become one of the best-selling boy bands in the world.",
+          "follow_count": 0,
+          "id": 19593,
+          "is_moderated": false,
+          "name_readable": "G-Dragon (BIGBANG)",
+          "post_count": 24
+        },
+        {
+          "description": "Kim Sunwoo (김선우), better known as Sunwoo (선우) was born in Busan, South Korea on April 12, 2000. He is the main rapper, lead dancer and vocalist of the 11 member boy group THE BOYZ under Cre.ker Entertainment.",
+          "follow_count": 2,
+          "id": 35665,
+          "is_moderated": false,
+          "name_readable": "Sunwoo (The Boyz)",
+          "post_count": 23
+        }
+      ],
+      "subcategory": "K-Pop",
+      "topic_image_url": "https://www.personality-database.com/profile_images/365924.png",
+      "posts": { "posts": [] }
+    }
+  }
+}
