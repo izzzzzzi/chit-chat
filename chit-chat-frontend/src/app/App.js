@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from '../components/PrivateRoute';
 import Header from '../components/Header';
 import Layout from '../components/Layout';
@@ -11,7 +11,7 @@ import Login from '../user/login/Login';
 import Profile from '../user/profile/Profile';
 import OAuth2RedirectHandler from '../user/oauth2/OAuth2RedirectHandler';
 import ApiList  from '../api/ApiList';
-import { ACCESS_TOKEN, USER } from '../constants';
+import { USER } from '../constants';
 import Alert from 'react-s-alert';
 import VoteModal from '../chatting-random/VoteModal';
 import ApiController from '../api/ApiController';
@@ -29,6 +29,7 @@ export default function App () {
       setLoading(false);
       if (!res) {setLoading(true);};
     })
+    console.log('app.js');
   }, []);
 
   const handleLogout = (e) => {

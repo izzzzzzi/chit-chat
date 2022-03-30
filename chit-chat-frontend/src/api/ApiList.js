@@ -1,8 +1,6 @@
 import ApiController from "./ApiController";
 import {
-  API_BASE_LOGIN_URL,
-  API_BASE_USER_URL,
-  USER,
+  API_BASE_USER_URL
 } from "../constants/index";
 
 // ajax : axios (callback function matching)

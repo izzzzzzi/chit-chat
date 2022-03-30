@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Profile.css";
-import Emoji from "./Emoji";
 import {
   USER,
   MBTI_ID,
@@ -11,25 +10,22 @@ import {
 import Layout from "../../components/Layout";
 import ProgressBar from "../../components/ProgressBar";
 import ApiList from "../../api/ApiList";
+import LoadingIndicator from "../../components/LoadingIndicator";
 
 export default function Profile(props) {
-  const testData = [
-    { bgcolor: "rgb(75, 73, 73)", completed: 60 },
-    { bgcolor: "rgb(75, 73, 73)", completed: 30 },
-    { bgcolor: "rgb(75, 73, 73)", completed: 53 },
-  ];
-
+  const [loading, setLoading] = useState(true);
   let currentUser = JSON.parse(localStorage.getItem(USER));
 
   useEffect(() => {
     ApiList.getCurrentUser(res => {
       localStorage.setItem(USER, JSON.stringify(res.body.user));
       currentUser = res.body.user;
+      setLoading(false);
     })
   }, []);
 
   
-
+  if (loading) return <LoadingIndicator/>;
   return (
     <Layout>
       <div className="profile-avatar">
@@ -38,7 +34,6 @@ export default function Profile(props) {
           alt={currentUser.username}
         />
         {currentUser.nickname}
-        {/* { currentUser.nickname ? <Emoji className="profile-name" label="alien" symbol="👽︎" />} */}
       </div>
       <div className="vote-text">
         <h2>Vote</h2>
@@ -61,6 +56,7 @@ export default function Profile(props) {
           </ul>
         </div>
         <div className="options">
+          {console.log("렌더링됐다~!")}
           <ul>
             {Object.keys(currentUser.typeTotalVoteCounts).includes(ENNEAGRAM_ID) &&
               currentUser.voteRecords[ENNEAGRAM_ID].map((item, idx) => (
