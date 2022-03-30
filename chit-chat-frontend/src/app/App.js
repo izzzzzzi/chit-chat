@@ -20,7 +20,6 @@ export default function App () {
   const [loading, setLoading] = useState(false);
   const [authenticated, setAuth] = useState((localStorage.getItem(USER)) ? true : false);
   const [currentUser, setCurrentUser] = useState({});
-  // const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')));
   useEffect(() => {
     ApiList.getCurrentUser(res => {
       localStorage.setItem(USER, JSON.stringify(res.body.user));
@@ -29,7 +28,6 @@ export default function App () {
       setLoading(false);
       if (!res) {setLoading(true);};
     })
-    console.log('app.js');
   }, []);
 
   const handleLogout = (e) => {
@@ -48,9 +46,6 @@ export default function App () {
   return (
     <Layout>
       <Header authenticated={authenticated} onLogout={handleLogout}/>
-      {/* <Alert stack={{limit: 3}} 
-          timeout = {3000}
-          position='top-right' effect='slide' offset={65} /> */}
       <Switch>
             <Route exact path="/" component={Home}/>
             <PrivateRoute path="/profile"

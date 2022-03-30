@@ -56,7 +56,6 @@ export default function Profile(props) {
           </ul>
         </div>
         <div className="options">
-          {console.log("렌더링됐다~!")}
           <ul>
             {Object.keys(currentUser.typeTotalVoteCounts).includes(ENNEAGRAM_ID) &&
               currentUser.voteRecords[ENNEAGRAM_ID].map((item, idx) => (
