@@ -23,8 +23,8 @@ export default function Profile(props) {
 
   useEffect(() => {
     ApiList.getCurrentUser(res => {
-      localStorage.setItem(USER, JSON.stringify(res.body.user));
-      currentUser = res.body.user;
+      localStorage.setItem(USER, JSON.stringify(res.user));
+      currentUser = res.user;
     })
   }, []);
 

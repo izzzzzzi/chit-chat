@@ -9,6 +9,7 @@ import chitchat.exception.UserIdNotFoundError;
 import chitchat.repository.BallotRepository;
 import chitchat.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +18,7 @@ public class BallotService {
     private final UserRepository userRepository;
     private final BallotRepository ballotRepository;
 
-    public ApiResponse<Ballot.Response> vote(Ballot.Request request) {
+    public ResponseEntity<Ballot.Response> vote(Ballot.Request request) {
         User ballotFromUser = userRepository.findByUserId(request.getBallotFromUserId())
                 .orElseThrow(() -> new UserIdNotFoundError(request.getBallotFromUserId()));
         User ballotToUser = userRepository.findByUserId(request.getBallotToUserId())
@@ -41,7 +42,6 @@ public class BallotService {
         else {
             if (ballot != null) {
                 ballot.setPersonalityResultType(request.getPersonalityResultType());
-                ballot = ballotRepository.saveAndFlush(ballot);
             }
             else {
                 ballot = new Ballot(
@@ -50,10 +50,10 @@ public class BallotService {
                         ballotFromUser,
                         ballotToUser
                 );
-                ballot = ballotRepository.saveAndFlush(ballot);
             }
+            ballot = ballotRepository.saveAndFlush(ballot);
         }
 
-        return ApiResponse.success("ballot", (Ballot.Response.from(ballot)));
+        return ApiResponse.created("ballot", (Ballot.Response.from(ballot)));
     }
 }

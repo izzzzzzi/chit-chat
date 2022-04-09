@@ -44,8 +44,8 @@ instance.interceptors.response.use(
 
       console.log(data);
 
-      if (data.body) {
-        const newToken = `Bearer ${data.body.token}`;
+      if (data) {
+        const newToken = `Bearer ${data.token}`;
         instance.defaults.headers.common.Authorization = newToken;
         originalRequest.headers.Authorization = newToken;
 

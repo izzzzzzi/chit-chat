@@ -8,6 +8,7 @@ import chitchat.exception.UserIdNotFoundError;
 import chitchat.repository.BallotRepository;
 import chitchat.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -22,7 +23,7 @@ public class UserService {
         return userRepository.findByUserId(userId).orElse(null);
     }
 
-    public ApiResponse getUserDetail(String userId) {
+    public ResponseEntity<User.DetailResponse> getUserDetail(String userId) {
         User user = userRepository.findByUserId(userId).orElseThrow(() -> new UserIdNotFoundError(userId));
         List<BallotRecord> ballotRecords = ballotRepository.findWhoVote(user);
 

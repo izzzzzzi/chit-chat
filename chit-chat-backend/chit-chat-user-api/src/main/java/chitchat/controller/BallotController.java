@@ -6,6 +6,8 @@ import chitchat.service.BallotService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +19,7 @@ public class BallotController {
     private final BallotService ballotService;
 
     @PostMapping("/vote")
-    public ApiResponse vote(@RequestBody Ballot.Request request) {
+    public ResponseEntity<Ballot.Response> vote(@RequestBody Ballot.Request request) {
         return ballotService.vote(request);
     }
 }
