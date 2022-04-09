@@ -1,10 +1,10 @@
 spring:
   # 데이터 소스 설정
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_DATABASE}?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PASSWORD}
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
     hikari:
       pool-name: jpa-hikari-pool
       maximum-pool-size: 5
@@ -18,17 +18,10 @@ spring:
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-        hbm2ddl.import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
-        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
-        default_batch_fetch_size: ${chunkSize:100}
-        jdbc.batch_size: 20
-        order_inserts: true
-        order_updates: true
         format_sql: true
   # Security OAuth
   security:
@@ -82,9 +75,8 @@ spring:
           userNameAttribute: id
   config:
     activate:
-      on-profile: local
+      on-profile: test
 
-# TODO: Have to change the allowed-origins later
 # cors 설정
 cors:
   allowed-origins: '*'
@@ -104,3 +96,4 @@ app:
   oauth2:
     authorizedRedirectUris:
       - http://localhost:3000/oauth/redirect
+
