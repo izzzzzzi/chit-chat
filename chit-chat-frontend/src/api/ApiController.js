@@ -1,7 +1,7 @@
 // reference: https://velog.io/@subanggu/axios-interceptor-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0
 
 import axios from 'axios'
-import {API_BASE_LOGIN_URL, USER} from '../constants/index'
+import {API_BASE_LOGIN_URL} from '../constants/index'
 
 const instance = axios.create({
   withCredentials: true
@@ -42,14 +42,12 @@ instance.interceptors.response.use(
         }
       );
 
-      console.log(data);
-
       if (data) {
         const newToken = `Bearer ${data.token}`;
         instance.defaults.headers.common.Authorization = newToken;
         originalRequest.headers.Authorization = newToken;
 
-        // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
+        // 401로 실패했던 요청 새로운 accessToken으로 재요청
         return (await axios(originalRequest)).data;
       }
     }

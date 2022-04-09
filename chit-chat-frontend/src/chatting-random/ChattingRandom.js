@@ -10,6 +10,7 @@ import ApiList from "../api/ApiList";
 class ChattingRandom extends Component {
   constructor(props) {
     super(props);
+    console.log(this.props);
     this.state = {
       btnJoinText: JOIN,
       chatContent: "",
@@ -210,6 +211,10 @@ class ChattingRandom extends Component {
     } else {
       this.setState({chatContent: message})
     }
+  }
+
+  componentDidMount(){
+    this.cancel();
   }
 
   render() {
