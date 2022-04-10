@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -42,53 +42,53 @@ public class AuthController {
     private final static long THREE_DAYS_MSEC = 259200000;
     private final static String REFRESH_TOKEN = "refresh_token";
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            @RequestBody AuthReqModel authReqModel
-    ) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        authReqModel.getId(),
-                        authReqModel.getPassword()
-                )
-        );
-
-        String userId = authReqModel.getId();
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        Date now = new Date();
-        AuthToken accessToken = tokenProvider.createAuthToken(
-                userId,
-                ((UserPrincipal) authentication.getPrincipal()).getRoleType().getCode(),
-                new Date(now.getTime() + appProperties.getAuth().getTokenExpiry())
-        );
-
-        long refreshTokenExpiry = appProperties.getAuth().getRefreshTokenExpiry();
-        AuthToken refreshToken = tokenProvider.createAuthToken(
-                userId,
-                ((UserPrincipal) authentication.getPrincipal()).getRoleType().getCode(),
-                new Date(now.getTime() + refreshTokenExpiry)
-        );
-
-        // userId refresh token 으로 DB 확인
-        UserRefreshToken userRefreshToken = userRefreshTokenRepository.findByUserId(userId);
-        if (userRefreshToken == null) {
-            // 없는 경우 새로 등록
-            userRefreshToken = new UserRefreshToken(userId, refreshToken.getToken());
-            userRefreshTokenRepository.saveAndFlush(userRefreshToken);
-        } else {
-            // DB에 refresh 토큰 업데이트
-            userRefreshToken.setRefreshToken(refreshToken.getToken());
-        }
-
-        int cookieMaxAge = (int) refreshTokenExpiry / 60;
-        CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
-        CookieUtil.addCookie(response, REFRESH_TOKEN, refreshToken.getToken(), cookieMaxAge, true);
-
-        return ApiResponse.success("token", accessToken.getToken());
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<String> login(
+//            HttpServletRequest request,
+//            HttpServletResponse response,
+//            @RequestBody AuthReqModel authReqModel
+//    ) {
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        authReqModel.getId(),
+//                        authReqModel.getPassword()
+//                )
+//        );
+//
+//        String userId = authReqModel.getId();
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//        Date now = new Date();
+//        AuthToken accessToken = tokenProvider.createAuthToken(
+//                userId,
+//                ((UserPrincipal) authentication.getPrincipal()).getRoleType().getCode(),
+//                new Date(now.getTime() + appProperties.getAuth().getTokenExpiry())
+//        );
+//
+//        long refreshTokenExpiry = appProperties.getAuth().getRefreshTokenExpiry();
+//        AuthToken refreshToken = tokenProvider.createAuthToken(
+//                userId,
+//                ((UserPrincipal) authentication.getPrincipal()).getRoleType().getCode(),
+//                new Date(now.getTime() + refreshTokenExpiry)
+//        );
+//
+//        // userId refresh token 으로 DB 확인
+//        UserRefreshToken userRefreshToken = userRefreshTokenRepository.findByUserId(userId);
+//        if (userRefreshToken == null) {
+//            // 없는 경우 새로 등록
+//            userRefreshToken = new UserRefreshToken(userId, refreshToken.getToken());
+//            userRefreshTokenRepository.saveAndFlush(userRefreshToken);
+//        } else {
+//            // DB에 refresh 토큰 업데이트
+//            userRefreshToken.setRefreshToken(refreshToken.getToken());
+//        }
+//
+//        int cookieMaxAge = (int) refreshTokenExpiry / 60;
+//        CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
+//        CookieUtil.addCookie(response, REFRESH_TOKEN, refreshToken.getToken(), cookieMaxAge, true);
+//
+//        return ApiResponse.success("token", accessToken.getToken());
+//    }
 
     @GetMapping("/refresh")
     public ResponseEntity refreshToken (HttpServletRequest request, HttpServletResponse response) {

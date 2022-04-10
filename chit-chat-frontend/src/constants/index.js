@@ -1,9 +1,9 @@
-export const API_BASE_LOGIN_URL = `http://${window.location.hostname}:8080`;
-export const API_BASE_USER_URL = `http://${window.location.hostname}:8081`;
+export const API_BASE_LOGIN_URL = `http://${window.location.hostname}/login-api`;
+export const API_BASE_USER_URL = `http://${window.location.hostname}/user-api`;
 export const ACCESS_TOKEN = 'accessToken';
 export const USER = 'user';
 
-export const OAUTH2_REDIRECT_URI = `http://${window.location.hostname}:3000/oauth/redirect`
+export const OAUTH2_REDIRECT_URI = `http://${window.location.hostname}/oauth/redirect`
 
 export const GOOGLE_AUTH_URL = API_BASE_LOGIN_URL + '/oauth2/authorization/google?redirect_uri=' + OAUTH2_REDIRECT_URI;
 export const FACEBOOK_AUTH_URL = API_BASE_LOGIN_URL + '/oauth2/authorization/facebook?redirect_uri=' + OAUTH2_REDIRECT_URI;
@@ -21,7 +21,7 @@ export const MBTI_TYPE = [
 
 export const ENNEAGRAM_TO_REQUEST_ENUM = {
     'i don\'t know you' : 'CANCEL_ENNEAGRAM_VOTE',
-    '1w9' : 'ONE_WING_NONE',
+    '1w9' : 'ONE_WING_NINE',
     '1w2' : 'ONE_WING_TWO',
     '2w1' : 'TWO_WING_ONE',
     '2w3' : 'TWO_WING_THREE',
@@ -43,7 +43,7 @@ export const ENNEAGRAM_TO_REQUEST_ENUM = {
 
 export const RESPONSE_ENNEAGRAM_TO_ENNEAGRAM = {
     'i don\'t know you' : 'CANCEL_ENNEAGRAM_VOTE',
-    'ONE_WING_NONE' : '1w9',
+    'ONE_WING_NINE' : '1w9',
     'ONE_WING_TWO' : '1w2',
     'TWO_WING_ONE' : '2w1',
     'TWO_WING_THREE' : '2w3',

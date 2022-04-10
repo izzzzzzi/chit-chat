@@ -28,7 +28,7 @@ import org.springframework.web.context.request.async.DeferredResult;
  * @GitHub : https://github.com/zacscoding
  */
 @RestController
-@RequestMapping("/api/user/chat-random")
+@RequestMapping("/chat-random")
 @RequiredArgsConstructor
 public class ChatController {
 

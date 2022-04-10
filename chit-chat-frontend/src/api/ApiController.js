@@ -34,7 +34,7 @@ instance.interceptors.response.use(
       // token refresh 요청
       axios.defaults.withCredentials = true;
       const { data } = await axios.get(
-        `${API_BASE_LOGIN_URL}/api/v1/auth/refresh`,
+        `${API_BASE_LOGIN_URL}/auth/refresh`,
         {
           headers: {
             Authorization: instance.defaults.headers.Authorization

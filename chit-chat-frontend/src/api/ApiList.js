@@ -1,5 +1,6 @@
 import ApiController from "./ApiController";
 import {
+  API_BASE_LOGIN_URL,
   API_BASE_USER_URL
 } from "../constants/index";
 
@@ -10,7 +11,7 @@ import {
 export default {
   chatConnection(reponse, error, complete) {
     ApiController({
-      url: `${API_BASE_USER_URL}/api/user/chat-random/join`,
+      url: `${API_BASE_USER_URL}/chat-random/join`,
       method: "get",
     })
     .then(reponse)
@@ -19,7 +20,7 @@ export default {
   },
   login(data, response, error) {
     ApiController({
-      url: `${API_BASE_USER_URL}/api/v1/auth/login`,
+      url: `${API_BASE_LOGIN_URL}/login`,
       method: "post",
       data: data,
     })
@@ -28,14 +29,14 @@ export default {
   },
   getCurrentUser(response) {
     ApiController({
-      url: `${API_BASE_USER_URL}/api/v1/users`,
+      url: `${API_BASE_USER_URL}/user`,
       method: "get",
     })
     .then(response);
   },
   settingUserProfile(data, response, error) {
     ApiController({
-      url: `${API_BASE_USER_URL}/api/v1/users`,
+      url: `${API_BASE_USER_URL}/user`,
       method: "post",
       data: data,
     })
@@ -44,7 +45,7 @@ export default {
   },
   voteOtherUserType(data, response, error) {
     ApiController({
-      url: `${API_BASE_USER_URL}/api/v1/users/ballot/vote`,
+      url: `${API_BASE_USER_URL}/ballot/vote`,
       method: "post",
       data: data,
     })

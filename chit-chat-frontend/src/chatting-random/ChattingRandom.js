@@ -154,7 +154,7 @@ class ChattingRandom extends Component {
 
   cancel() {
     ApiController({
-      url: `${API_BASE_USER_URL}/api/user/chat-random/cancel`, // TODO: have to check this url later
+      url: `${API_BASE_USER_URL}/chat-random/cancel`, // TODO: have to check this url later
       method: 'get'
     })
     .then(() => {
