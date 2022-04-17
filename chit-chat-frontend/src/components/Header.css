@@ -57,10 +57,12 @@
 
 @media only screen and (max-width: 625px) {
     .app-nav {
-        display:none;
+        /* display:none; */
+        font-size: 0.5rem;
     }
     .app-wrapper {
         display: flex;
         justify-content: center;
+        height: auto;
     }
 }
