@@ -53,7 +53,7 @@ public class BallotControllerTests {
     public void testFirstVote() throws Exception {
         given(ballotService.vote(any())).willReturn(ApiResponse.created("ballot", null));
 
-        mvc.perform(post("/api/v1/users/ballot/vote")
+        mvc.perform(post("/ballot/vote")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(convertObjectToJson(testRequestBallot)))
                 .andExpect(status().isCreated());
