@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum EnneagramType {
-    OEN_WING_NINE(0, "1w9"),
-    OEN_WING_TWO(1, "1w2"),
+    ONE_WING_NINE(0, "1w9"),
+    ONE_WING_TWO(1, "1w2"),
     TWO_WING_ONE(2, "2w1"),
     TWO_WING_THREE(3, "2w3"),
     THREE_WING_TWO(4, "3w2"),
