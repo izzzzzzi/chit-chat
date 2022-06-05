@@ -103,4 +103,4 @@ app:
     refreshTokenExpiry: 604800000
   oauth2:
     authorizedRedirectUris:
-      - http://localhost/oauth/redirect
+      - http://chit-chat.codend.site/oauth/redirect
