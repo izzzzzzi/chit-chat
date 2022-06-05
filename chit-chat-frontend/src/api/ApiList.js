@@ -20,9 +20,17 @@ export default {
   },
   login(data, response, error) {
     ApiController({
-      url: `${API_BASE_LOGIN_URL}/login`,
+      url: `${API_BASE_LOGIN_URL}/auth/login`,
       method: "post",
       data: data,
+    })
+    .then(response)
+    .catch(error);
+  },
+  logout(response, error) {
+    ApiController({
+      url: `${API_BASE_LOGIN_URL}/auth/logout`,
+      method: "post"
     })
     .then(response)
     .catch(error);

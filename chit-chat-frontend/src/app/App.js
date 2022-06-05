@@ -30,15 +30,30 @@ export default function App () {
     })
   }, []);
 
+  // reference - https://stackoverflow.com/questions/179355/clearing-all-cookies-with-javascript
+  const clearAllCookies = () => {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+  }
+
   const handleLogout = (e) => {
     e.preventDefault();
     localStorage.removeItem(USER);
     ApiController.defaults.headers.common.Authorization = '';
     setAuth(false);
     setCurrentUser(null);
-    Alert.success("You're safely logged out!", {
-      position: 'top-right',
-      effect: 'slide',
+    clearAllCookies();
+    ApiList.logout(res => {
+      Alert.success("You're safely logged out!", {
+        position: 'top-right',
+        effect: 'slide',
+      });
     });
   }
 

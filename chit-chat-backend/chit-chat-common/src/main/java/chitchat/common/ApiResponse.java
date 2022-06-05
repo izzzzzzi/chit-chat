@@ -21,6 +21,7 @@ public class ApiResponse<T> {
 
     private final static String NOT_FOUND_MESSAGE = "NOT FOUND";
     private final static String FAILED_MESSAGE = "Error occurred in server";
+    private final static String SUCCESSFUL_DELETION_MESSAGE = "Successfully deleted.";
     private final static String INVALID_ACCESS_TOKEN = "Invalid access token.";
     private final static String INVALID_REFRESH_TOKEN = "Invalid refresh token.";
     private final static String NOT_EXPIRED_TOKEN_YET = "Not expired token yet.";
@@ -32,6 +33,13 @@ public class ApiResponse<T> {
         map.put(name, body);
 
         return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    public static <T> ResponseEntity<T> successDeletion() {
+        Map<String, String> map = new HashMap<>();
+        map.put(MESSAGE, SUCCESSFUL_DELETION_MESSAGE);
+
+        return new ResponseEntity(map, HttpStatus.NO_CONTENT);
     }
 
     public static <T> ResponseEntity<T> created(String name, T body) {
