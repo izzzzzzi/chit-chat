@@ -10,8 +10,8 @@ public enum PersonalityResultType {
     CANCEL_ENNEAGRAM_VOTE(-1, "CANCEL_ENNEAGRAM_VOTE", PersonalityTheoryType.ENNEAGRAM),
     CANCEL_MBTI_VOTE(-1, "CANCEL_MBTI_VOTE", PersonalityTheoryType.MBTI),
 
-    OEN_WING_NINE(0, "1w9", PersonalityTheoryType.ENNEAGRAM),
-    OEN_WING_TWO(1, "1w2", PersonalityTheoryType.ENNEAGRAM),
+    ONE_WING_NINE(0, "1w9", PersonalityTheoryType.ENNEAGRAM),
+    ONE_WING_TWO(1, "1w2", PersonalityTheoryType.ENNEAGRAM),
     TWO_WING_ONE(2, "2w1", PersonalityTheoryType.ENNEAGRAM),
     TWO_WING_THREE(3, "2w3", PersonalityTheoryType.ENNEAGRAM),
     THREE_WING_TWO(4, "3w2", PersonalityTheoryType.ENNEAGRAM),
