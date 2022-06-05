@@ -31,7 +31,7 @@ export default function VoteModal (props) {
     ApiList.voteOtherUserType(voteData);
   }
 
-  const cancelVote = () => {
+  const closeVote = () => {
     console.log(props)
     props.handleCloseModal();
   }
@@ -60,7 +60,7 @@ export default function VoteModal (props) {
             onChange={handleEnneagram}
           />
         </div>
-        <button onClick={cancelVote}>cancel</button>
+        <button onClick={closeVote}>close</button>
       </div>
     </Modal>
    </div>
