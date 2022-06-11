@@ -45,7 +45,7 @@ export default function VoteModal (props) {
       onRequestClose={props.handleCloseModal} 
       appElement={document.getElementById('root')}>
       <div className="option-container">
-        <span>Vote {props.OtherNickname}'s personalities!</span>
+        <span>Vote Opponent's personalities!</span>
         <div className="select-wrapper">
           <Select className="select-box"
             options={MBTI_TYPE.map((mbti,i)=> mbti)}
