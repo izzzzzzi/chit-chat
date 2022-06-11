@@ -213,7 +213,7 @@ class ChattingRandom extends Component {
     }
   }
 
-  componentDidMount(){
+  componentWillUnmount(){
     this.cancel();
   }
 
