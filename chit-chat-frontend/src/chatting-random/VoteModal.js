@@ -60,7 +60,7 @@ export default function VoteModal (props) {
             onChange={handleEnneagram}
           />
         </div>
-        <button onClick={closeVote}>close</button>
+        <button onClick={closeVote}>submit</button>
       </div>
     </Modal>
    </div>
