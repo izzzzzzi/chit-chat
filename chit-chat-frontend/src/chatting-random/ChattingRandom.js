@@ -76,7 +76,7 @@ class ChattingRandom extends Component {
       const socket = new SockJS(`${API_BASE_USER_URL}/chat-websocket`);
       this.setState({stompClient: Stomp.over(socket)});
       this.state.stompClient.connect(this.getHeaders(), (frame) => {
-        this.subscribeMessage();
+          this.subscribeMessage();
         }
       );
     } else {
@@ -136,19 +136,19 @@ class ChattingRandom extends Component {
     if (message === "") {
       alert("input message!");
     } else {
-      var payload = {
-      messageType: "CHAT",
-      senderUserId: this.props.currentUser.userId,
-      senderUsername: this.props.currentUser.nickname,
-      message: message,
-    };
-    this.setState({senderUserId: this.props.currentUser.userId});
-    this.state.stompClient.send(
-      "/app/chat.message/" + this.state.chatRoomId,
-      this.getHeaders(),
-      JSON.stringify(payload)
-    );
-    this.setState({chatMessageInput: ""});
+        var payload = {
+        messageType: "CHAT",
+        senderUserId: this.props.currentUser.userId,
+        senderUsername: this.props.currentUser.nickname,
+        message: message,
+      };
+      this.setState({senderUserId: this.props.currentUser.userId});
+      this.state.stompClient.send(
+        "/app/chat.message/" + this.state.chatRoomId,
+        this.getHeaders(),
+        JSON.stringify(payload)
+      );
+      this.setState({chatMessageInput: ""});
     }
   }
 
@@ -181,7 +181,7 @@ class ChattingRandom extends Component {
     }
   }
 
-    handleChatMessageInput(event) {
+  handleChatMessageInput(event) {
     this.setState({chatMessageInput: event.target.value});
   }
 
@@ -213,7 +213,7 @@ class ChattingRandom extends Component {
     }
   }
 
-  componentDidMount(){
+  componentWillUnmount(){
     this.cancel();
   }
 
