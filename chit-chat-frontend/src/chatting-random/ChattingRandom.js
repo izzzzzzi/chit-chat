@@ -220,6 +220,7 @@ class ChattingRandom extends Component {
   render() {
     return (
         <div className="chatting-main-content">
+          <text>For the test, use two separte browsers and google accounts to meet each other.</text>
           <VoteModal 
             otherUserId={this.state.otherUserId}
             otherNickname={this.state.otherNickname} 
